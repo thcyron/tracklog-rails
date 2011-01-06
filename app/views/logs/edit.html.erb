@@ -1,0 +1,38 @@
+<%- title @log.name -%>
+<h1><%= @log.name %></h1>
+
+<div class="log-dialog">
+  <%= form_for @log do |f| %>
+    <div class="row">
+      <div class="label">
+        <label for="log_name">Name</label>
+      </div>
+      <div class="field">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">
+        <label for="log_comment">Comment</label>
+        <p class="markdown">
+          You can use Markdown to format your comment.
+        </p>
+      </div>
+      <div class="field">
+        <%= f.text_area :comment %>
+      </div>
+    </div>
+    <div class="row button">
+      <%= submit_tag "Update Log" %>
+    </div>
+  <% end %>
+</div>
+
+<h2>Upload a track file</h2>
+
+<%= form_tag upload_track_log_path, :multipart => true do %>
+  <p>
+    <%= file_field_tag :track_file %>
+    <%= submit_tag "Upload track file" %>
+  </p>
+<% end %>

@@ -1,0 +1,312 @@
+html {
+	color: #333;
+	font: normal 14px sans-serif;
+}
+
+body {
+	width: 940px;
+	margin: 30px auto;
+}
+
+:focus {
+	outline: none;
+}
+
+h1 {
+	font-size: 26px;
+}
+
+h2 {
+	font-size: 18px;
+	margin: 60px 0 20px;
+}
+
+a {
+	color: green;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td, th {
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+	padding: 6px;
+}
+
+th {
+	color: green;
+	border-bottom-width: 2px;
+}
+
+td.r, th.r {
+	text-align: right;
+}
+
+td.c, th.c {
+	text-align: center;
+}
+
+td.l, th.l {
+	text-align: left;
+}
+
+.clear {
+	clear: both;
+}
+
+#header {
+	margin: 0 0 40px;
+}
+
+#header ol {
+	list-style: none;
+	padding: 0;
+}
+
+#header li {
+	display: inline;
+	margin-right: 20px;
+}
+
+#header li a {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.log-dialog h1 {
+	color: #fff;
+	font-size: 20px;
+	background-color: green;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 15px 30px;
+	margin: 0 0 1px 0;
+}
+
+.log-dialog .row {
+	background-color: #fff;
+	padding: 10px 0;
+	margin: 2px 0;
+}
+
+.log-dialog .row.button {
+	padding: 10px 0 10px 115px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.log-dialog .label {
+	float: left;
+	width: 90px;
+	padding: 8px 0 0 0;
+}
+
+.log-dialog .label p.markdown {
+	color: #666;
+	font-size: 11px;
+	line-height: 1.4;
+}
+
+.log-dialog .field {
+	margin: 0 0 0 120px;
+}
+
+.log-dialog .field .track-help {
+	color: #666;
+	font-size: 12px;
+}
+
+.log-dialog input[type="text"] {
+	font-size: 14px;
+	font-family: sans-serif;
+	padding: 6px;
+	width: 500px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.log-dialog textarea {
+	font-size: 14px;
+	font-family: sans-serif;
+	padding: 6px;
+	width: 500px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	height: 200px;
+}
+
+.log-dialog input[type="submit"] {
+	color: #fff;
+	font-family: sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 20px;
+	background-color: green;
+	border: none;
+	border-radius: 6px;
+}
+
+.log-dialog .row.track-file .label {
+	padding-top: 3px;
+}
+
+#log-left-column {
+	float: left;
+	width: 640px;
+}
+
+#log-right-column {
+	float: right;
+	width: 260px;
+}
+
+#log-map {
+	height: 400px;
+}
+
+#log-comment {
+	margin: 30px 0;
+	line-height: 1.6;
+}
+
+#log-meta {
+	color: #555;
+	font-size: 13px;
+}
+
+#log-meta dl {
+	border-top: 1px solid #ddd;
+	margin: 0;
+}
+
+#log-meta dt {
+	float: left;
+	clear: left;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+
+#log-meta dd {
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+}
+
+#log-meta dt, #log-meta dd {
+	padding: 8px 6px;
+}
+
+#log-actions {
+	font-size: 12px;
+	margin: 40px 0 0 0;
+}
+
+#log-actions ol {
+	list-style: none;
+	padding: 0;
+}
+
+#log-actions li {
+	margin: 6px 0;
+	text-align: right;
+}
+
+#log-tracks-table {
+	width: 100%;
+}
+
+#your-logs {
+	margin: 40px 0;
+	border-top: 1px solid #ddd;
+}
+
+#your-logs .log {
+	border-bottom: 1px solid #ddd;
+	padding: 20px 10px;
+}
+
+#your-logs h2 {
+	margin: 0 0 6px;
+	font-size: 18px;
+	font-weight: normal;
+}
+
+#your-logs ol {
+	padding: 0;
+	margin: 0;
+}
+
+#your-logs li {
+	display: inline;
+	margin-right: 20px;
+	font-size: 13px;
+}
+
+#track-left-column {
+	float: left;
+	width: 640px;
+}
+
+#track-right-column {
+	float: right;
+	width: 260px;
+}
+
+#track-meta {
+	color: #555;
+	font-size: 13px;
+}
+
+#track-meta dl {
+	border-top: 1px solid #ddd;
+	margin: 0;
+}
+
+#track-meta dt {
+	float: left;
+	clear: left;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+
+#track-meta dd {
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+}
+
+#track-meta dt, #track-meta dd {
+	padding: 8px 6px;
+}
+
+#track-actions {
+	font-size: 12px;
+	margin: 40px 0 0 0;
+}
+
+#track-actions ol {
+	list-style: none;
+	padding: 0;
+}
+
+#track-actions li {
+	margin: 6px 0;
+	text-align: right;
+}
+
+#dashboard p {
+	color: #666;
+	font-size: 28px;
+	line-height: 1.6;
+}
+
+#dashboard strong {
+	color: green;
+	font-weight: normal;
+}

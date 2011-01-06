@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= yield(:title) %> – Bikelog</title>
+    <%= stylesheet_link_tag "bikelog" %>
+    <%= javascript_include_tag "jquery-1.4.4.min" %>
+    <%= javascript_include_tag "rails" %>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <%= javascript_include_tag "map" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div id="header">
+      <ol>
+        <li><%= link_to "Dashboard", dashboard_path %>
+        <li><%= link_to "Logs", logs_path %>
+        <li><%= link_to "Add a new log", new_log_path %>
+      </ol>
+    </div>
+    <%= yield %>
+  </body>
+</html>

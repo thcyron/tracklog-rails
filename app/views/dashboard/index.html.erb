@@ -1,0 +1,11 @@
+<%- title "Dashboard" -%>
+<h1>Dashboard</h1>
+
+<div id="dashboard">
+  <p>
+    In total, you have ridden
+    <strong><%= format_distance(@total_distance) %></strong> in
+    <strong><%= dashboard_duration(@total_duration) %></strong>.<br>
+    You have created <strong><%= @logs_count %> logs</strong> so far.
+  </p>
+</div>

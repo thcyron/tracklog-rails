@@ -1,0 +1,40 @@
+<%- title "Add a new log" -%>
+<h1>Add a new log</h1>
+
+<%= form_for @log, :html => { :multipart => true } do |f| %>
+  <div class="log-dialog">
+    <div class="row">
+      <div class="label">
+        <label for="log_name">Name</label>
+      </div>
+      <div class="field">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">
+        <label for="log_comment">Comment</label>
+        <p class="markdown">
+          You can use Markdown to format your comment.
+        </p>
+      </div>
+      <div class="field">
+        <%= f.text_area :comment %>
+      </div>
+    </div>
+    <div class="row track-file">
+      <div class="label">
+        <label for="log_track_file">Track file</label>
+      </div>
+      <div class="field">
+        <%= file_field_tag "log[track_file]" %>
+        <p class="track-help">
+          You can upload more track files later.
+        </p>
+      </div>
+    </div>
+    <div class="row button">
+      <%= submit_tag "Create Log" %>
+    </div>
+  </div>
+<% end %>

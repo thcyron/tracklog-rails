@@ -1,0 +1,72 @@
+<%- title @track.log.name -%>
+<h1><%= @track.log.name %></h1>
+
+<div id="track-page">
+  <div id="track-left-column">
+    <table id="track-trackpoints-table">
+      <tr>
+        <th class="l">#</th>
+        <th class="l">Time</th>
+        <th class="l">Position</th>
+        <th class="r">Length</th>
+        <th class="r">Speed</th>
+        <th class="r">Elevation</th>
+      </tr>
+      <%- @trackpoints.each_with_index do |trackpoint, i| -%>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= trackpoint.time.strftime("%d.%m.%Y %H:%M:%S") %></td>
+          <td><%= format_coordinates(trackpoint.latitude, trackpoint.longitude) %></td>
+          <td class="r">
+            <%- if @trackpoints[i + 1] -%>
+              <%=trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
+            <%- else -%>
+              –
+            <%- end -%>
+          </td>
+          <td class="r">
+            <%- if @trackpoints[i + 1] -%>
+              <%=format_speed trackpoint.speed_to_trackpoint(@trackpoints[i + 1]) %>
+            <%- else -%>
+              –
+            <%- end -%>
+          </td>
+          <td class="r"><%= trackpoint.elevation.round %>&nbsp;m</td>
+        </tr>
+      <%- end -%>
+    </table>
+  </div>
+  <div id="track-right-column">
+    <div id="track-meta">
+      <dl>
+        <dt>Start Time</dt>
+        <dd><%= @track.start_time.strftime("%d.%m.%Y %H:%M") %></dd>
+        <dt>End Time</dt>
+        <dd><%= @track.end_time.strftime("%d.%m.%Y %H:%M") %></dd>
+        <dt>Duration</dt>
+        <dd><%= format_duration(@track.duration) %></dd>
+        <dt>Distance</dt>
+        <dd><%= format_distance(@track.distance) %></dd>
+        <dt>Avg. Speed</dt>
+        <dd><%= format_speed(@track.average_speed) %></dd>
+        <dt>Max. Speed</dt>
+        <dd><%= format_speed(@track.max_speed) %></dd>
+        <dt>Ascent</dt>
+        <dd><%= format_elevation(@track.ascent) %></dd>
+        <dt>Descent</dt>
+        <dd><%= format_elevation(@track.descent) %></dd>
+        <dt>Min. Elevation</dt>
+        <dd><%= format_elevation(@track.min_elevation) %></dd>
+        <dt>Max. Elevation</dt>
+        <dd><%= format_elevation(@track.max_elevation) %></dd>
+      </dl>
+    </div>
+    <div id="track-actions">
+      <ol>
+        <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
+        <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
+      </ol>
+    </div>
+  </div>
+  <br class="clear">
+</div>
