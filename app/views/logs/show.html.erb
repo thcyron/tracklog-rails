@@ -42,9 +42,9 @@
     <div id="log-meta">
       <dl>
         <dt>Start Time</dt>
-        <dd><%= @log.start_time.strftime("%d.%m.%Y %H:%M") %></dd>
+        <dd><%= @log.start_time ? @log.start_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
         <dt>End Time</dt>
-        <dd><%= @log.end_time.strftime("%d.%m.%Y %H:%M") %></dd>
+        <dd><%= @log.end_time ? @log.end_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
         <dt>Duration</dt>
         <dd><%= format_duration(@log.duration) %></dd>
         <dt>Distance</dt>
