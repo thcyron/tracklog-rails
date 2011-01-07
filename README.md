@@ -21,8 +21,6 @@ Todo
 
 * Elevation plot
 * Filtering of inaccurate trackpoints for better statistics
-* Split tracks into multiple tracks
-* Delete bad trackpoints manually from a track
 
 
 License

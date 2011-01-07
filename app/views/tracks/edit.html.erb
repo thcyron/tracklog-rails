@@ -1,0 +1,43 @@
+<%- title @track.log.name -%>
+
+<h1><%= @track.log.name %></h1>
+
+<h2>Track <%= @track.id %></h2>
+
+<table>
+  <tr>
+    <th class="l">#</th>
+    <th class="l">Time</th>
+    <th class="l">Position</th>
+    <th class="r">Length</th>
+    <th class="r">Speed</th>
+    <th class="r">Elevation</th>
+    <th class="r">Actions</th>
+  </tr>
+  <%- @trackpoints.each_with_index do |trackpoint, i| -%>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= trackpoint.time.strftime("%d.%m.%Y %H:%M:%S") %></td>
+      <td><%= format_coordinates(trackpoint.latitude, trackpoint.longitude) %></td>
+      <td class="r">
+        <%- if @trackpoints[i + 1] -%>
+          <%=trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
+        <%- else -%>
+          –
+        <%- end -%>
+      </td>
+      <td class="r">
+        <%- if @trackpoints[i + 1] -%>
+          <%=format_speed trackpoint.speed_to_trackpoint(@trackpoints[i + 1]) %>
+        <%- else -%>
+          –
+        <%- end -%>
+      </td>
+      <td class="r"><%= trackpoint.elevation.round %>&nbsp;m</td>
+      <td class="r">
+        <%= link_to "Split track here", split_log_track_path(@track.log, @track, :trackpoint_id => trackpoint.id), :method => :put %> |
+        <%= link_to "Delete this trackpoint", log_track_trackpoint_path(@track.log, @track, trackpoint), :method => :delete %>
+      </td>
+    </tr>
+  <%- end -%>
+</table>

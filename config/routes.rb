@@ -9,6 +9,10 @@ Bikelog::Application.routes.draw do
 
     resources :tracks do
       resources :trackpoints
+
+      member do
+        put "split/:trackpoint_id" => :split, :as => :split
+      end
     end
   end
 end

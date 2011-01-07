@@ -64,6 +64,7 @@
     <div id="track-actions">
       <ol>
         <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
+        <li><%= link_to "Edit this track", edit_log_track_path(@track.log, @track) %>
         <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
       </ol>
     </div>
