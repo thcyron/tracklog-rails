@@ -1,22 +1,31 @@
 <%- title "Your Logs" -%>
 <h1>Your Logs (<%= @logs.size %>)</h1>
 
-<div id="your-logs">
-  <%- @logs.each do |log| -%>
-    <div class="log">
-      <h2><%= link_to log.name, log %></h2>
-      <ol>
-        <%- if log.start_time -%>
-          <li><b>Start:</b> <%= log.start_time.strftime("%d.%m.%Y %H:%M") %>
-        <%- end %>
-        <%- if log.end_time -%>
-          <li><b>End:</b> <%= log.end_time.strftime("%d.%m.%Y %H:%M") %>
-        <%- end %>
-        <li><b>Duration:</b> <%= format_duration(log.duration) %>
-        <li><b>Distance:</b> <%= format_distance(log.distance) %>
-        <li><b>Avg. Speed:</b> <%= format_speed(log.average_speed) %>
-        <li><b>Ascent:</b> <%= format_elevation(log.ascent) %>
-      </ol>
-    </div>
-  <%- end -%>
-</div>
+<table id="your-logs">
+  <thead>
+    <tr>
+      <th class="l">Name</th>
+      <th class="l">Start Time</th>
+      <th class="l">End Time</th>
+      <th class="r">Duration</th>
+      <th class="r">Distance</th>
+    </tr>
+  </thead>
+    <%- @logs.each do |log| -%>
+      <tr>
+        <td><%= link_to log.name, log %></td>
+        <td><%= log.start_time ? log.start_time.strftime("%d.%m.%Y %H:%M") : "—" %></td>
+        <td><%= log.end_time ? log.end_time.strftime("%d.%m.%Y %H:%M") : "—" %></td>
+        <td class="r"><%= format_duration(log.duration) %></td>
+        <td class="r"><%= format_distance(log.distance) %></td>
+      </tr>
+    <%- end -%>
+  <tbody>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="r"><%= dashboard_duration(Log.total_duration) %></td>
+      <td class="r"><%= format_distance(Log.total_distance) %></td>
+    </tr>
+  </tfoot>
+</table>

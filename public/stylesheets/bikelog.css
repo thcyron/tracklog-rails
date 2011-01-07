@@ -224,29 +224,11 @@ td.l, th.l {
 
 #your-logs {
 	margin: 40px 0;
-	border-top: 1px solid #ddd;
 }
 
-#your-logs .log {
-	border-bottom: 1px solid #ddd;
-	padding: 20px 10px;
-}
-
-#your-logs h2 {
-	margin: 0 0 6px;
-	font-size: 18px;
-	font-weight: normal;
-}
-
-#your-logs ol {
-	padding: 0;
-	margin: 0;
-}
-
-#your-logs li {
-	display: inline;
-	margin-right: 20px;
-	font-size: 13px;
+#your-logs tfoot td {
+	font-weight: bold;
+	border-bottom: none;
 }
 
 #track-left-column {
