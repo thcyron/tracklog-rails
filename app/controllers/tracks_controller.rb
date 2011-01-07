@@ -3,7 +3,13 @@ class TracksController < ApplicationController
     @track = Track.find(params[:id])
     @trackpoints = @track.trackpoints
 
-    respond_to :html, :gpx
+    respond_to do |format|
+      format.html
+      format.gpx do
+        filename = "track-#{@track.id}.gpx"
+        headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
+      end
+    end
   end
 
   def edit

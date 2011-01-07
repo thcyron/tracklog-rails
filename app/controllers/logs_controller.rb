@@ -14,7 +14,10 @@ class LogsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.gpx
+      format.gpx do
+        filename = "log-#{@log.id}-#{@log.name.parameterize}.gpx"
+        headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
+      end
     end
   end
 
