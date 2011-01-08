@@ -1,5 +1,5 @@
 class Log < ActiveRecord::Base
-  has_many :tracks, :dependent => :destroy
+  has_many :tracks, :order => "start_time ASC", :dependent => :destroy
   has_many :trackpoints, :through => :tracks
 
   attr_accessible :name, :comment
