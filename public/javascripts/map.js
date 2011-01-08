@@ -1,14 +1,14 @@
 var map;
 
-function setupMapForLog(element, log_id) {
+function setupMap(element, path) {
   map = new google.maps.Map(document.getElementById(element), {
     "mapTypeId": google.maps.MapTypeId.TERRAIN
   });
 
   var bounds = new google.maps.LatLngBounds;
-    
-  $.getJSON("/logs/" + log_id + "/tracks", function(data) {
-    data.forEach(function(track) {
+
+  $.getJSON(path, function(tracks) {
+    tracks.forEach(function(track) {
       var line = new google.maps.Polyline({
             "strokeColor": "#f00",
             "strokeOpacity": 0.6,
@@ -23,7 +23,7 @@ function setupMapForLog(element, log_id) {
         points.push(point);
         bounds.extend(point);
       });
-    
+
       line.setPath(points);
       map.fitBounds(bounds);
     });

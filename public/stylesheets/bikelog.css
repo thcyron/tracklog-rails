@@ -241,6 +241,10 @@ td.l, th.l {
 	width: 260px;
 }
 
+#track-map {
+	height: 400px;
+}
+
 #track-meta {
 	color: #555;
 	font-size: 13px;

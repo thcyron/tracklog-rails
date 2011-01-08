@@ -1,40 +1,12 @@
-<%- title @track.log.name -%>
-<h1><%= @track.log.name %></h1>
+<%- title "Track #{@track.id}" -%>
+<h1><%= "Track #{@track.id}" %></h1>
 
 <div id="track-page">
   <div id="track-left-column">
-    <table id="track-trackpoints-table">
-      <tr>
-        <th class="l">#</th>
-        <th class="l">Time</th>
-        <th class="l">Position</th>
-        <th class="r">Length</th>
-        <th class="r">Speed</th>
-        <th class="r">Elevation</th>
-      </tr>
-      <%- @trackpoints.each_with_index do |trackpoint, i| -%>
-        <tr>
-          <td><%= i + 1 %></td>
-          <td><%= trackpoint.time.strftime("%d.%m.%Y %H:%M:%S") %></td>
-          <td><%= format_coordinates(trackpoint.latitude, trackpoint.longitude) %></td>
-          <td class="r">
-            <%- if @trackpoints[i + 1] -%>
-              <%=trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
-            <%- else -%>
-              –
-            <%- end -%>
-          </td>
-          <td class="r">
-            <%- if @trackpoints[i + 1] -%>
-              <%=format_speed trackpoint.speed_to_trackpoint(@trackpoints[i + 1]) %>
-            <%- else -%>
-              –
-            <%- end -%>
-          </td>
-          <td class="r"><%= trackpoint.elevation.round %>&nbsp;m</td>
-        </tr>
-      <%- end -%>
-    </table>
+    <div id="track-map"></div>
+    <p>
+      This track belongs to log <%= link_to @track.log.name, @track.log %>.
+    </p>
   </div>
   <div id="track-right-column">
     <div id="track-meta">
@@ -64,10 +36,16 @@
     <div id="track-actions">
       <ol>
         <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
-        <li><%= link_to "Edit this track", edit_log_track_path(@track.log, @track) %>
+        <li><%= link_to "Show trackpoints", log_track_trackpoints_path(@track.log, @track) %>
         <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
       </ol>
     </div>
   </div>
   <br class="clear">
 </div>
+
+<script>
+  $(function() {
+    setupMap("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
+  });
+</script>
