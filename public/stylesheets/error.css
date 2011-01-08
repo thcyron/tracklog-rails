@@ -1,0 +1,14 @@
+html {
+	color: #333;
+	font: normal 16px/1.6 sans-serif;
+}
+
+body {
+	width: 700px;
+	margin: 100px auto 30px;
+}
+
+h1 {
+	color: green;
+	font-size: 30px;
+}
