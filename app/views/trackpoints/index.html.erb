@@ -18,14 +18,14 @@
       <td><%= format_coordinates(trackpoint.latitude, trackpoint.longitude) %></td>
       <td class="r">
         <%- if @trackpoints[i + 1] -%>
-          <%=trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
+          <%= trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
         <%- else -%>
           –
         <%- end -%>
       </td>
       <td class="r">
         <%- if @trackpoints[i + 1] -%>
-          <%=format_speed trackpoint.speed_to_trackpoint(@trackpoints[i + 1]) %>
+          <%= format_speed(trackpoint.speed_to_trackpoint(@trackpoints[i + 1])) %>
         <%- else -%>
           –
         <%- end -%>
