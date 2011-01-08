@@ -15,23 +15,23 @@
       <table id="log-tracks-table">
         <thead>
           <tr>
+            <th class="l">Name</th>
             <th class="l">Start Time</th>
             <th class="l">End Time</th>
             <th class="r">Duration</th>
             <th class="r">Distance</th>
             <th class="r">Ascent</th>
-            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           <%- @log.tracks.each do |track| -%>
             <tr>
+              <td><%= link_to "Track #{track.id}", log_track_path(@log, track) %></td>
               <td><%= track.start_time.strftime("%d.%m.%Y %H:%M") %></td>
               <td><%= track.end_time.strftime("%d.%m.%Y %H:%M") %></td>
               <td class="r"><%= format_duration(track.duration) %></td>
               <td class="r"><%= format_distance(track.distance) %></td>
               <td class="r"><%= format_elevation(track.ascent) %></td>
-              <td class="r"><%= link_to "View track", log_track_path(@log, track) %></td>
             </tr>
           <%- end -%>
         </tbody>
