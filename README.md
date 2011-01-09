@@ -16,6 +16,13 @@ Features
 * Export tracks as GPX documents
 
 
+Screenshots
+-----------
+
+[![Your Logs](http://thcyron.de/bikelog/screenshots/your-logs-thumb.png)](http://thcyron.de/bikelog/screenshots/your-logs.png)
+[![Log](http://thcyron.de/bikelog/screenshots/log-thumb.png)](http://thcyron.de/bikelog/screenshots/log.png)
+
+
 Todo
 ----
 
