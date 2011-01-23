@@ -12,6 +12,7 @@ Features
 
 * Display tracks in a Google Map
 * Show statistics like distance, duration, average speed etc.
+* Elevation–Distance plots
 * Import tracks from GPX documents
 * Export tracks as GPX documents
 
@@ -26,7 +27,6 @@ Screenshots
 Todo
 ----
 
-* Elevation plot
 * Filtering of inaccurate trackpoints for better statistics
 
 
