@@ -10,6 +10,8 @@
         <%=raw RDiscount.new(@log.comment).to_html %>
       </div>
     <%- end -%>
+    <h2>Elevation–Distance Plot</h2>
+    <div id="log-elevation-distance-plot"></div>
     <div id="log-tracks">
       <h2>Tracks</h2>
       <table id="log-tracks-table">
@@ -74,9 +76,12 @@
   <br class="clear">
 </div>
 
+<%= javascript_include_tag "raphael-min" %>
+<%= javascript_include_tag "elevation_plot" %>
 
 <script>
   $(function() {
     setupMap("log-map", "<%= log_tracks_path(@log, :json) %>");
+    new Bikelog.ElevationPlot("log-elevation-distance-plot", "<%= elevation_distance_data_log_path(@log, :json) %>").draw();
   });
 </script>

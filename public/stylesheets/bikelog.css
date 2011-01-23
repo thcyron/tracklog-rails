@@ -177,6 +177,11 @@ td.l, th.l {
 	line-height: 1.6;
 }
 
+#log-elevation-distance-plot {
+	width: 640px;
+	height: 200px;
+}
+
 #log-meta {
 	color: #555;
 	font-size: 13px;
@@ -243,6 +248,11 @@ td.l, th.l {
 
 #track-map {
 	height: 400px;
+}
+
+#track-elevation-distance-plot {
+	width: 640px;
+	height: 200px;
 }
 
 #track-meta {

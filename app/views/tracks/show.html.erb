@@ -7,6 +7,8 @@
     <p>
       This track belongs to log <%= link_to @track.log.name, @track.log %>.
     </p>
+    <h2>Elevation–Distance Plot</h2>
+    <div id="track-elevation-distance-plot"></div>
   </div>
   <div id="track-right-column">
     <div id="track-meta">
@@ -44,8 +46,12 @@
   <br class="clear">
 </div>
 
+<%= javascript_include_tag "raphael-min" %>
+<%= javascript_include_tag "elevation_plot" %>
+
 <script>
   $(function() {
     setupMap("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
+    new Bikelog.ElevationPlot("track-elevation-distance-plot", "<%= elevation_distance_data_log_track_path(@track.log, @track, :json) %>").draw();
   });
 </script>
