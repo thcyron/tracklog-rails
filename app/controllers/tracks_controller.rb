@@ -12,12 +12,12 @@ class TracksController < ApplicationController
     end
   end
 
-  def elevation_distance_data
+  def distance_elevation_data
     @track = Track.find(params[:id])
 
     respond_to do |format|
       format.json do
-        render :json => @track.elevation_distance_data
+        render :json => @track.distance_elevation_data
       end
     end
   end

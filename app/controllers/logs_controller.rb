@@ -21,12 +21,12 @@ class LogsController < ApplicationController
     end
   end
 
-  def elevation_distance_data
+  def distance_elevation_data
     @log = Log.find(params[:id])
     data = []
 
     @log.tracks.each do |track|
-      track_data = track.elevation_distance_data
+      track_data = track.distance_elevation_data
 
       if data.size > 0
         track_data.map! do |a|

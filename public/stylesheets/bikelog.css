@@ -177,7 +177,7 @@ td.l, th.l {
 	line-height: 1.6;
 }
 
-#log-elevation-distance-plot {
+#log-distance-elevation-plot {
 	width: 640px;
 	height: 200px;
 }
@@ -250,7 +250,7 @@ td.l, th.l {
 	height: 400px;
 }
 
-#track-elevation-distance-plot {
+#track-distance-elevation-plot {
 	width: 640px;
 	height: 200px;
 }

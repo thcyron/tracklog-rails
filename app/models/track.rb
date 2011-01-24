@@ -52,7 +52,7 @@ class Track < ActiveRecord::Base
   end
   private :calculate_distance_max_speed_ascent_descent
 
-  def elevation_distance_data
+  def distance_elevation_data
     trackpoints = self.trackpoints
     return [] if trackpoints.size.zero?
 
