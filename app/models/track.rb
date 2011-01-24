@@ -69,4 +69,24 @@ class Track < ActiveRecord::Base
 
     data
   end
+
+  def distance_speed_data
+    trackpoints = self.trackpoints
+    return [] if trackpoints.size.zero?
+
+    data     = [[0, 0]]
+    distance = 0
+
+    0.upto(trackpoints.size - 2) do |i|
+      tp1 = trackpoints[i]
+      tp2 = trackpoints[i + 1]
+
+      distance += tp1.distance_to_trackpoint(tp2)
+      speed     = tp1.speed_to_trackpoint(tp2)
+
+      data << [distance, speed]
+    end
+
+    data
+  end
 end

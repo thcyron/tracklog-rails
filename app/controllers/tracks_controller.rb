@@ -22,6 +22,16 @@ class TracksController < ApplicationController
     end
   end
 
+  def distance_speed_data
+    @track = Track.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        render :json => @track.distance_speed_data
+      end
+    end
+  end
+
   def edit
     @track = Track.find(params[:id])
     @trackpoints = @track.trackpoints

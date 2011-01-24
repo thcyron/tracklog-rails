@@ -9,6 +9,8 @@
     </p>
     <h2>Distance–Elevation Plot</h2>
     <div id="track-distance-elevation-plot"></div>
+    <h2>Distance–Speed Plot</h2>
+    <div id="track-distance-speed-plot"></div>
   </div>
   <div id="track-right-column">
     <div id="track-meta">
@@ -56,6 +58,13 @@
     $.getJSON("<%= distance_elevation_data_log_track_path(@track.log, @track, :json) %>", function(points) {
       new Bikelog.Plot({
         container: "track-distance-elevation-plot",
+        points: points
+      }).draw();
+    });
+
+    $.getJSON("<%= distance_speed_data_log_track_path(@track.log, @track, :json) %>", function(points) {
+      new Bikelog.Plot({
+        container: "track-distance-speed-plot",
         points: points
       }).draw();
     });

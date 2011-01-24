@@ -67,6 +67,24 @@ class Log < ActiveRecord::Base
     data
   end
 
+  def distance_speed_data
+    data = []
+
+    self.tracks.each do |track|
+      track_data = track.distance_speed_data
+
+      if data.size > 0
+        track_data.map! do |a|
+          [a[0] + data.last[0], a[1]]
+        end
+      end
+
+      data += track_data
+    end
+
+    data
+  end
+
   def self.total_duration
     all.inject(0) { |a, b| a + b.duration }
   end
