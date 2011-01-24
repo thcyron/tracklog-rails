@@ -23,23 +23,10 @@ class LogsController < ApplicationController
 
   def distance_elevation_data
     @log = Log.find(params[:id])
-    data = []
-
-    @log.tracks.each do |track|
-      track_data = track.distance_elevation_data
-
-      if data.size > 0
-        track_data.map! do |a|
-          [a[0] + data.last[0], a[1]]
-        end
-      end
-
-      data += track_data
-    end
 
     respond_to do |format|
       format.json do
-        render :json => data
+        render :json => @log.distance_elevation_data
       end
     end
   end
