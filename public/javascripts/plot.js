@@ -43,7 +43,7 @@ Bikelog.Plot.prototype.draw = function() {
   });
 
   var xscale   = this.width / xmax,
-      yscale   = (this.height - 10) / (ymax - ymin + 10),
+      yscale   = (this.height - 20) / (ymax - ymin),
       linePath = [],
       bgPath   = [];
 
