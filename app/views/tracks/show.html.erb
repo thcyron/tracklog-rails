@@ -47,11 +47,17 @@
 </div>
 
 <%= javascript_include_tag "raphael-min" %>
-<%= javascript_include_tag "elevation_plot" %>
+<%= javascript_include_tag "plot" %>
 
 <script>
   $(function() {
     setupMap("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
-    new Bikelog.ElevationPlot("track-distance-elevation-plot", "<%= distance_elevation_data_log_track_path(@track.log, @track, :json) %>").draw();
+
+    $.getJSON("<%= distance_elevation_data_log_track_path(@track.log, @track, :json) %>", function(points) {
+      new Bikelog.Plot({
+        container: "track-distance-elevation-plot",
+        points: points
+      }).draw();
+    });
   });
 </script>
