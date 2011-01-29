@@ -21,22 +21,12 @@ class LogsController < ApplicationController
     end
   end
 
-  def distance_elevation_data
+  def plot_data
     @log = Log.find(params[:id])
 
     respond_to do |format|
       format.json do
-        render :json => @log.distance_elevation_data
-      end
-    end
-  end
-
-  def distance_speed_data
-    @log = Log.find(params[:id])
-
-    respond_to do |format|
-      format.json do
-        render :json => @log.distance_speed_data
+        render :json => @log.plot_data
       end
     end
   end

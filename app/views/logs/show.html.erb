@@ -12,8 +12,6 @@
     <%- end -%>
     <h2>Distance–Elevation Plot</h2>
     <div id="log-distance-elevation-plot"></div>
-    <h2>Distance–Speed Plot</h2>
-    <div id="log-distance-speed-plot"></div>
     <div id="log-tracks">
       <h2>Tracks</h2>
       <table id="log-tracks-table">
@@ -85,17 +83,22 @@
   $(function() {
     setupMap("log-map", "<%= log_tracks_path(@log, :json) %>");
 
-    $.getJSON("<%= distance_elevation_data_log_path(@log, :json) %>", function(points) {
+    $.getJSON("<%= plot_data_log_path(@log, :json) %>", function(data) {
+      var distanceElevationData = [];
+
+      data.forEach(function(datum) {
+        distanceElevationData.push([datum.distance, datum.elevation]);
+      });
+
       new Bikelog.Plot({
         container: "log-distance-elevation-plot",
-        points: points
-      }).draw();
-    });
-
-    $.getJSON("<%= distance_speed_data_log_path(@log, :json) %>", function(points) {
-      new Bikelog.Plot({
-        container: "log-distance-speed-plot",
-        points: points
+        graphs: [
+          {
+            points: distanceElevationData,
+            strokeColor: "green",
+            fill: true
+          }
+        ]
       }).draw();
     });
   });

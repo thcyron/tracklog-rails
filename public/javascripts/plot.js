@@ -7,33 +7,88 @@ Bikelog.Plot = function(options) {
   this.width     = parseInt($("#" + this.container).css("width"));
   this.height    = parseInt($("#" + this.container).css("height"));
   this.maxPoints = options.maxPoints || this.width;
-  this.points    = options.points;
+  this.graphs    = options.graphs;
+  this.r         = Raphael(this.container, this.width, this.height);
 }
 
-Bikelog.Plot.prototype.reducePoints = function() {
-  var orig_points = this.points;
+Bikelog.Plot.prototype.reducePoints = function(points, maxPoints) {
+  var epsilon,
+      orig_points = points;
 
-  while (this.points.length > this.maxPoints) {
-    if (this.epsilon) {
-      this.epsilon += 0.5;
+  while (points.length > maxPoints) {
+    if (epsilon) {
+      epsilon += 0.5;
     } else {
-      this.epsilon = 0.5;
+      epsilon = 0.5;
     }
 
-    this.points = this.reduce(orig_points, this.epsilon);
+    points = this.reduce(orig_points, epsilon);
   }
+
+  return points;
 }
 
 Bikelog.Plot.prototype.draw = function() {
+  var that = this;
+
+  this.drawGrid();
+
+  this.graphs.forEach(function(graph) {
+    that.drawGraph(graph);
+  });
+}
+
+Bikelog.Plot.prototype.drawGrid = function() {
+  var ystep = this.height / 8,
+      xstep = this.width / 10;
+
+  /* Frame */
+  this.r.path([
+    "M", .5, .5,
+    "L", this.width - .5, .5,
+    "L", this.width - .5, this.height - .5,
+    "L", .5, this.height - .5,
+    "L", .5, .5,
+    "Z"
+  ].join(" ")).attr({
+    "stroke": "#eee",
+    "stroke-width": 1
+  });
+
+  /* Vertical lines */
+  for (var i = 1; i < 10; i++) {
+    this.r.path([
+      "M", Math.round(xstep * i) + .5, 0,
+      "L", Math.round(xstep * i) + .5, this.height,
+      "Z"
+    ].join(" ")).attr({
+      "stroke": "#eee",
+      "stroke-width": 1
+    });
+  }
+
+  /* Horizontal lines */
+  for (var i = 1; i < 8; i++) {
+    this.r.path([
+      "M", 0, Math.round(this.height - ystep * i) + .5,
+      "L", this.width, Math.round(this.height - ystep * i) + .5,
+      "Z"
+    ].join(" ")).attr({
+      "stroke": "#eee",
+      "stroke-width": 1
+    });
+  }
+}
+
+Bikelog.Plot.prototype.drawGraph = function(graph) {
   var that = this,
-      xmax = this.points.slice(-1)[0][0],
-      ymin = this.points[0][1],
-      ymax = this.points[0][1],
-      r    = Raphael(this.container, this.width, this.height);
+      xmax = graph.points.slice(-1)[0][0],
+      ymin = graph.points[0][1],
+      ymax = graph.points[0][1];
 
-  this.reducePoints();
+  graph.points = this.reducePoints(graph.points, graph.maxPoints || this.maxPoints);
 
-  this.points.forEach(function(point) {
+  graph.points.forEach(function(point) {
     if (point[1] < ymin) {
       ymin = point[1];
     }
@@ -47,47 +102,7 @@ Bikelog.Plot.prototype.draw = function() {
       linePath = [],
       bgPath   = [];
 
-  /* Frame */
-  r.path([
-    "M", .5, .5,
-    "L", this.width - .5, .5,
-    "L", this.width - .5, this.height - .5,
-    "L", .5, this.height - .5,
-    "L", .5, .5,
-    "Z"
-  ].join(" ")).attr({
-    "stroke": "#eee",
-    "stroke-width": 1
-  });
-
-  var ystep = this.height / 8,
-      xstep = this.width / 10;
-
-  /* Vertical lines */
-  for (var i = 1; i < 10; i++) {
-    r.path([
-      "M", Math.round(xstep * i) + .5, 0,
-      "L", Math.round(xstep * i) + .5, this.height,
-      "Z"
-    ].join(" ")).attr({
-      "stroke": "#eee",
-      "stroke-width": 1
-    });
-  }
-
-  /* Horizontal lines */
-  for (var i = 1; i < 8; i++) {
-    r.path([
-      "M", 0, Math.round(this.height - ystep * i) + .5,
-      "L", this.width, Math.round(this.height - ystep * i) + .5,
-      "Z"
-    ].join(" ")).attr({
-      "stroke": "#eee",
-      "stroke-width": 1
-    });
-  }
-
-  this.points.forEach(function(point) {
+  graph.points.forEach(function(point) {
     linePath = linePath.concat([
       linePath.length == 0 ? "M" : "L",
       point[0] * xscale,
@@ -100,14 +115,16 @@ Bikelog.Plot.prototype.draw = function() {
   bgPath = bgPath.concat(["L", 0, this.height]);
   bgPath.push("Z");
 
-  r.path(bgPath.join(" ")).attr({
-    "fill": "green",
-    "fill-opacity": 0.2,
-    "stroke": "none"
-  });
+  if (graph.fill) {
+    this.r.path(bgPath.join(" ")).attr({
+      "fill": graph.strokeColor,
+      "fill-opacity": 0.2,
+      "stroke": "none"
+    });
+  }
 
-  r.path(linePath.join(" ")).attr({
-    "stroke": "green",
+  this.r.path(linePath.join(" ")).attr({
+    "stroke": graph.strokeColor,
     "stroke-width": 1.5,
     "stroke-linejoin": "round"
   });

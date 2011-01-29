@@ -5,8 +5,7 @@ Bikelog::Application.routes.draw do
     member do
       get :tracks
       post :upload_track
-      get :distance_elevation_data
-      get :distance_speed_data
+      get :plot_data
     end
 
     resources :tracks do
@@ -14,8 +13,7 @@ Bikelog::Application.routes.draw do
 
       member do
         put "split/:trackpoint_id" => :split, :as => :split
-        get :distance_elevation_data
-        get :distance_speed_data
+        get :plot_data
       end
     end
   end

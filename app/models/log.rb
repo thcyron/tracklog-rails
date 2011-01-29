@@ -49,33 +49,17 @@ class Log < ActiveRecord::Base
     @max_elevation ||= self.tracks.map { |t| t.max_elevation }.max
   end
 
-  def distance_elevation_data
+  def plot_data
     data = []
 
     self.tracks.each do |track|
-      track_data = track.distance_elevation_data
+      track_data = track.plot_data
 
       if data.size > 0
-        track_data.map! do |a|
-          [a[0] + data.last[0], a[1]]
-        end
-      end
+        distance = data.last[:distance]
 
-      data += track_data
-    end
-
-    data
-  end
-
-  def distance_speed_data
-    data = []
-
-    self.tracks.each do |track|
-      track_data = track.distance_speed_data
-
-      if data.size > 0
-        track_data.map! do |a|
-          [a[0] + data.last[0], a[1]]
+        track_data.each do |datum|
+          datum[:distance] += distance
         end
       end
 

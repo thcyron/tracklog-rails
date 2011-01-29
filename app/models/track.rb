@@ -52,39 +52,34 @@ class Track < ActiveRecord::Base
   end
   private :calculate_distance_max_speed_ascent_descent
 
-  def distance_elevation_data
+  def plot_data
     trackpoints = self.trackpoints
     return [] if trackpoints.size.zero?
 
-    data     = [[0, trackpoints.first.elevation]]
+    data    = []
     distance = 0
 
-    0.upto(trackpoints.size - 2) do |i|
+    data << {
+      :distance   => 0.0,
+      :speed      => 0.0,
+      :elevation  => trackpoints.first.elevation,
+      :latitude   => trackpoints.first.latitude,
+      :longitude  => trackpoints.first.longitude
+    }
+
+    1.upto(trackpoints.size - 2) do |i|
       tp1 = trackpoints[i]
       tp2 = trackpoints[i + 1]
 
       distance += tp1.distance_to_trackpoint(tp2)
-      data << [distance, tp2.elevation]
-    end
 
-    data
-  end
-
-  def distance_speed_data
-    trackpoints = self.trackpoints
-    return [] if trackpoints.size.zero?
-
-    data     = [[0, 0]]
-    distance = 0
-
-    0.upto(trackpoints.size - 2) do |i|
-      tp1 = trackpoints[i]
-      tp2 = trackpoints[i + 1]
-
-      distance += tp1.distance_to_trackpoint(tp2)
-      speed     = tp1.speed_to_trackpoint(tp2)
-
-      data << [distance, speed]
+      data << {
+        :distance   => distance,
+        :speed      => tp1.speed_to_trackpoint(tp2),
+        :elevation  => tp2.elevation,
+        :latitude   => tp2.latitude,
+        :longitude  => tp2.longitude
+      }
     end
 
     data
