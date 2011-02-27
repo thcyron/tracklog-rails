@@ -7,6 +7,11 @@ end
 class Trackpoint < ActiveRecord::Base
   belongs_to :track
 
+  validates :latitude,  :presence => true, :numericality => true
+  validates :longitude, :presence => true, :numericality => true
+  validates :elevation,                    :numericality => true
+  validates :time,      :presence => true
+
   def distance_to_trackpoint(trackpoint)
     haversine(self.latitude, trackpoint.latitude, self.longitude, trackpoint.longitude)
   end
