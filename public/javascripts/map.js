@@ -2,7 +2,10 @@ var map;
 
 function setupMap(element, path) {
   map = new google.maps.Map(document.getElementById(element), {
-    "mapTypeId": google.maps.MapTypeId.TERRAIN
+    "mapTypeId": google.maps.MapTypeId.TERRAIN,
+    "mapTypeControlOptions": {
+      "style": google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    }
   });
 
   var bounds = new google.maps.LatLngBounds;
