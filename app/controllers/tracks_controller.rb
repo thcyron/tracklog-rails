@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class TracksController < ApplicationController
   def show
     @track = Track.find(params[:id])
@@ -51,8 +53,13 @@ class TracksController < ApplicationController
   def destroy
     @track = Track.find(params[:id])
     @log = @track.log
-    @track.destroy
 
-    redirect_to @log
+    if @log.tracks.size == 1
+      flash[:error] = "You can’t delete the only track of a log."
+      redirect_to log_track_path(@log, @track)
+    else
+      @track.destroy
+      redirect_to log_path(@log)
+    end
   end
 end

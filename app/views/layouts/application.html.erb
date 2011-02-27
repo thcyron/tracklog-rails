@@ -18,6 +18,11 @@
         <li><%= link_to "Add a new log", new_log_path %>
       </ol>
     </div>
+    <%- if flash[:error] -%>
+      <div id="flash-error">
+        <%= flash[:error] %>
+      </div>
+    <%- end -%>
     <%= yield %>
   </body>
 </html>

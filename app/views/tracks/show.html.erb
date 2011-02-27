@@ -39,7 +39,9 @@
       <ol>
         <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
         <li><%= link_to "Show trackpoints", log_track_trackpoints_path(@track.log, @track) %>
-        <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
+        <%- if @track.log.tracks.size > 1 -%>
+          <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
+        <%- end -%>
       </ol>
     </div>
   </div>

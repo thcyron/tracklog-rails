@@ -81,6 +81,13 @@ td.l, th.l {
 	font-size: 16px;
 }
 
+#flash-error {
+	color: #c00;
+	border: 2px solid #c00;
+	padding: 10px 15px;
+	margin: 0 0 30px 0;
+}
+
 .log-dialog h1 {
 	color: #fff;
 	font-size: 20px;
