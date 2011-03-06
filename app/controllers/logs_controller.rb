@@ -1,12 +1,8 @@
 class LogsController < ApplicationController
   def index
-    @logs = Log.all.sort do |a, b|
-      if a.start_time and b.start_time
-        b.start_time <=> a.start_time
-      else
-        0
-      end
-    end
+    @logs = Log
+      .joins(:tracks)
+      .order("tracks.start_time DESC")
   end
 
   def show
