@@ -5,39 +5,48 @@
   <div id="log-left-column">
     <div id="log-map">
     </div>
-    <%- if @log.comment and not @log.comment.empty? -%>
-      <div id="log-comment">
-        <%=raw RDiscount.new(@log.comment).to_html %>
+    <div id="log-tabs" class="tabs">
+      <%- if @log.comment and not @log.comment.empty? -%>
+        <div id="description-tab" class="tab">
+          <h2>Description</h2>
+          <div id="log-comment">
+            <%=raw RDiscount.new(@log.comment).to_html %>
+          </div>
+        </div>
+      <%- end -%>
+      <div id="distance-elevation-plot-tab" class="tab">
+        <h2>Distance–Elevation Plot</h2>
+        <div id="log-distance-elevation-plot"></div>
       </div>
-    <%- end -%>
-    <h2>Distance–Elevation Plot</h2>
-    <div id="log-distance-elevation-plot"></div>
-    <div id="log-tracks">
-      <h2>Tracks</h2>
-      <table id="log-tracks-table">
-        <thead>
-          <tr>
-            <th class="l">Name</th>
-            <th class="l">Start Time</th>
-            <th class="l">End Time</th>
-            <th class="r">Duration</th>
-            <th class="r">Distance</th>
-            <th class="r">Ascent</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%- @log.tracks.each do |track| -%>
-            <tr>
-              <td><%= link_to "Track #{track.id}", log_track_path(@log, track) %></td>
-              <td><%= track.start_time.strftime("%d.%m.%Y %H:%M") %></td>
-              <td><%= track.end_time.strftime("%d.%m.%Y %H:%M") %></td>
-              <td class="r"><%= format_duration(track.duration) %></td>
-              <td class="r"><%= format_distance(track.distance) %></td>
-              <td class="r"><%= format_elevation(track.ascent) %></td>
-            </tr>
-          <%- end -%>
-        </tbody>
-      </table>
+      <div id="tracks-tab" class="tab">
+        <div id="log-tracks">
+          <h2>Tracks</h2>
+          <table id="log-tracks-table">
+            <thead>
+              <tr>
+                <th class="l">Name</th>
+                <th class="l">Start Time</th>
+                <th class="l">End Time</th>
+                <th class="r">Duration</th>
+                <th class="r">Distance</th>
+                <th class="r">Ascent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%- @log.tracks.each do |track| -%>
+                <tr>
+                  <td><%= link_to "Track #{track.id}", log_track_path(@log, track) %></td>
+                  <td><%= track.start_time.strftime("%d.%m.%Y %H:%M") %></td>
+                  <td><%= track.end_time.strftime("%d.%m.%Y %H:%M") %></td>
+                  <td class="r"><%= format_duration(track.duration) %></td>
+                  <td class="r"><%= format_distance(track.distance) %></td>
+                  <td class="r"><%= format_elevation(track.ascent) %></td>
+                </tr>
+              <%- end -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
   <div id="log-right-column">
