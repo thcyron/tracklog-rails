@@ -3,6 +3,8 @@ class LogsController < ApplicationController
     @logs = Log
       .joins(:tracks)
       .order("tracks.start_time DESC")
+      .group("logs.id")
+      .all
   end
 
   def show
