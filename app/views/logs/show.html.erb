@@ -95,9 +95,10 @@
     $.getJSON("<%= plot_data_log_path(@log, :json) %>", function(data) {
       var distanceElevationData = [];
 
-      data.forEach(function(datum) {
+      for (var i = 0; i < data.length; i++) {
+        var datum = data[i];
         distanceElevationData.push([datum.distance, datum.elevation]);
-      });
+      }
 
       new Bikelog.Plot({
         container: "log-distance-elevation-plot",

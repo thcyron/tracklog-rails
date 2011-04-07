@@ -11,8 +11,9 @@ function setupMap(element, path) {
   var bounds = new google.maps.LatLngBounds;
 
   $.getJSON(path, function(tracks) {
-    tracks.forEach(function(track) {
-      var line = new google.maps.Polyline({
+    for (var i = 0; i < tracks.length; i++) {
+      var track = tracks[i],
+          line = new google.maps.Polyline({
             "strokeColor": "#f00",
             "strokeOpacity": 0.6,
             "strokeWidth": 4
@@ -21,14 +22,16 @@ function setupMap(element, path) {
 
       line.setMap(map);
 
-      track.forEach(function(trackpoint) {
-        var point = new google.maps.LatLng(trackpoint[0], trackpoint[1]);
+      for (var j = 0; j < track.length; j++) {
+        var trackpoint = track[j],
+            point = new google.maps.LatLng(trackpoint[0], trackpoint[1]);
+
         points.push(point);
         bounds.extend(point);
-      });
+      }
 
       line.setPath(points);
       map.fitBounds(bounds);
-    });
+    }
   });
 }

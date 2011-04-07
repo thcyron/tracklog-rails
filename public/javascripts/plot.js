@@ -33,9 +33,9 @@ Bikelog.Plot.prototype.draw = function() {
 
   this.drawGrid();
 
-  this.graphs.forEach(function(graph) {
-    that.drawGraph(graph);
-  });
+  for (var i = 0; i < this.graphs.length; i++) {
+    that.drawGraph(this.graphs[i]);
+  }
 }
 
 Bikelog.Plot.prototype.drawGrid = function() {
@@ -88,27 +88,31 @@ Bikelog.Plot.prototype.drawGraph = function(graph) {
 
   graph.points = this.reducePoints(graph.points, graph.maxPoints || this.maxPoints);
 
-  graph.points.forEach(function(point) {
+  for (var i = 0; i < graph.points.length; i++) {
+    var point = graph.points[i];
+
     if (point[1] < ymin) {
       ymin = point[1];
     }
     if (point[1] > ymax) {
       ymax = point[1];
     }
-  });
+  }
 
   var xscale   = this.width / xmax,
       yscale   = (this.height - 20) / (ymax - ymin),
       linePath = [],
       bgPath   = [];
 
-  graph.points.forEach(function(point) {
+  for (var i = 0; i < graph.points.length; i++) {
+    var point = graph.points[i];
+
     linePath = linePath.concat([
       linePath.length == 0 ? "M" : "L",
       point[0] * xscale,
       that.height + ymin * yscale - point[1] * yscale - 10
     ]);
-  });
+  }
 
   bgPath = linePath.slice(0);
   bgPath = bgPath.concat(["L", this.width, this.height]);

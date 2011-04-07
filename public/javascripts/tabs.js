@@ -24,21 +24,21 @@ Bikelog.Tabs = {
 
       Bikelog.Tabs.createTabBar(this, tabs);
     });
-
   },
 
   createTabBar: function(container, tabs) {
     var ol = $("<ol>");
 
-    tabs.forEach(function(tab) {
-      var li = $("<li>");
+    for (var i = 0; i < tabs.length; i++) {
+      var tab = tabs[i],
+          li = $("<li>");
 
       li.text(tab.title);
       li.attr("data-tab-id", tab.id);
       li.click(Bikelog.Tabs.clickHandler);
 
       ol.append(li);
-    });
+    }
 
     ol.find("li:first").addClass("selected");
     ol.addClass("tab-bar");
