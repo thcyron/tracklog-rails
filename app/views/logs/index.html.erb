@@ -11,6 +11,7 @@
       <th class="r">Distance</th>
     </tr>
   </thead>
+  <tbody>
     <%- @logs.each do |log| -%>
       <tr>
         <td><%= link_to log.name, log %></td>
@@ -20,7 +21,6 @@
         <td class="r"><%= format_distance(log.distance) %></td>
       </tr>
     <%- end -%>
-  <tbody>
   </tbody>
   <tfoot>
     <tr>
