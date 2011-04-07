@@ -9,3 +9,34 @@
     You have created <strong><%= @logs_count %> logs</strong> so far.
   </p>
 </div>
+
+<div>
+  <div style="width: 350px; float: left;">
+    <h2>Your Activity in the last 12 Months</h2>
+    <table id="last-12-months-activity">
+      <thead>
+        <tr>
+          <th class="l">Month</th>
+          <th class="r">Total Duration</th>
+          <th class="r">Total Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- @last_12_months_activity.each do |date, activity| -%>
+          <tr class="<%= "no-activity" if activity[:distance] == 0 and activity[:duration] == 0 %>">
+            <td><%= date.strftime("%B %Y") %></td>
+            <td class="r"><%=format_duration activity[:duration] %></td>
+            <td class="r"><%=format_distance activity[:distance] %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="r" colspan="2"><%=dashboard_duration @last_12_months_activity.map { |d, a| a[:duration] }.sum %></td>
+          <td class="r"><%=format_distance @last_12_months_activity.map { |d, a| a[:distance] }.sum %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <br class="clear">
+</div>

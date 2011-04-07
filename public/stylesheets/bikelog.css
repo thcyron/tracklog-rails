@@ -362,3 +362,12 @@ td.l, th.l {
 	color: green;
 	font-weight: normal;
 }
+
+#last-12-months-activity tfoot td {
+	font-weight: bold;
+	border-bottom: none;
+}
+
+#last-12-months-activity .no-activity td {
+	color: #bbb;
+}
