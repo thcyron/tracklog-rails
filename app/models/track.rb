@@ -2,6 +2,14 @@ class Track < ActiveRecord::Base
   belongs_to :log
   has_many :trackpoints, :order => "time ASC", :dependent => :destroy
 
+  def self.total_duration
+    sum(:duration)
+  end
+
+  def self.total_distance
+    sum(:distance)
+  end
+
   def update_cached_information
     self.start_time = self.trackpoints.first.time
     self.end_time   = self.trackpoints.last.time

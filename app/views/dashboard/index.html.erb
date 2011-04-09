@@ -11,46 +11,44 @@
   });
 </script>
 
-<div id="dashboard">
-  <p>
-    In total, you have ridden
-    <strong><%= format_distance(@total_distance) %></strong> in
-    <strong><%= dashboard_duration(@total_duration) %></strong>.<br>
-    You have created <strong><%= @logs_count %> logs</strong> so far.
-  </p>
-</div>
+<dl id="dashboard-stats">
+  <dt>Last ride</dt>
+  <dd>
+    <%=format_distance @last_log.distance %><br>
+    <%=dashboard_duration @last_log.duration %><br>
+    <%=distance_of_time_in_words_to_now @last_log.start_time %> ago
+  </dd>
+  <dt><%=l @this_month, :format => "%B %Y" %></dt>
+  <dd>
+    <%=format_distance @total_distance_this_month %><br>
+    <%=dashboard_duration @total_duration_this_month %><br>
+    <%= @logs_count_this_month %> logs
+  </dd>
+  <dt><%=l @this_year, :format => "%Y" %></dt>
+  <dd>
+    <%=format_distance @total_distance_this_year %><br>
+    <%=dashboard_duration @total_duration_this_year %><br>
+    <%= @logs_count_this_year %> logs
+  </dd>
+  <%- if @logs_count_last_year > 0 -%>
+    <dt><%=l @last_year, :format => "%Y" %></dt>
+    <dd>
+      <%=format_distance @total_distance_last_year %><br>
+      <%=dashboard_duration @total_duration_last_year %><br>
+      <%= @logs_count_last_year %> logs
+    </dd>
+  <%- end -%>
+  <dt>Total</dt>
+  <dd>
+    <%=format_distance @total_distance %><br>
+    <%=dashboard_duration @total_duration %><br>
+    <%= @total_logs_count %> logs
+  </dd>
+</dl>
 
 <div id="dashboard-activity">
-  <h2>Your Activity in the last 12 Months</h2>
-  <div id="dashboard-activity-left-column">
-    <table id="dashboard-last-12-months-activity">
-      <thead>
-        <tr>
-          <th class="l">Month</th>
-          <th class="r">Total Duration</th>
-          <th class="r">Total Distance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%- @last_12_months_activity.each do |date, activity| -%>
-          <tr class="<%= "no-activity" if activity[:distance] == 0 and activity[:duration] == 0 %>">
-            <td><%= date.strftime("%B %Y") %></td>
-            <td class="r"><%=format_duration activity[:duration] %></td>
-            <td class="r"><%=format_distance activity[:distance] %></td>
-          </tr>
-        <%- end -%>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="r" colspan="2"><%=dashboard_duration @last_12_months_activity.map { |d, a| a[:duration] }.sum %></td>
-          <td class="r"><%=format_distance @last_12_months_activity.map { |d, a| a[:distance] }.sum %></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  <div id="dashboard-activity-right-column">
-    <div id="dashboard-activity-distance-plot"></div>
-    <div id="dashboard-activity-duration-plot"></div>
-  </div>
-  <br class="clear">
+  <div id="dashboard-activity-distance-plot"></div>
+  <div id="dashboard-activity-duration-plot"></div>
 </div>
+
+<br class="clear">
