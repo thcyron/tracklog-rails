@@ -20,7 +20,7 @@ Features
 Screenshots
 -----------
 
-[![Your Logs](http://thcyron.de/bikelog/screenshots/your-logs-thumb.png)](http://thcyron.de/bikelog/screenshots/your-logs.png)
+[![Logs](http://thcyron.de/bikelog/screenshots/logs-thumb.png)](http://thcyron.de/bikelog/screenshots/logs.png)
 [![Log](http://thcyron.de/bikelog/screenshots/log-thumb.png)](http://thcyron.de/bikelog/screenshots/log.png)
 
 
