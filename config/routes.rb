@@ -1,6 +1,8 @@
 Bikelog::Application.routes.draw do
   root :to => "dashboard#index", :as => :dashboard
 
+  get "dashboard/activity_plots_data" => "dashboard#activity_plots_data"
+
   resources :logs do
     member do
       get :tracks

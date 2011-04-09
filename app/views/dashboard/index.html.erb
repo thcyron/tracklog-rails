@@ -1,5 +1,15 @@
 <%- title "Dashboard" -%>
+
+<%- add_js "highcharts.js", "bikelog/highcharts-theme.js" -%>
+<%- add_js "bikelog/dashboard-activity-plots.js" -%>
+
 <h1>Dashboard</h1>
+
+<script>
+  $(function() {
+    Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot", "dashboard-activity-duration-plot", "<%= dashboard_activity_plots_data_path(:json) %>");
+  });
+</script>
 
 <div id="dashboard">
   <p>
@@ -10,10 +20,10 @@
   </p>
 </div>
 
-<div>
-  <div style="width: 350px; float: left;">
-    <h2>Your Activity in the last 12 Months</h2>
-    <table id="last-12-months-activity">
+<div id="dashboard-activity">
+  <h2>Your Activity in the last 12 Months</h2>
+  <div id="dashboard-activity-left-column">
+    <table id="dashboard-last-12-months-activity">
       <thead>
         <tr>
           <th class="l">Month</th>
@@ -37,6 +47,10 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div id="dashboard-activity-right-column">
+    <div id="dashboard-activity-distance-plot"></div>
+    <div id="dashboard-activity-duration-plot"></div>
   </div>
   <br class="clear">
 </div>
