@@ -4,6 +4,10 @@ Bikelog::Application.routes.draw do
   get "dashboard/activity_plots_data" => "dashboard#activity_plots_data"
 
   resources :logs do
+    collection do
+      get "year/:year" => :index, :as => :year
+    end
+
     member do
       get :tracks
       post :upload_track

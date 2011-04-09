@@ -279,13 +279,93 @@ td.l, th.l {
 	width: 100%;
 }
 
-#your-logs {
-	margin: 40px 0;
+#logs-navigation {
+	font-size: 13px;
+	margin: 30px 0;
 }
 
-#your-logs tfoot td {
+#logs-navigation .next {
+	float: right;
+}
+
+#logs-no-logs {
+	color: #888;
+	font-size: 20px;
+	margin: 50px 0;
+}
+
+.logs-month {
+	margin: 20px 0;
+	background-color: #eee;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+}
+
+.logs-month-box {
+	float: left;
+	width: 150px;
+	color: #888;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+.logs-month-box .year {
+	font-size: 14px;
+	margin-top: 3px;
+}
+
+.logs-month-logs {
+	float: right;
+	width: 770px;
+	background-color: #fff;
+}
+
+.logs-month-logs table th {
+	color: #888;
+	font-weight: normal;
+	background-color: #eee;
+	border-bottom-width: 1px;
+}
+
+.logs-month-logs table td, .logs-month-logs table th {
+	border-color: #eee;
+}
+
+.logs-month-logs table tfoot td {
 	font-weight: bold;
-	border-bottom: none;
+}
+
+#logs-total {
+	background-color: #eee;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	padding: 10px;
+}
+
+#logs-total span {
+	color: #888;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+#logs-total .duration, #logs-total .distance {
+	float: right;
+	text-align: right;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+#logs-total .distance {
+	width: 108px;
 }
 
 #track-left-column {

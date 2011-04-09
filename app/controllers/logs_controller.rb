@@ -1,8 +1,34 @@
 class LogsController < ApplicationController
   def index
-    @logs = Log
+    @selected_year = params[:year] ? params[:year].to_i : Time.now.year
+
+    @logs = Log \
       .joins(:tracks)
-      .order("tracks.start_time DESC")
+      .where("tracks.start_time >= ? AND tracks.start_time < ?",
+        Time.mktime(@selected_year, 1, 1), Time.mktime(@selected_year + 1, 1, 1))
+      .order("tracks.start_time ASC")
+      .uniq
+
+    @total_distance = 0.0
+    @total_duration = 0.0
+    @logs_by_months = {}
+
+    @logs.each do |log|
+      @total_distance += log.distance
+      @total_duration += log.duration
+
+      time = Time.mktime(@selected_year, log.start_time.month, 1)
+
+      @logs_by_months[time] ||= {
+        :logs => [],
+        :total_distance => 0.0,
+        :total_duration => 0.0
+      }
+
+      @logs_by_months[time][:logs] << log
+      @logs_by_months[time][:total_distance] += log.distance
+      @logs_by_months[time][:total_duration] += log.duration
+    end
   end
 
   def show
