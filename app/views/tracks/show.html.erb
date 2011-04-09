@@ -1,4 +1,17 @@
 <%- title "Track #{@track.id}" -%>
+
+<%- add_js "http://maps.google.com/maps/api/js?sensor=false" -%>
+<%- add_js "highcharts.js", "bikelog/highcharts-theme.js" -%>
+<%- add_js "bikelog/tabs.js", "bikelog/douglas-peucker.js" -%>
+<%- add_js "bikelog/map.js", "bikelog/distance-elevation-plot.js" -%>
+
+<script>
+  $(function() {
+    Bikelog.Map.setup("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
+    Bikelog.DistanceElevationPlot.setup("track-distance-elevation-plot", "<%= plot_data_log_track_path(@track.log, @track, :json) %>");
+  });
+</script>
+
 <h1><%= "Track #{@track.id}" %></h1>
 
 <div id="track-page">
@@ -51,32 +64,3 @@
   </div>
   <br class="clear">
 </div>
-
-<%= javascript_include_tag "raphael-min" %>
-<%= javascript_include_tag "plot" %>
-
-<script>
-  $(function() {
-    setupMap("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
-
-    $.getJSON("<%= plot_data_log_track_path(@track.log, @track, :json) %>", function(data) {
-      var distanceElevationData = [];
-
-      for (var i = 0; i < data.length; i++) {
-        var datum = data[i];
-        distanceElevationData.push([datum.distance, datum.elevation]);
-      }
-
-      new Bikelog.Plot({
-        container: "track-distance-elevation-plot",
-        graphs: [
-          {
-            points: distanceElevationData,
-            strokeColor: "green",
-            fill: true
-          }
-        ]
-      }).draw();
-    });
-  });
-</script>

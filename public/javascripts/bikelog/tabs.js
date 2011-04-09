@@ -1,7 +1,3 @@
-if (!window["Bikelog"]) {
-  window["Bikelog"] = {};
-}
-
 Bikelog.Tabs = {
   init: function() {
     var isFirstTab = true;
