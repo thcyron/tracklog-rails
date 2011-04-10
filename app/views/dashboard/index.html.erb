@@ -22,27 +22,27 @@
   <dd>
     <%=format_distance @total_distance_this_month %><br>
     <%=dashboard_duration @total_duration_this_month %><br>
-    <%= @logs_count_this_month %> logs
+    <%=pluralize @logs_count_this_month, "log" %>
   </dd>
   <dt><%=l @this_year, :format => "%Y" %></dt>
   <dd>
     <%=format_distance @total_distance_this_year %><br>
     <%=dashboard_duration @total_duration_this_year %><br>
-    <%= @logs_count_this_year %> logs
+    <%=pluralize @logs_count_this_year, "log" %>
   </dd>
   <%- if @logs_count_last_year > 0 -%>
     <dt><%=l @last_year, :format => "%Y" %></dt>
     <dd>
       <%=format_distance @total_distance_last_year %><br>
       <%=dashboard_duration @total_duration_last_year %><br>
-      <%= @logs_count_last_year %> logs
+      <%=pluralize @logs_count_last_year, "log" %>
     </dd>
   <%- end -%>
   <dt>Total</dt>
   <dd>
     <%=format_distance @total_distance %><br>
     <%=dashboard_duration @total_duration %><br>
-    <%= @total_logs_count %> logs
+    <%=pluralize @total_logs_count, "log" %>
   </dd>
 </dl>
 
