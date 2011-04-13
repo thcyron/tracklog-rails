@@ -12,7 +12,7 @@ Bikelog.Map = {
     $.getJSON(path, function(tracks) {
       for (var i = 0; i < tracks.length; i++) {
         var line = new google.maps.Polyline({
-              "strokeColor": "#f00",
+              "strokeColor": "#ff0000",
               "strokeOpacity": 0.6,
               "strokeWidth": 4
             }),
