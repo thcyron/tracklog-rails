@@ -28,6 +28,7 @@ Todo
 ----
 
 * Filtering of inaccurate trackpoints for better statistics
+* GPS import and export (Garmin provides a JavaScript API)
 
 
 License
