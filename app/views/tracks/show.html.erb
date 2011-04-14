@@ -34,6 +34,10 @@
         <dd><%= @track.start_time.strftime("%d.%m.%Y %H:%M") %></dd>
         <dt>End Time</dt>
         <dd><%= @track.end_time.strftime("%d.%m.%Y %H:%M") %></dd>
+        <dt>Moving Time</dt>
+        <dd><%=format_duration @track.moving_time %></dd>
+        <dt>Stopped Time</dt>
+        <dd><%=format_duration @track.stopped_time %></dd>
         <dt>Duration</dt>
         <dd><%= format_duration(@track.duration) %></dd>
         <dt>Distance</dt>

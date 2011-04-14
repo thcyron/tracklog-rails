@@ -68,6 +68,10 @@
         <dd><%= @log.start_time ? @log.start_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
         <dt>End Time</dt>
         <dd><%= @log.end_time ? @log.end_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
+        <dt>Moving Time</dt>
+        <dd><%=format_duration @log.moving_time %></dd>
+        <dt>Stopped Time</dt>
+        <dd><%=format_duration @log.stopped_time %></dd>
         <dt>Duration</dt>
         <dd><%= format_duration(@log.duration) %></dd>
         <dt>Distance</dt>

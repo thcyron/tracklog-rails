@@ -1,3 +1,5 @@
+require "bikelog/core_ext"
+
 module Bikelog
   class Config
     class << self

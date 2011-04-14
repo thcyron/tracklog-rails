@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110102164914) do
+ActiveRecord::Schema.define(:version => 20110414161512) do
 
   create_table "logs", :force => true do |t|
     t.string   "name"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(:version => 20110102164914) do
     t.datetime "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "moving_time"
+    t.float    "stopped_time"
   end
 
 end

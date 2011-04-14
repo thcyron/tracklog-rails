@@ -13,6 +13,14 @@ class Log < ActiveRecord::Base
     @end_time ||= self.tracks.map { |t| t.end_time }.max
   end
 
+  def moving_time
+    @moving_time ||= self.tracks.map { |t| t.moving_time }.sum
+  end
+
+  def stopped_time
+    @stopped_time ||= self.tracks.map { |t| t.stopped_time }.sum
+  end
+
   def duration
     @duration ||= self.tracks.inject(0) { |a, b| a + b.duration if b.duration }
   end
