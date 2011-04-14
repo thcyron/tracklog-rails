@@ -28,7 +28,7 @@
             <%- data[:logs].each do |log| -%>
               <tr>
                 <td><%= link_to log.name, log %></td>
-                <td><%= log.start_time ? l(log.start_time, :format => "%d.%m.%Y %H:%M") : "—" %></td>
+                <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
                 <td class="r"><%=format_duration log.duration %></td>
                 <td class="r"><%=format_distance log.distance %></td>
               </tr>

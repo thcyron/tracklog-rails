@@ -14,8 +14,8 @@
   <%- @trackpoints.each_with_index do |trackpoint, i| -%>
     <tr>
       <td><%= i + 1 %></td>
-      <td><%= trackpoint.time.strftime("%d.%m.%Y %H:%M:%S") %></td>
-      <td><%= format_coordinates(trackpoint.latitude, trackpoint.longitude) %></td>
+      <td><%=l trackpoint.time, :format => "%d.%m.%Y %H:%M:%S" %></td>
+      <td><%=format_coordinates trackpoint.latitude, trackpoint.longitude %></td>
       <td class="r">
         <%- if @trackpoints[i + 1] -%>
           <%= trackpoint.distance_to_trackpoint(@trackpoints[i + 1]).round(2) %>&nbsp;m
@@ -25,7 +25,7 @@
       </td>
       <td class="r">
         <%- if @trackpoints[i + 1] -%>
-          <%= format_speed(trackpoint.speed_to_trackpoint(@trackpoints[i + 1])) %>
+          <%=format_speed trackpoint.speed_to_trackpoint(@trackpoints[i + 1]) %>
         <%- else -%>
           –
         <%- end -%>

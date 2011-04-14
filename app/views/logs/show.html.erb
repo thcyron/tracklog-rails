@@ -65,31 +65,31 @@
     <div id="log-meta">
       <dl>
         <dt>Start Time</dt>
-        <dd><%= @log.start_time ? @log.start_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
+        <dd><%=l @log.start_time, :format => "%d.%m.%Y %H:%M" %></dd>
         <dt>End Time</dt>
-        <dd><%= @log.end_time ? @log.end_time.strftime("%d.%m.%Y %H:%M") : "—" %></dd>
+        <dd><%=l @log.end_time, :format => "%d.%m.%Y %H:%M" %></dd>
         <dt>Moving Time</dt>
         <dd><%=format_duration @log.moving_time %></dd>
         <dt>Stopped Time</dt>
         <dd><%=format_duration @log.stopped_time %></dd>
         <dt>Duration</dt>
-        <dd><%= format_duration(@log.duration) %></dd>
+        <dd><%=format_duration @log.duration %></dd>
         <dt>Distance</dt>
-        <dd><%= format_distance(@log.distance) %></dd>
+        <dd><%=format_distance @log.distance %></dd>
         <dt>Overall Avg. Speed</dt>
         <dd><%=format_speed @log.overall_average_speed %></dd>
         <dt>Moving Avg. Speed</dt>
         <dd><%=format_speed @log.moving_average_speed %></dd>
         <dt>Max. Speed</dt>
-        <dd><%= format_speed(@log.max_speed) %></dd>
+        <dd><%=format_speed @log.max_speed %></dd>
         <dt>Ascent</dt>
-        <dd><%= format_elevation(@log.ascent) %></dd>
+        <dd><%=format_elevation @log.ascent %></dd>
         <dt>Descent</dt>
-        <dd><%= format_elevation(@log.descent) %></dd>
+        <dd><%=format_elevation @log.descent %></dd>
         <dt>Min. Elevation</dt>
-        <dd><%= format_elevation(@log.min_elevation) %></dd>
+        <dd><%=format_elevation @log.min_elevation %></dd>
         <dt>Max. Elevation</dt>
-        <dd><%= format_elevation(@log.max_elevation) %></dd>
+        <dd><%=format_elevation @log.max_elevation %></dd>
       </dl>
     </div>
     <div id="log-actions">
