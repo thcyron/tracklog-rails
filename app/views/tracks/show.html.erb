@@ -42,8 +42,10 @@
         <dd><%= format_duration(@track.duration) %></dd>
         <dt>Distance</dt>
         <dd><%= format_distance(@track.distance) %></dd>
-        <dt>Avg. Speed</dt>
-        <dd><%= format_speed(@track.average_speed) %></dd>
+        <dt>Overall Avg. Speed</dt>
+        <dd><%=format_speed @track.overall_average_speed %></dd>
+        <dt>Moving Avg. Speed</dt>
+        <dd><%=format_speed @track.moving_average_speed %></dd>
         <dt>Max. Speed</dt>
         <dd><%= format_speed(@track.max_speed) %></dd>
         <dt>Ascent</dt>

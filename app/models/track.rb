@@ -19,9 +19,11 @@ class Track < ActiveRecord::Base
     calculate_distance_max_speed_ascent_descent
 
     if self.distance and self.distance > 0 and self.duration > 0
-      self.average_speed = self.distance / self.duration
+      self.overall_average_speed = self.distance / self.duration
+      self.moving_average_speed = self.distance / self.moving_time
     else
-      self.average_speed = 0
+      self.overall_average_speed = 0
+      self.moving_average_speed = 0
     end
 
     save

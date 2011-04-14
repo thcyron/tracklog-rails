@@ -29,10 +29,18 @@ class Log < ActiveRecord::Base
     @distance ||= self.tracks.inject(0) { |a, b| a + b.distance if b.distance }
   end
 
-  def average_speed
-    @average_speed ||= begin
+  def overall_average_speed
+    @overall_average_speed ||= begin
       if distance > 0 and duration > 0
         distance / duration
+      end
+    end
+  end
+
+  def moving_average_speed
+    @moving_average_speed ||= begin
+      if distance > 0 and moving_time > 0
+        distance / moving_time
       end
     end
   end
