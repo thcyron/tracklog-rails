@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
   attr_accessible :name
 
   def display_name
-    if self.name.strip.length > 0
+    if self.name and self.name.strip.length > 0
       self.name
     else
       "Track #{self.id}"
