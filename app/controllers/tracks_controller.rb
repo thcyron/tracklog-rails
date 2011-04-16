@@ -24,9 +24,24 @@ class TracksController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @track = Track.find(params[:id])
-    @trackpoints = @track.trackpoints
+
+    if @track.update_attributes(params[:track])
+      respond_to do |format|
+        format.json do
+          render :json => { :status => "success" },
+                 :status => :ok
+        end
+      end
+    else
+      respond_to do |format|
+        format.json do
+          render :json => { :status => "error" },
+                 :status => :unprocessable_entity
+        end
+      end
+    end
   end
 
   def split

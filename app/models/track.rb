@@ -1,6 +1,15 @@
 class Track < ActiveRecord::Base
   belongs_to :log
   has_many :trackpoints, :order => "time ASC", :dependent => :destroy
+  attr_accessible :name
+
+  def display_name
+    if self.name.strip.length > 0
+      self.name
+    else
+      "Track #{self.id}"
+    end
+  end
 
   def self.total_duration
     sum(:duration)

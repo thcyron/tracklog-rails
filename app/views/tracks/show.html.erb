@@ -9,10 +9,36 @@
   $(function() {
     Bikelog.Map.setup("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
     Bikelog.DistanceElevationPlot.setup("track-distance-elevation-plot", "<%= plot_data_log_track_path(@track.log, @track, :json) %>");
+
+    $("#track-rename-pane input[type='text']").keyup(function() {
+      var e = $("#track-name"),
+          name = $.trim($(this).val());
+
+      if (name.length > 0) {
+        e.text(name);
+      } else {
+        e.text(e.attr("data-default-name"));
+      }
+    });
+
+    $(".site-overlay .close").click(function() {
+      $("#track-rename-pane").fadeOut("fast");
+      $("#track-rename-pane form").submit();
+    });
+
+    $("#track-rename-pane form").submit(function() {
+      $("#track-rename-pane").fadeOut("fast");
+    });
+
+    $("#track-rename-link").click(function() {
+      $("#track-rename-pane").fadeIn("fast");
+      $("#track-rename-pane input[type='text']").focus();
+      return false;
+    });
   });
 </script>
 
-<h1><%= "Track #{@track.id}" %></h1>
+<h1 id="track-name" data-default-name="<%= "Track #{@track.id}" %>"><%= @track.display_name %></h1>
 
 <div id="track-page">
   <div id="track-left-column">
@@ -62,6 +88,7 @@
       <ol>
         <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
         <li><%= link_to "Show trackpoints", log_track_trackpoints_path(@track.log, @track) %>
+        <li><%= link_to "Rename this track", nil, :id => "track-rename-link" %>
         <%- if @track.log.tracks.size > 1 -%>
           <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
         <%- end -%>
@@ -69,4 +96,16 @@
     </div>
   </div>
   <br class="clear">
+</div>
+
+<div id="track-rename-pane" class="site-overlay">
+  <div class="box">
+    <div class="close">×</div>
+    <h2>Rename this track</h2>
+    <div class="content">
+      <%= form_for [@track.log, @track], :remote => true do %>
+        <%= text_field :track, :name %>
+      <% end %>
+    </div>
+  </div>
 </div>
