@@ -63,9 +63,9 @@
     <div id="log-meta">
       <dl>
         <dt>Start Time</dt>
-        <dd><%=l @log.start_time, :format => "%d.%m.%Y %H:%M" %></dd>
+        <dd><%= @log.start_time ? l(@log.start_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
         <dt>End Time</dt>
-        <dd><%=l @log.end_time, :format => "%d.%m.%Y %H:%M" %></dd>
+        <dd><%= @log.end_time ? l(@log.end_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
         <dt>Moving Time</dt>
         <dd><%=format_duration @log.moving_time %></dd>
         <dt>Stopped Time</dt>
