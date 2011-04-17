@@ -10,11 +10,11 @@ is already implemented.
 Features
 --------
 
-* Display tracks in a Google Map
-* Show statistics like distance, duration, average speed etc.
-* Distance–Elevation plots
-* Import tracks from GPX documents
-* Export tracks as GPX documents
+* Google Maps displaying your tracks
+* Statistics (distance, duration, average speeds, ascent etc.)
+* Graphical representation of your 12-month activity by distance and duration
+* Elevation profiles
+* GPX import and export
 
 
 Screenshots
@@ -29,7 +29,7 @@ Todo
 
 * Filtering of inaccurate trackpoints for better statistics
 * GPS import and export (Garmin provides a JavaScript API)
-
+* KML import (?)
 
 License
 -------
