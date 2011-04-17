@@ -108,18 +108,30 @@ class Log < ActiveRecord::Base
     new_tracks = []
     ns = "http://www.topografix.com/GPX/1/1"
 
-    doc.xpath("/g:gpx/g:trk/g:trkseg", "g" => ns).each do |trkseg|
+    doc.xpath("/g:gpx/g:trk", "g" => ns).each do |trk|
       track = self.tracks.create
 
-      trkseg.xpath("//g:trkpt", "g" => ns).each do |trkpt|
-        elevation = trkpt.search("ele").text.to_f
-        time = Time.parse(trkpt.search("time").text)
+      # Track name
+      nodes = trk.xpath("./g:name", "g" => ns)
+      track.name = nodes.first.text if nodes.size == 1
 
-        track.trackpoints.create \
-          :latitude  => trkpt["lat"],
-          :longitude => trkpt["lon"],
-          :elevation => elevation,
-          :time      => time
+      # Trackpoints
+      trk.xpath("./g:trkseg/g:trkpt", "g" => ns).each do |trkpt|
+        # Elevation
+        nodes = trkpt.xpath("./g:ele", "g" => ns)
+        elevation = (nodes.size == 1) ? nodes.first.text.to_f : nil
+
+        # Time
+        nodes = trkpt.xpath("./g:time", "g" => ns)
+        time = (nodes.size == 1) ? Time.parse(nodes.first.text) : nil
+
+        if time and trkpt["lat"] and trkpt["lon"]
+          track.trackpoints.create \
+            :latitude  => trkpt["lat"],
+            :longitude => trkpt["lon"],
+            :elevation => elevation,
+            :time      => time
+        end
       end
 
       track.update_cached_information
