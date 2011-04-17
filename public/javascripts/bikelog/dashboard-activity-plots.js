@@ -18,7 +18,7 @@ Bikelog.DashboardActivityPlots = {
           spacingBottom: 25
         },
         title: {
-          text: "12 Month Activity by Distance"
+          text: "12-Month Activity by Distance"
         },
         legend: {
           enabled: false
@@ -55,7 +55,7 @@ Bikelog.DashboardActivityPlots = {
           spacingBottom: 25
         },
         title: {
-          text: "12 Month Activity by Duration"
+          text: "12-Month Activity by Duration"
         },
         legend: {
           enabled: false
