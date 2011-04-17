@@ -9,7 +9,7 @@ xml.gpx :xmlns => "http://www.topografix.com/GPX/1/1",
   end
 
   xml.trk do
-    xml.name "Track #{@track.id}"
+    xml.name @track.display_name
     xml.trkseg do
       @trackpoints.each do |trackpoint|
         xml.trkpt :lat => trackpoint.latitude, :lon => trackpoint.longitude do

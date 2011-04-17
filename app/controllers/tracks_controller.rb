@@ -8,7 +8,12 @@ class TracksController < ApplicationController
     respond_to do |format|
       format.html
       format.gpx do
-        filename = "track-#{@track.id}.gpx"
+        filename = if @track.name and @track.name.strip.length > 0
+          "track-#{@track.id}-#{@track.name.parameterize}.gpx"
+        else
+          "track-#{@track.id}.gpx"
+        end
+
         headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
       end
     end
