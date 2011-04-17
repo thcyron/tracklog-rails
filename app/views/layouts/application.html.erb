@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag "bikelog" %>
     <%= javascript_include_tag "jquery-1.5.2.min" %>
     <%= javascript_include_tag "rails" %>
+    <%= javascript_include_tag "bikelog/site" %>
     <%- @javascripts.each do |js| -%>
       <script type="text/javascript" src="<%= js %>"></script>
     <%- end if @javascripts -%>
