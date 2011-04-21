@@ -30,6 +30,7 @@ Todo
 * Filtering of inaccurate trackpoints for better statistics
 * GPS import and export (Garmin provides a JavaScript API)
 * KML import (?)
+* Split GPX parsing and analyzing into a separate file/library
 
 License
 -------
