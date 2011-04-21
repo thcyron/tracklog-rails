@@ -109,32 +109,44 @@ class Log < ActiveRecord::Base
     ns = "http://www.topografix.com/GPX/1/1"
 
     doc.xpath("/g:gpx/g:trk", "g" => ns).each do |trk|
-      track = self.tracks.create
-
       # Track name
       nodes = trk.xpath("./g:name", "g" => ns)
-      track.name = nodes.first.text if nodes.size == 1
+      track_name = (nodes.size == 1) ? nodes.first.text : nil
 
-      # Trackpoints
-      trk.xpath("./g:trkseg/g:trkpt", "g" => ns).each do |trkpt|
-        # Elevation
-        nodes = trkpt.xpath("./g:ele", "g" => ns)
-        elevation = (nodes.size == 1) ? nodes.first.text.to_f : nil
+      # Track Segments
+      trkseg_nodes = trk.xpath("./g:trkseg", "g" => ns)
+      trkseg_nodes.each_with_index do |trkseg, i|
+        track = self.tracks.create
 
-        # Time
-        nodes = trkpt.xpath("./g:time", "g" => ns)
-        time = (nodes.size == 1) ? Time.parse(nodes.first.text) : nil
-
-        if time and trkpt["lat"] and trkpt["lon"]
-          track.trackpoints.create \
-            :latitude  => trkpt["lat"],
-            :longitude => trkpt["lon"],
-            :elevation => elevation,
-            :time      => time
+        if track_name
+          if trkseg_nodes.size > 1
+            track.name = "#{track_name} ##{i + 1}"
+          else
+            track.name = track_name
+          end
         end
-      end
 
-      track.update_cached_information
+        trkseg.xpath("./g:trkpt", "g" => ns).each do |trkpt|
+          # Elevation
+          nodes = trkpt.xpath("./g:ele", "g" => ns)
+          elevation = (nodes.size == 1) ? nodes.first.text.to_f : nil
+
+          # Time
+          nodes = trkpt.xpath("./g:time", "g" => ns)
+          time = (nodes.size == 1) ? Time.parse(nodes.first.text) : nil
+
+          if time and trkpt["lat"] and trkpt["lon"]
+            track.trackpoints.create \
+              :latitude  => trkpt["lat"],
+              :longitude => trkpt["lon"],
+              :elevation => elevation,
+              :time      => time
+          end
+        end
+
+        track.update_cached_information
+        new_tracks << track
+      end
     end
 
     new_tracks
