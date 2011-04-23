@@ -4,8 +4,8 @@ Bikelog.DistanceElevationPlot = {
       var distanceElevationData = [],
           epsilon = 0.5;
 
-      for (var i = 0; i < data.length; i++) {
-        distanceElevationData.push([data[i].distance, data[i].elevation]);
+      for (var i = 0; i < data.points.length; i++) {
+        distanceElevationData.push([data.points[i].distance, data.points[i].elevation]);
       }
 
       while (distanceElevationData.length > 500) {
@@ -43,7 +43,8 @@ Bikelog.DistanceElevationPlot = {
             formatter: function() {
                return this.value + ' m';
             }
-          }
+          },
+          min: data.minElevation
         },
         tooltip: {
           enabled: false

@@ -86,10 +86,10 @@ class Track < ActiveRecord::Base
     trackpoints = self.trackpoints
     return [] if trackpoints.size.zero?
 
-    data    = []
+    points   = []
     distance = 0
 
-    data << {
+    points << {
       :distance   => 0.0,
       :speed      => 0.0,
       :elevation  => trackpoints.first.elevation,
@@ -103,7 +103,7 @@ class Track < ActiveRecord::Base
 
       distance += tp1.distance_to_trackpoint(tp2)
 
-      data << {
+      points << {
         :distance   => distance,
         :speed      => tp1.speed_to_trackpoint(tp2),
         :elevation  => tp2.elevation,
@@ -112,6 +112,9 @@ class Track < ActiveRecord::Base
       }
     end
 
-    data
+    {
+      :min_elevation => self.min_elevation,
+      :points => points
+    }
   end
 end

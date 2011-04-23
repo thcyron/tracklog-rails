@@ -66,23 +66,31 @@ class Log < ActiveRecord::Base
   end
 
   def plot_data
-    data = []
+    points = []
+    min_elevation = nil
 
     self.tracks.each do |track|
-      track_data = track.plot_data
+      track_plot_data = track.plot_data
 
-      if data.size > 0
-        distance = data.last[:distance]
+      if not min_elevation or min_elevation > track_plot_data[:min_elevation]
+        min_elevation = track_plot_data[:min_elevation]
+      end
 
-        track_data.each do |datum|
+      if points.size > 0
+        distance = points.last[:distance]
+
+        track_plot_data[:points].each do |datum|
           datum[:distance] += distance
         end
       end
 
-      data += track_data
+      points += track_plot_data[:points]
     end
 
-    data
+    {
+      :min_elevation => min_elevation,
+      :points => points
+    }
   end
 
   def self.total_duration

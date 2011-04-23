@@ -48,7 +48,12 @@ class LogsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render :json => @log.plot_data
+        log_plot_data = @log.plot_data
+
+        render :json => {
+          :minElevation => log_plot_data[:min_elevation],
+          :points => log_plot_data[:points]
+        }
       end
     end
   end

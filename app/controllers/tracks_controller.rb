@@ -24,7 +24,12 @@ class TracksController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render :json => @track.plot_data
+        track_plot_data = @track.plot_data
+
+        render :json => {
+          :minElevation => track_plot_data[:min_elevation],
+          :points => track_plot_data[:points]
+        }
       end
     end
   end
