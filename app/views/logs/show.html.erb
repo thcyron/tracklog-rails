@@ -22,7 +22,7 @@
         <div id="description-tab" class="tab">
           <h2>Description</h2>
           <div id="log-comment">
-            <%=raw RDiscount.new(@log.comment).to_html %>
+            <%=raw Redcarpet.new(@log.comment).to_html %>
           </div>
         </div>
       <%- end -%>
