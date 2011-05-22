@@ -1,4 +1,1 @@
-/*= require site
- *= require dashboard
- *= require logs
- *= require tracks */
+//= require_tree .
