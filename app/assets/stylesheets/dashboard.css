@@ -1,0 +1,35 @@
+#dashboard-stats {
+	float: left;
+}
+
+#dashboard-stats dt {
+	float: left;
+	clear: left;
+	width: 140px;
+	text-align: right;
+	color: green;
+	line-height: 1.5;
+}
+
+#dashboard-stats dd {
+	line-height: 1.5;
+	margin-left: 170px;
+}
+
+#dashboard-stats dt, #dashboard-stats dd {
+	padding: 8px 6px;
+}
+
+#dashboard-activity {
+	float: right;
+	width: 520px;
+}
+
+#dashboard-activity-distance-plot, #dashboard-activity-duration-plot {
+	width: 520px;
+	height: 200px;
+}
+
+#dashboard-activity-distance-plot {
+	margin-bottom: 30px;
+}

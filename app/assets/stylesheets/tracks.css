@@ -1,0 +1,75 @@
+#track-left-column {
+	float: left;
+	width: 640px;
+}
+
+#track-right-column {
+	float: right;
+	width: 260px;
+}
+
+#track-map {
+	height: 400px;
+}
+
+#track-tabs {
+	margin: 30px 0;
+}
+
+#track-distance-elevation-plot {
+	width: 618px;
+	height: 250px;
+}
+
+#track-meta {
+	color: #555;
+	font-size: 13px;
+}
+
+#track-meta dl {
+	border-top: 1px solid #ddd;
+	margin: 0;
+}
+
+#track-meta dt {
+	float: left;
+	clear: left;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+
+#track-meta dd {
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+}
+
+#track-meta dt, #track-meta dd {
+	padding: 8px 6px;
+}
+
+#track-actions {
+	font-size: 12px;
+	margin: 40px 0 0 0;
+}
+
+#track-actions ol {
+	list-style: none;
+	padding: 0;
+}
+
+#track-actions li {
+	margin: 6px 0;
+	text-align: right;
+}
+
+#track-rename-pane {
+	display: none;
+}
+
+#track-rename-pane .box {
+	width: 500px;
+}
+
+#track-rename-pane input[type="text"] {
+	width: 466px;
+}

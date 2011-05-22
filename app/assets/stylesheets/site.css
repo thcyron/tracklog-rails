@@ -1,0 +1,181 @@
+html {
+	color: #333;
+	font: normal 14px sans-serif;
+}
+
+body {
+	width: 940px;
+	margin: 30px auto;
+}
+
+:focus {
+	outline: none;
+}
+
+h1 {
+	font-size: 26px;
+}
+
+h2 {
+	font-size: 18px;
+	margin: 60px 0 20px;
+}
+
+a {
+	color: green;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td, th {
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+	padding: 6px;
+}
+
+th {
+	color: green;
+	border-bottom-width: 2px;
+}
+
+td.r, th.r {
+	text-align: right;
+}
+
+td.c, th.c {
+	text-align: center;
+}
+
+td.l, th.l {
+	text-align: left;
+}
+
+input[type="text"] {
+	font-size: 14px;
+	font-family: sans-serif;
+	padding: 6px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.clear {
+	clear: both;
+}
+
+#header {
+	margin: 0 0 40px;
+}
+
+#header ol {
+	list-style: none;
+	padding: 0;
+}
+
+#header li {
+	display: inline;
+	margin-right: 20px;
+}
+
+#header li a {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#flash-error {
+	color: #c00;
+	border: 2px solid #c00;
+	padding: 10px 15px;
+	margin: 0 0 30px 0;
+}
+
+.tabs {
+	margin: 20px 0;
+}
+
+.tabs .tab-bar {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tabs .tab-bar li {
+	color: #777;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-width: 1px 1px 0 0;
+	padding: 8px 10px;
+}
+
+.tabs .tab-bar li:first-child {
+	border-left-width: 1px;
+}
+
+.tabs .tab-bar li:hover {
+	cursor: pointer;
+}
+
+.tabs .tab-bar li.selected {
+	color: green;
+}
+
+.tabs .tab {
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.tabs .tab h2 {
+	display: none;
+}
+
+.site-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 1000;
+	background-color: rgba(255, 255, 255, .8);
+}
+
+.site-overlay .box {
+	border-radius: 6px;
+	background-color: green;
+	-webkit-box-shadow: 0 0 6px #ccc;
+	-moz-box-shadow: 0 0 6px #ccc;
+	box-shadow: 0 0 6px #ccc;
+	margin: 200px auto 0;
+	padding: 5px;
+}
+
+.site-overlay .box h2 {
+	color: #fff;
+	margin: 5px 0 10px 5px;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+.site-overlay .close {
+	float: right;
+	margin: 0 6px 0 0;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.site-overlay .box .content {
+	background-color: #fff;
+	border-radius: 3px;
+	margin: 0;
+	padding: 10px;
+}
