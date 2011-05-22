@@ -4,13 +4,8 @@
     <meta charset="utf-8">
     <title><%= yield(:title) %> – Bikelog</title>
     <script>var Bikelog = {};</script>
-    <%= stylesheet_link_tag "bikelog" %>
-    <%= javascript_include_tag "jquery-1.5.2.min" %>
-    <%= javascript_include_tag "rails" %>
-    <%= javascript_include_tag "bikelog/site" %>
-    <%- @javascripts.each do |js| -%>
-      <script type="text/javascript" src="<%= js %>"></script>
-    <%- end if @javascripts -%>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
   </head>
   <body>

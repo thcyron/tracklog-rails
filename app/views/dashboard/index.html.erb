@@ -1,15 +1,14 @@
 <%- title "Dashboard" -%>
 
-<%- add_js "highcharts.js", "bikelog/highcharts-theme.js" -%>
-<%- add_js "bikelog/dashboard-activity-plots.js" -%>
-
-<h1>Dashboard</h1>
+<%= javascript_include_tag "dashboard" %>
 
 <script>
   $(function() {
     Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot", "dashboard-activity-duration-plot", "<%= dashboard_activity_plots_data_path(:json) %>");
   });
 </script>
+
+<h1>Dashboard</h1>
 
 <dl id="dashboard-stats">
   <dt>Last ride</dt>
