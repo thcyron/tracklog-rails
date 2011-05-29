@@ -76,4 +76,4 @@ DEPENDENCIES
   nokogiri
   rails (= 3.0.7)
   redcarpet
-  sqlite3-ruby
+  sqlite3
