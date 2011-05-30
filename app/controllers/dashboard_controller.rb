@@ -5,29 +5,29 @@ class DashboardController < ApplicationController
     @total_logs_count = Log.count
 
     @last_log = Log \
-      .joins(:tracks)
-      .order("tracks.start_time DESC")
+      .joins(:tracks) \
+      .order("tracks.start_time DESC") \
       .first
 
     @this_month = Time.now.beginning_of_month
     @next_month = @this_month + 1.month
 
     @total_distance_this_month = Track \
-      .where("start_time >= ?", @this_month)
-      .where("start_time < ?", @next_month)
+      .where("start_time >= ?", @this_month) \
+      .where("start_time < ?", @next_month) \
       .sum(:distance)
 
     @total_duration_this_month = Track \
-      .where("start_time >= ?", @this_month)
-      .where("start_time < ?", @next_month)
+      .where("start_time >= ?", @this_month) \
+      .where("start_time < ?", @next_month) \
       .sum(:duration)
 
     @logs_count_this_month = Log \
-      .select("logs.id")
-      .joins(:tracks)
-      .where("tracks.start_time >= ?", @this_month)
-      .where("tracks.start_time < ?", @next_month)
-      .uniq
+      .select("logs.id") \
+      .joins(:tracks) \
+      .where("tracks.start_time >= ?", @this_month) \
+      .where("tracks.start_time < ?", @next_month) \
+      .uniq \
       .count
 
     @this_year = Time.now.beginning_of_year
@@ -35,37 +35,37 @@ class DashboardController < ApplicationController
     @last_year = @this_year - 1.year
 
     @total_distance_this_year = Track \
-      .where("start_time >= ?", @this_year)
-      .where("start_time < ?", @next_year)
+      .where("start_time >= ?", @this_year) \
+      .where("start_time < ?", @next_year) \
       .sum(:distance)
 
     @total_duration_this_year = Track \
-      .where("start_time >= ?", @this_year)
-      .where("start_time < ?", @next_year)
+      .where("start_time >= ?", @this_year) \
+      .where("start_time < ?", @next_year) \
       .sum(:duration)
 
     @logs_count_this_year = Log \
-      .joins(:tracks)
-      .where("start_time >= ?", @this_year)
-      .where("start_time < ?", @next_year)
-      .uniq
+      .joins(:tracks) \
+      .where("start_time >= ?", @this_year) \
+      .where("start_time < ?", @next_year) \
+      .uniq \
       .count
 
     @total_distance_last_year = Track \
-      .where("start_time >= ?", @last_year)
-      .where("start_time < ?", @this_year)
+      .where("start_time >= ?", @last_year) \
+      .where("start_time < ?", @this_year) \
       .sum(:distance)
 
     @total_duration_last_year = Track \
-      .where("start_time >= ?", @last_year)
-      .where("start_time < ?", @this_year)
+      .where("start_time >= ?", @last_year) \
+      .where("start_time < ?", @this_year) \
       .sum(:duration)
 
     @logs_count_last_year = Log \
-      .joins(:tracks)
-      .where("start_time >= ?", @last_year)
-      .where("start_time < ?", @this_year)
-      .uniq
+      .joins(:tracks) \
+      .where("start_time >= ?", @last_year) \
+      .where("start_time < ?", @this_year) \
+      .uniq \
       .count
   end
 

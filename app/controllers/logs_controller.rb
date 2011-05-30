@@ -3,10 +3,10 @@ class LogsController < ApplicationController
     @selected_year = params[:year] ? params[:year].to_i : Time.now.year
 
     @logs = Log \
-      .joins(:tracks)
+      .joins(:tracks) \
       .where("tracks.start_time >= ? AND tracks.start_time < ?",
-        Time.mktime(@selected_year, 1, 1), Time.mktime(@selected_year + 1, 1, 1))
-      .order("tracks.start_time ASC")
+        Time.mktime(@selected_year, 1, 1), Time.mktime(@selected_year + 1, 1, 1)) \
+      .order("tracks.start_time ASC") \
       .uniq
 
     @total_distance = 0.0
