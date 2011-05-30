@@ -12,12 +12,14 @@
 </script>
 
 <dl id="dashboard-stats">
-  <dt>Last ride</dt>
-  <dd>
-    <%=format_distance @last_log.distance %><br>
-    <%=dashboard_duration @last_log.duration %><br>
-    <%=distance_of_time_in_words_to_now @last_log.start_time %> ago
-  </dd>
+  <% if not @last_log.nil? %>
+    <dt>Last ride</dt>
+    <dd>
+      <%=format_distance @last_log.distance %><br>
+      <%=dashboard_duration @last_log.duration %><br>
+      <%=distance_of_time_in_words_to_now @last_log.start_time %> ago
+    </dd>
+  <% end %>
   <dt><%=l @this_month, :format => "%B %Y" %></dt>
   <dd>
     <%=format_distance @total_distance_this_month %><br>
