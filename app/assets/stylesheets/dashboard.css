@@ -33,3 +33,9 @@
 #dashboard-activity-distance-plot {
 	margin-bottom: 30px;
 }
+
+#dashboard-no-logs {
+	color: #888;
+	font-size: 20px;
+	margin: 50px 0;
+}

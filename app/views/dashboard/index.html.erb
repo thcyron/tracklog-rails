@@ -2,54 +2,56 @@
 
 <%= javascript_include_tag "dashboard" %>
 
-<script>
-  $(function() {
-    Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot", "dashboard-activity-duration-plot", "<%= dashboard_activity_plots_data_path(:json) %>");
-  });
-</script>
-
 <h1>Dashboard</h1>
 
-<dl id="dashboard-stats">
-  <%- if @last_log -%>
+<%- if @last_log -%>
+  <dl id="dashboard-stats">
     <dt>Last ride</dt>
     <dd>
       <%=format_distance @last_log.distance %><br>
       <%=dashboard_duration @last_log.duration %><br>
       <%=distance_of_time_in_words_to_now @last_log.start_time %> ago
     </dd>
-  <%- end -%>
-  <dt><%=l @this_month, :format => "%B %Y" %></dt>
-  <dd>
-    <%=format_distance @total_distance_this_month %><br>
-    <%=dashboard_duration @total_duration_this_month %><br>
-    <%=pluralize @logs_count_this_month, "log" %>
-  </dd>
-  <dt><%=l @this_year, :format => "%Y" %></dt>
-  <dd>
-    <%=format_distance @total_distance_this_year %><br>
-    <%=dashboard_duration @total_duration_this_year %><br>
-    <%=pluralize @logs_count_this_year, "log" %>
-  </dd>
-  <%- if @logs_count_last_year > 0 -%>
-    <dt><%=l @last_year, :format => "%Y" %></dt>
+    <dt><%=l @this_month, :format => "%B %Y" %></dt>
     <dd>
-      <%=format_distance @total_distance_last_year %><br>
-      <%=dashboard_duration @total_duration_last_year %><br>
-      <%=pluralize @logs_count_last_year, "log" %>
+      <%=format_distance @total_distance_this_month %><br>
+      <%=dashboard_duration @total_duration_this_month %><br>
+      <%=pluralize @logs_count_this_month, "log" %>
     </dd>
-  <%- end -%>
-  <dt>Total</dt>
-  <dd>
-    <%=format_distance @total_distance %><br>
-    <%=dashboard_duration @total_duration %><br>
-    <%=pluralize @total_logs_count, "log" %>
-  </dd>
-</dl>
+    <dt><%=l @this_year, :format => "%Y" %></dt>
+    <dd>
+      <%=format_distance @total_distance_this_year %><br>
+      <%=dashboard_duration @total_duration_this_year %><br>
+      <%=pluralize @logs_count_this_year, "log" %>
+    </dd>
+    <%- if @logs_count_last_year > 0 -%>
+      <dt><%=l @last_year, :format => "%Y" %></dt>
+      <dd>
+        <%=format_distance @total_distance_last_year %><br>
+        <%=dashboard_duration @total_duration_last_year %><br>
+        <%=pluralize @logs_count_last_year, "log" %>
+      </dd>
+    <%- end -%>
+    <dt>Total</dt>
+    <dd>
+      <%=format_distance @total_distance %><br>
+      <%=dashboard_duration @total_duration %><br>
+      <%=pluralize @total_logs_count, "log" %>
+    </dd>
+  </dl>
 
-<div id="dashboard-activity">
-  <div id="dashboard-activity-distance-plot"></div>
-  <div id="dashboard-activity-duration-plot"></div>
-</div>
+  <script>
+    $(function() {
+      Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot", "dashboard-activity-duration-plot", "<%= dashboard_activity_plots_data_path(:json) %>");
+    });
+  </script>
 
-<br class="clear">
+  <div id="dashboard-activity">
+    <div id="dashboard-activity-distance-plot"></div>
+    <div id="dashboard-activity-duration-plot"></div>
+  </div>
+<%- else -%>
+  <p id="dashboard-no-logs">
+    You haven’t added any logs yet. Add some to see statistics.
+  </p>
+<%- end -%>
