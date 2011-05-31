@@ -6,6 +6,8 @@ logs of your bike rides.  As it is still in the early development phase,
 a lot of (advanced) features are missing, but the basic functionality
 is already implemented.
 
+Bikelog requires Ruby 1.9.
+
 
 Features
 --------
