@@ -88,7 +88,9 @@ class DashboardController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render :json => @last_12_months_activity.to_a.map { |d, a|
+        render :json => @last_12_months_activity.to_a \
+        .sort{ |a,b| b[0] <=> a[0] } \
+        .map { |d, a|
           {
             :month => d.strftime("%b"),
             :distance => a[:distance],
