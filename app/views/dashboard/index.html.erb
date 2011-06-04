@@ -42,7 +42,10 @@
 
   <script>
     $(function() {
-      Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot", "dashboard-activity-duration-plot", "<%= dashboard_activity_plots_data_path(:json) %>");
+      Bikelog.DashboardActivityPlots.setup("dashboard-activity-distance-plot",
+        "dashboard-activity-duration-plot",
+        "<%= dashboard_activity_plots_data_path(:json) %>",
+        "<%= Bikelog::Config.distance_units %>");
     });
   </script>
 

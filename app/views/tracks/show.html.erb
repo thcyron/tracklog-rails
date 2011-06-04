@@ -6,7 +6,9 @@
 <script>
   $(function() {
     Bikelog.Map.setup("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
-    Bikelog.DistanceElevationPlot.setup("track-distance-elevation-plot", "<%= plot_data_log_track_path(@track.log, @track, :json) %>");
+    Bikelog.DistanceElevationPlot.setup("track-distance-elevation-plot",
+      "<%= plot_data_log_track_path(@track.log, @track, :json) %>",
+      "<%= Bikelog::Config.distance_units %>");
   });
 </script>
 
