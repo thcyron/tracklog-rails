@@ -69,6 +69,8 @@ class Track < ActiveRecord::Base
       ascent         = tp1.ascent_to_trackpoint(tp2)
       time           = tp1.time_to_trackpoint(tp2)
 
+      speed          = 0 if speed.to_s == "Infinity"
+
       self.max_speed = speed if speed > self.max_speed
       self.ascent   += ascent if ascent > 0
       self.descent  -= ascent if ascent < 0
