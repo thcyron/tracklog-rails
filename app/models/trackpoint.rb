@@ -17,7 +17,13 @@ class Trackpoint < ActiveRecord::Base
   end
 
   def speed_to_trackpoint(trackpoint)
-    distance_to_trackpoint(trackpoint).to_f / time_to_trackpoint(trackpoint).to_f
+    time = time_to_trackpoint(trackpoint).to_f
+
+    if time > 0
+      distance_to_trackpoint(trackpoint).to_f / time
+    else
+      0
+    end
   end
 
   def ascent_to_trackpoint(trackpoint)
