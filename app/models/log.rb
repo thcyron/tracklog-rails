@@ -124,7 +124,8 @@ class Log < ActiveRecord::Base
       # Track Segments
       trkseg_nodes = trk.xpath("./g:trkseg", "g" => ns)
       trkseg_nodes.each_with_index do |trkseg, i|
-        track = self.tracks.create
+        track = self.tracks.new
+        trackpoints = []
 
         if track_name
           if trkseg_nodes.size > 1
@@ -144,16 +145,26 @@ class Log < ActiveRecord::Base
           time = (nodes.size == 1) ? Time.parse(nodes.first.text) : nil
 
           if time and trkpt["lat"] and trkpt["lon"]
-            track.trackpoints.create \
+            trackpoint = Trackpoint.new \
               :latitude  => trkpt["lat"],
               :longitude => trkpt["lon"],
               :elevation => elevation,
               :time      => time
+            trackpoints << trackpoint
           end
         end
 
-        track.update_cached_information
-        new_tracks << track
+        if trackpoints.size > 2
+          track.save
+
+          trackpoints.each do |trackpoint|
+            trackpoint.track = track
+            trackpoint.save
+          end
+
+          track.update_cached_information
+          new_tracks << track
+        end
       end
     end
 
