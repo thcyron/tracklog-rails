@@ -117,6 +117,8 @@ class Log < ActiveRecord::Base
     ns = "http://www.topografix.com/GPX/1/1"
 
     doc.xpath("/g:gpx/g:trk", "g" => ns).each do |trk|
+      tracks = []
+
       # Track name
       nodes = trk.xpath("./g:name", "g" => ns)
       track_name = (nodes.size == 1) ? nodes.first.text : nil
@@ -126,14 +128,6 @@ class Log < ActiveRecord::Base
       trkseg_nodes.each_with_index do |trkseg, i|
         track = self.tracks.new
         trackpoints = []
-
-        if track_name
-          if trkseg_nodes.size > 1
-            track.name = "#{track_name} ##{i + 1}"
-          else
-            track.name = track_name
-          end
-        end
 
         trkseg.xpath("./g:trkpt", "g" => ns).each do |trkpt|
           # Elevation
@@ -163,9 +157,21 @@ class Log < ActiveRecord::Base
           end
 
           track.update_cached_information
-          new_tracks << track
+          tracks << track
         end
       end
+
+      if track_name
+        if tracks.size == 1
+          tracks.first.update_attribute(:name, track_name)
+        else
+          tracks.each_with_index do |track, i|
+            track.update_attribute(:name, "#{track_name} ##{i + 1}")
+          end
+        end
+      end
+
+      new_tracks += tracks
     end
 
     new_tracks
