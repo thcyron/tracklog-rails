@@ -1,0 +1,43 @@
+#login-dialog {
+	width: 403px;
+	margin: 100px auto;
+	padding: 15px 20px;
+	border: 3px solid #eee;
+	border-radius: 10px;
+}
+
+.login-dialog-box {
+	float: left;
+	display: inline-block;
+	margin: 5px;
+	color: green;
+}
+
+.login-dialog-box label {
+	display: block;
+}
+
+.login-dialog-box input[type="text"],
+.login-dialog-box input[type="password"] {
+	display: block;
+	margin-top: 5px;
+	width: 130px;
+}
+
+#login-dialog-remember-me {
+	color: #666;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+#login-dialog input[type="submit"] {
+	color: #fff;
+	font-family: sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 20px;
+	margin-top: 22px;
+	background-color: green;
+	border: none;
+	border-radius: 6px;
+}

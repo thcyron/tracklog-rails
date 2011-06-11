@@ -8,7 +8,9 @@ body {
 	margin: 30px auto;
 }
 
-:focus {
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
 	outline: none;
 }
 
@@ -58,7 +60,7 @@ td.l, th.l {
 	text-align: left;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
 	font-size: 14px;
 	font-family: sans-serif;
 	padding: 6px;
@@ -75,8 +77,10 @@ input[type="text"] {
 }
 
 #header ol {
+	float: left;
 	list-style: none;
 	padding: 0;
+	margin: 0;
 }
 
 #header li {
@@ -87,6 +91,20 @@ input[type="text"] {
 #header li a {
 	font-weight: bold;
 	font-size: 16px;
+}
+
+#header .info {
+	float: right;
+	color: #555;
+	font-size: 13px;
+	margin: 2px 0 0 0;
+}
+
+#flash-notice {
+	color: green;
+	border: 2px solid green;
+	padding: 10px 15px;
+	margin: 0 0 30px 0;
 }
 
 #flash-error {

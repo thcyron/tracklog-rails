@@ -1,0 +1,42 @@
+#profile-details .row {
+	padding: 10px 0;
+	margin: 2px 0;
+	clear: left;
+}
+
+#profile-details .label {
+	float: left;
+	text-align: right;
+	width: 170px;
+	padding: 8px 0 0 0;
+}
+
+#profile-details .field {
+	margin: 0 0 0 190px;
+}
+
+#profile-details .field p.error {
+	color: #c00;
+	font-size: 11px;
+	margin: 4px 0 0 4px;
+}
+
+#profile-details .field.distance-units label {
+	display: inline-block;
+	margin: 7px 20px 0 0;
+}
+
+#profile-details .row.submit {
+	padding-left: 190px;
+}
+
+#profile-details input[type="submit"] {
+	color: #fff;
+	font-family: sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 20px;
+	background-color: green;
+	border: none;
+	border-radius: 6px;
+}

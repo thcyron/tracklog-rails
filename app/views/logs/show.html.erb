@@ -8,7 +8,7 @@
     Bikelog.Map.setup("log-map", "<%= log_tracks_path(@log, :json) %>");
     Bikelog.DistanceElevationPlot.setup("log-distance-elevation-plot",
       "<%= plot_data_log_path(@log, :json) %>",
-      "<%= Bikelog::Config.distance_units %>");
+      "<%= current_user.distance_units %>");
   });
 </script>
 

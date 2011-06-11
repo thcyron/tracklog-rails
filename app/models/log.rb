@@ -1,9 +1,15 @@
 class Log < ActiveRecord::Base
+  belongs_to :user
+
   has_many :tracks, :order => "start_time ASC", :dependent => :destroy
   has_many :trackpoints, :through => :tracks
 
   attr_accessible :name, :comment
   validates :name, :presence => true
+
+  scope :for_user, lambda { |user|
+    where(:user_id => user.id)
+  }
 
   def start_time
     @start_time ||= self.tracks.map { |t| t.start_time }.min

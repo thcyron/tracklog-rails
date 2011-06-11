@@ -3,6 +3,10 @@ class Track < ActiveRecord::Base
   has_many :trackpoints, :order => "time ASC", :dependent => :destroy
   attr_accessible :name
 
+  scope :for_user, lambda { |user|
+    joins(:log).where("logs.user_id = ?", user.id)
+  }
+
   def display_name
     if self.name and self.name.strip.length > 0
       self.name

@@ -1,8 +1,14 @@
+# encoding: utf-8
+
 class LogsController < ApplicationController
+  before_filter :authenticate
+  before_filter :find_log_and_check_permission, :except => [:index, :new, :create]
+
   def index
     @selected_year = params[:year] ? params[:year].to_i : Time.now.year
 
     @logs = Log \
+      .for_user(current_user) \
       .joins(:tracks) \
       .where("tracks.start_time >= ? AND tracks.start_time < ?",
         Time.mktime(@selected_year, 1, 1), Time.mktime(@selected_year + 1, 1, 1)) \
@@ -32,8 +38,6 @@ class LogsController < ApplicationController
   end
 
   def show
-    @log = Log.find(params[:id])
-
     respond_to do |format|
       format.html
       format.gpx do
@@ -44,8 +48,6 @@ class LogsController < ApplicationController
   end
 
   def plot_data
-    @log = Log.find(params[:id])
-
     respond_to do |format|
       format.json do
         log_plot_data = @log.plot_data
@@ -59,8 +61,6 @@ class LogsController < ApplicationController
   end
 
   def tracks
-    @log = Log.find(params[:id])
-
     respond_to do |format|
       format.json do
         render :json => @log.tracks.map { |track|
@@ -73,8 +73,6 @@ class LogsController < ApplicationController
   end
 
   def upload_track
-    @log = Log.find(params[:id])
-
     if params[:track_file]
       @log.create_tracks_from_gpx(params[:track_file].read)
     end
@@ -88,6 +86,7 @@ class LogsController < ApplicationController
 
   def create
     @log = Log.new(params[:log])
+    @log.user = current_user
 
     unless @log.save
       render :action => :new and return
@@ -101,21 +100,26 @@ class LogsController < ApplicationController
   end
 
   def edit
-    @log = Log.find(params[:id])
   end
 
   def update
-    @log = Log.find(params[:id])
-
     if @log.update_attributes(params[:log])
       redirect_to @log
     end
   end
 
   def destroy
-    @log = Log.find(params[:id])
     @log.destroy
-
     redirect_to @log
   end
+
+  def find_log_and_check_permission
+    @log = Log.find(params[:id])
+
+    unless @log.user == current_user
+      flash[:error] = "You don’t have permission to view this log."
+      redirect_to dashboard_path and return
+    end
+  end
+  private :find_log_and_check_permission
 end

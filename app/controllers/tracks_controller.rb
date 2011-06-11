@@ -1,8 +1,10 @@
 # encoding: utf-8
 
 class TracksController < ApplicationController
+  before_filter :authenticate
+  before_filter :find_track_and_check_permission
+
   def show
-    @track = Track.find(params[:id])
     @trackpoints = @track.trackpoints
 
     respond_to do |format|
@@ -20,8 +22,6 @@ class TracksController < ApplicationController
   end
 
   def plot_data
-    @track = Track.find(params[:id])
-
     respond_to do |format|
       format.json do
         track_plot_data = @track.plot_data
@@ -35,8 +35,6 @@ class TracksController < ApplicationController
   end
 
   def update
-    @track = Track.find(params[:id])
-
     if @track.update_attributes(params[:track])
       respond_to do |format|
         format.json do
@@ -55,7 +53,6 @@ class TracksController < ApplicationController
   end
 
   def split
-    @track = Track.find(params[:id])
     @trackpoint = Trackpoint.find(params[:trackpoint_id])
 
     unless @trackpoint.track == @track
@@ -76,7 +73,6 @@ class TracksController < ApplicationController
   end
 
   def destroy
-    @track = Track.find(params[:id])
     @log = @track.log
 
     if @log.tracks.size == 1
@@ -87,4 +83,14 @@ class TracksController < ApplicationController
       redirect_to log_path(@log)
     end
   end
+
+  def find_track_and_check_permission
+    @track = Track.preload(:log).find(params[:id])
+
+    unless @track.log.user == current_user
+      flash[:error] = "You don’t have permission to view this track."
+      redirect_to dashboard_path and return
+    end
+  end
+  private :find_track_and_check_permission
 end

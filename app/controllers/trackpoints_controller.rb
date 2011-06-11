@@ -1,8 +1,14 @@
+# encoding: utf-8
+
 class TrackpointsController < ApplicationController
+  before_filter :authenticate
+
   def index
     if params[:track_id]
-      @track = Track.find(params[:track_id])
+      @track = Track.preload(:log).find(params[:track_id])
       @trackpoints = @track.trackpoints
+
+      check_permission @track.log or return
 
       respond_to do |format|
         format.html
@@ -19,10 +25,21 @@ class TrackpointsController < ApplicationController
     @trackpoint = Trackpoint.find(params[:id])
     @track = @trackpoint.track
 
+    check_permission @track.log or return
+
     if @trackpoint.destroy
       @track.update_cached_information
     end
 
     redirect_to log_track_path(@track.log, @track)
   end
+
+  def check_permission(log)
+    unless log.user == current_user
+      flash[:error] = "You don’t have permission to view this track point."
+      redirect_to dashboard_path
+      false
+    end
+  end
+  private :check_permission
 end

@@ -1,0 +1,54 @@
+<%- title "My Profile" -%>
+<h1>My Profile</h1>
+
+<%= form_for @user, :url => update_profile_path do |f| %>
+  <div id="profile-details">
+    <div class="row">
+      <div class="label">
+        <label for="user_username">Username</label>
+      </div>
+      <div class="field">
+        <%= f.text_field :username %>
+        <%- unless @user.errors[:username].empty? %>
+          <%- @user.errors[:username].each do |message| -%>
+            <p class="error">Username <%= message %></p>
+          <%- end -%>
+        <%- end -%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">
+        <label for="user_name">Name</label>
+      </div>
+      <div class="field">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">
+        <label for="user_password">Password</label>
+      </div>
+      <div class="field">
+        <%= f.password_field :password %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">
+        Distance Units
+      </div>
+      <div class="field distance-units">
+        <label>
+          <%= f.radio_button :distance_units, "metric" %>
+          Metric
+        </label>
+        <label>
+          <%= f.radio_button :distance_units, "imperial" %>
+          Imperial
+        </label>
+      </div>
+    </div>
+    <div class="row submit">
+      <%= submit_tag "Update profile" %>
+    </div>
+  </div>
+<% end %>

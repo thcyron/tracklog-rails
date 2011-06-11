@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login — Bikelog</title>
+    <%= stylesheet_link_tag "application" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <%= form_tag login_path %>
+      <div id="login-dialog">
+        <div class="login-dialog-box">
+          <label for="username">
+            Username
+            <%= text_field_tag :username, "", :tabindex => 1 %>
+          </label>
+          <label id="login-dialog-remember-me" for="remember_me">
+            <%= check_box_tag "remember_me", 1, false, :tabindex => 3 %>
+            Remember me
+          </label>
+        </div>
+        <div class="login-dialog-box">
+          <label for="password">
+            Password
+            <%= password_field_tag :password, "", :tabindex => 2 %>
+          </label>
+        </div>
+        <div class="login-dialog-box">
+          <%= submit_tag "Login", :tabindex => 4 %>
+        </div>
+        <br class="clear">
+      </div>
+    </form>
+  </body>
+</html>
