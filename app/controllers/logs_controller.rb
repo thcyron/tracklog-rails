@@ -100,11 +100,17 @@ class LogsController < ApplicationController
   end
 
   def edit
+    @orig_log = @log.dup
   end
 
   def update
+    @orig_log = @log.dup
+
     if @log.update_attributes(params[:log])
       redirect_to @log
+    else
+      flash[:error] = "There was an error updating the log."
+      render :edit
     end
   end
 

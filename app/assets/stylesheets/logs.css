@@ -24,6 +24,12 @@
 	margin: 0 0 0 120px;
 }
 
+.log-dialog .field p.error {
+	color: #c00;
+	font-size: 11px;
+	margin: 4px 0 0 4px;
+}
+
 .log-dialog .field .track-help {
 	color: #666;
 	font-size: 12px;

@@ -1,5 +1,5 @@
-<%- title @log.name -%>
-<h1><%= @log.name %></h1>
+<%- title @orig_log.name -%>
+<h1><%= @orig_log.name %></h1>
 
 <div class="log-dialog">
   <%= form_for @log do |f| %>
@@ -9,6 +9,11 @@
       </div>
       <div class="field">
         <%= f.text_field :name %>
+        <%- unless @log.errors[:name].empty? -%>
+          <%- @log.errors[:name].each do |message| -%>
+            <p class="error">Log name <%= message %></p>
+          <%- end -%>
+        <%- end -%>
       </div>
     </div>
     <div class="row">
