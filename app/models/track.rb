@@ -33,7 +33,12 @@ class Track < ActiveRecord::Base
 
     if self.distance and self.distance > 0 and self.duration > 0
       self.overall_average_speed = self.distance / self.duration
-      self.moving_average_speed = self.distance / self.moving_time
+
+      if self.moving_time > 0
+        self.moving_average_speed = self.distance / self.moving_time
+      else
+        self.moving_average_speed = 0
+      end
     else
       self.overall_average_speed = 0
       self.moving_average_speed = 0
