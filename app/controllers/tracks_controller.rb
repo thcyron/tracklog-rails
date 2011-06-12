@@ -87,7 +87,7 @@ class TracksController < ApplicationController
   def find_track_and_check_permission
     @track = Track.preload(:log).find(params[:id])
 
-    unless @track.log.user == current_user
+    unless @track.log.user_id == current_user.id
       flash[:error] = "You don’t have permission to view this track."
       redirect_to dashboard_path and return
     end

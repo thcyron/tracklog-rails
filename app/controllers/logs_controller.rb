@@ -122,7 +122,7 @@ class LogsController < ApplicationController
   def find_log_and_check_permission
     @log = Log.find(params[:id])
 
-    unless @log.user == current_user
+    unless @log.user_id == current_user.id
       flash[:error] = "You don’t have permission to view this log."
       redirect_to dashboard_path and return
     end

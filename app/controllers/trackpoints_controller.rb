@@ -35,7 +35,9 @@ class TrackpointsController < ApplicationController
   end
 
   def check_permission(log)
-    unless log.user == current_user
+    if log.user_id == current_user.id
+      true
+    else
       flash[:error] = "You don’t have permission to view this track point."
       redirect_to dashboard_path
       false
