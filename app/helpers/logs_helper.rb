@@ -13,9 +13,9 @@ module LogsHelper
     distance_in_meters ||= 0
 
     if current_user.distance_units == :imperial
-      raw("#{distance_in_meters.to_miles.round(2)}&nbsp;miles")
+      raw("#{number_with_delimiter distance_in_meters.to_miles.round(2)}&nbsp;miles")
     else
-      raw("#{distance_in_meters.to_kilometers.round(2)}&nbsp;km")
+      raw("#{number_with_delimiter distance_in_meters.to_kilometers.round(2)}&nbsp;km")
     end
   end
 
@@ -23,9 +23,9 @@ module LogsHelper
     distance_in_meters ||= 0
 
     if current_user.distance_units == :imperial
-      raw("#{distance_in_meters.to_feet.round(2)}&nbsp;ft")
+      raw("#{number_with_delimiter distance_in_meters.to_feet.round(2)}&nbsp;ft")
     else
-      raw("#{distance_in_meters.round(2)}&nbsp;m")
+      raw("#{number_with_delimiter distance_in_meters.round(2)}&nbsp;m")
     end
   end
 
@@ -33,9 +33,9 @@ module LogsHelper
     speed_in_meters_per_second ||= 0
 
     if current_user.distance_units == :imperial
-      raw("#{speed_in_meters_per_second.to_miles_per_hour.round(2)}&nbsp;mph")
+      raw("#{number_with_delimiter speed_in_meters_per_second.to_miles_per_hour.round(2)}&nbsp;mph")
     else
-      raw("#{speed_in_meters_per_second.to_kilometers_per_hour.round(2)}&nbsp;km/h")
+      raw("#{number_with_delimiter speed_in_meters_per_second.to_kilometers_per_hour.round(2)}&nbsp;km/h")
     end
   end
 
@@ -43,9 +43,9 @@ module LogsHelper
     elevation_in_meters ||= 0
 
     if current_user.distance_units == :imperial
-      raw("#{elevation_in_meters.to_feet.round}&nbsp;ft")
+      raw("#{number_with_delimiter elevation_in_meters.to_feet.round}&nbsp;ft")
     else
-      raw("#{elevation_in_meters.round}&nbsp;m")
+      raw("#{number_with_delimiter elevation_in_meters.round}&nbsp;m")
     end
   end
 end
