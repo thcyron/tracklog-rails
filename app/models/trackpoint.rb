@@ -27,6 +27,8 @@ class Trackpoint < ActiveRecord::Base
   end
 
   def ascent_to_trackpoint(trackpoint)
-    trackpoint.elevation - self.elevation
+    if trackpoint.elevation and self.elevation
+      trackpoint.elevation - self.elevation
+    end
   end
 end

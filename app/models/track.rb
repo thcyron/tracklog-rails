@@ -52,11 +52,13 @@ class Track < ActiveRecord::Base
     self.max_elevation = nil
 
     self.trackpoints.each do |trackpoint|
-      self.min_elevation ||= trackpoint.elevation
-      self.max_elevation ||= trackpoint.elevation
+      if trackpoint.elevation
+        self.min_elevation ||= trackpoint.elevation
+        self.max_elevation ||= trackpoint.elevation
 
-      self.max_elevation = trackpoint.elevation if trackpoint.elevation > self.max_elevation
-      self.min_elevation = trackpoint.elevation if trackpoint.elevation < self.min_elevation
+        self.max_elevation = trackpoint.elevation if trackpoint.elevation > self.max_elevation
+        self.min_elevation = trackpoint.elevation if trackpoint.elevation < self.min_elevation
+      end
     end
   end
   private :calculate_min_max_elevation
@@ -77,10 +79,12 @@ class Track < ActiveRecord::Base
       speed          = tp1.speed_to_trackpoint(tp2)
       ascent         = tp1.ascent_to_trackpoint(tp2)
       time           = tp1.time_to_trackpoint(tp2)
-
       self.max_speed = speed if speed > self.max_speed
-      self.ascent   += ascent if ascent > 0
-      self.descent  -= ascent if ascent < 0
+
+      if ascent
+        self.ascent  += ascent if ascent > 0
+        self.descent -= ascent if ascent < 0
+      end
 
       if speed > 0.5.kilometer_per_hour
         self.moving_time += time
