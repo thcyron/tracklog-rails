@@ -1,0 +1,20 @@
+<%- title "Transfer track #{@track.display_name}" -%>
+<h1>Transfer track <%= @track.display_name %></h1>
+
+<%= form_tag transfer_log_track_path(@track) do %>
+  <p class="track-transfer-help">
+    Select the log you want the track to be transfered to …
+  </p>
+  <p>
+    <%= select_tag :transfer_log_id, grouped_options_for_select(@logs), :include_blank => true %>
+  </p>
+  <p class="track-transfer-help">
+    … or specify a name for a new log
+  </p>
+  <p>
+    <%= text_field_tag :transfer_log_name, params[:transfer_log_name], :size => 60 %>
+  </p>
+  <p>
+    <%= submit_tag "Transfer track", :id => "track-transfer-button", :class => "green" %>
+  </p>
+<% end %>

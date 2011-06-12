@@ -73,3 +73,13 @@
 #track-rename-pane input[type="text"] {
 	width: 466px;
 }
+
+#track-transfer-button {
+	margin-top: 30px;
+}
+
+.track-transfer-help {
+	color: #555;
+	font-size: 18px;
+	margin-top: 50px;
+}

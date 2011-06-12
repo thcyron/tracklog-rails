@@ -24,6 +24,7 @@ Bikelog::Application.routes.draw do
       resources :trackpoints
 
       member do
+        match :transfer, :via => [:get, :post]
         put "split/:trackpoint_id" => :split, :as => :split
         get :plot_data
       end

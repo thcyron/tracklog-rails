@@ -72,6 +72,49 @@ class TracksController < ApplicationController
     redirect_to log_track_path(@new_track.log, @new_track)
   end
 
+  def transfer
+    logs_by_year = {}
+
+    Log.for_user(current_user).each do |log|
+      year = log.start_time ? log.start_time.year : 0
+      logs_by_year[year] ||= []
+      logs_by_year[year] << log
+    end
+
+    @logs = logs_by_year.sort.map do |year, logs|
+      logs.sort! do |a, b|
+        a.start_time <=> b.start_time
+      end
+
+      [year, logs.map { |log|
+        [log.name, log.id]
+      }]
+    end
+
+    @logs[0] = ["Logs without tracks", @logs.first[1]] if @logs.first.first == 0
+
+    if request.post?
+      log = if not params[:transfer_log_id].blank?
+        Log.for_user(current_user).find(params[:transfer_log_id])
+      elsif not params[:transfer_log_name].blank?
+        log      = Log.new
+        log.name = params[:transfer_log_name]
+        log.user = current_user
+        log.save
+        log
+      end
+
+      if log
+        if log.valid? and @track.update_attribute(:log_id, log.id)
+          flash[:notice] = "The track has been transfered to log “#{log.name}”"
+          redirect_to log_path(log)
+        else
+          flash[:error] = "Transfer failed"
+        end
+      end
+    end
+  end
+
   def destroy
     @log = @track.log
 
