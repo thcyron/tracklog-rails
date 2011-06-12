@@ -19,6 +19,16 @@ module LogsHelper
     end
   end
 
+  def format_short_distance(distance_in_meters)
+    distance_in_meters ||= 0
+
+    if current_user.distance_units == :imperial
+      raw("#{distance_in_meters.to_feet.round(2)}&nbsp;ft")
+    else
+      raw("#{distance_in_meters.round(2)}&nbsp;m")
+    end
+  end
+
   def format_speed(speed_in_meters_per_second)
     speed_in_meters_per_second ||= 0
 
