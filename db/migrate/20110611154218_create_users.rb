@@ -11,6 +11,9 @@ class CreateUsers < ActiveRecord::Migration
     end
 
     add_index :users, :username
-    User.create :username => "admin", :password => "admin", :is_admin => true
+
+    admin = User.new :username => "admin", :password => "admin"
+    admin.is_admin = true
+    admin.save
   end
 end
