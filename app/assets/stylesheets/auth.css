@@ -24,12 +24,6 @@
 	width: 130px;
 }
 
-#login-dialog-remember-me {
-	color: #666;
-	font-size: 12px;
-	margin-top: 5px;
-}
-
 #login-dialog input[type="submit"] {
 	color: #fff;
 	font-family: sans-serif;

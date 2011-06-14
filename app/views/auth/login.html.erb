@@ -14,10 +14,6 @@
             Username
             <%= text_field_tag :username, "", :tabindex => 1 %>
           </label>
-          <label id="login-dialog-remember-me" for="remember_me">
-            <%= check_box_tag "remember_me", 1, false, :tabindex => 3 %>
-            Remember me
-          </label>
         </div>
         <div class="login-dialog-box">
           <label for="password">
@@ -26,7 +22,7 @@
           </label>
         </div>
         <div class="login-dialog-box">
-          <%= submit_tag "Login", :tabindex => 4 %>
+          <%= submit_tag "Login", :tabindex => 3 %>
         </div>
         <br class="clear">
       </div>

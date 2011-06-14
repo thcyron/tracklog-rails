@@ -14,14 +14,11 @@ class AuthController < ApplicationController
         @current_user = user
         @current_user.update_attribute(:last_login_at, Time.now)
 
-        if params[:remember_me]
-          salt = BCrypt::Password.new(current_user.password_digest).salt
-
-          cookies.signed[:remember_me] = {
-            :value => [current_user.username, salt],
-            :expires => 2.weeks.from_now.utc
-          }
-        end
+        salt = BCrypt::Password.new(current_user.password_digest).salt
+        cookies.signed[:remember_me] = {
+          :value => [current_user.username, salt],
+          :expires => 2.weeks.from_now.utc
+        }
 
         redirect_to return_to || dashboard_path
       else
