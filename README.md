@@ -1,23 +1,19 @@
 Bikelog
 =======
 
-**Bikelog** is a Ruby on Rails 3 application to manage the GPS track
-logs of your bike rides.  As it is still in the early development phase,
-a lot of (advanced) features are missing, but the basic functionality
-is already implemented.
-
-Bikelog requires Ruby 1.9.
-
+**Bikelog** is a Ruby on Rails application for managing GPS track logs. It’s
+written using Rails 3.1 and works with Ruby 1.8.7 and 1.9.2.
 
 Features
 --------
 
-* Google Maps displaying your tracks
-* Statistics (distance, duration, average speeds, ascent etc.)
-* Graphical representation of your 12-month activity by distance and duration
+* Visualizing tracks on a Google Map
+* Track statistics like distance, duration, speeds, ascent etc.
 * Elevation profiles
+* Dashboard showing overall statistics
+* Graphs for last 12-month activity by distance and duration
 * GPX import and export
-
+* Basic user management
 
 Screenshots
 -----------
@@ -25,22 +21,42 @@ Screenshots
 [![Logs](http://thcyron.de/bikelog/screenshots/logs-thumb.png)](http://thcyron.de/bikelog/screenshots/logs.png)
 [![Log](http://thcyron.de/bikelog/screenshots/log-thumb.png)](http://thcyron.de/bikelog/screenshots/log.png)
 
+(Note: As Bikelog is under development, the screenshots may not always
+represent to current state.)
+
+Installation
+------------
+
+Because Bikelog is a standard Rails application, you can use your favourite
+deployment tools to install Bikelog on your server. To run it locally you’ll
+need to go through the following steps:
+
+    % bundle
+    % rake db:setup
+    % rails server
+    % open http://localhost:3000/
+
+The default user is *admin* with the same password.
 
 Todo
 ----
 
-* Filtering of inaccurate trackpoints for better statistics
-* GPS import and export (Garmin provides a JavaScript API)
-* KML import (?)
+* Filtering of inaccurate trackpoints (maybe using the Kalman filter)
+* GPS import using Garmin’s JavaScript API
+* KML import
 * Split GPX parsing and analyzing into a separate file/library
 
 License
 -------
 
-Bikelog is released under the terms of the MIT license.
-
+Bikelog is released under the MIT license.
 
 Authors
 -------
 
 * [Thomas Cyron](http://thcyron.de/)
+
+Contributors
+------------
+
+* [Lloyd Pick](https://github.com/lloydpick)
