@@ -59,8 +59,11 @@ class TracksController < ApplicationController
       redirect_to log_track_path(@track.log, @track) and return
     end
 
-    if @trackpoint == @track.trackpoints.first
-      redirect_to log_track_path(@track.log, @track) and return
+    index = @track.trackpoints.index(@trackpoint)
+
+    if index < 2 or index == (@track.trackpoints.size - 1)
+      flash[:error] = "Splitting would result in tracks with less than 2 trackpoints"
+      redirect_to log_track_trackpoints_path(@track.log, @track) and return
     end
 
     @new_track = @track.log.tracks.create
