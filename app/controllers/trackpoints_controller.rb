@@ -10,6 +10,8 @@ class TrackpointsController < ApplicationController
 
       check_permission @track.log or return
 
+      @trackpoints_count = @trackpoints.size
+
       respond_to do |format|
         format.html
         format.json do
@@ -26,6 +28,11 @@ class TrackpointsController < ApplicationController
     @track = @trackpoint.track
 
     check_permission @track.log or return
+
+    if @track.trackpoints.size == 2
+      flash[:error] = "A track needs at least two trackpoints"
+      redirect_to log_track_trackpoints_path(@track.log, @track) and return
+    end
 
     if @trackpoint.destroy
       @track.update_cached_information
