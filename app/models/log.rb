@@ -182,4 +182,23 @@ class Log < ActiveRecord::Base
 
     new_tracks
   end
+
+  def rank
+    @rank ||= begin
+      if alternatives.count > 1
+        logs = alternatives.map { |log| [log.id, log.duration] }
+        logs.sort! { |a, b| a[1] <=> b[1] }
+
+        if index = logs.map { |log| log.first }.index(self.id)
+          return index + 1
+        end
+      end
+
+      nil
+    end
+  end
+
+  def alternatives
+    @alternatives ||= Log.for_user(self.user).where(:name => self.name)
+  end
 end

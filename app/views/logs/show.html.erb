@@ -57,6 +57,33 @@
           </table>
         </div>
       </div>
+      <div id="alternatives-tab" class="tab">
+        <h2>Alternative Rides</h2>
+        <table id="log-alternatives-table">
+          <thead>
+            <tr>
+              <th class="l" width="10"></th>
+              <th class="l" width="110">Start Time</th>
+              <th class="l" width="110">End Time</th>
+              <th class="r" width="70">Rank</th>
+              <th class="r" width="70">Duration</th>
+              <th class="r" width="70">Distance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @log.alternatives.each do |log| -%>
+              <tr class="<%= log.id == @log.id ? 'h' : '' %>">
+                <td><%= link_to image_tag('link.png'), log unless log.id == @log.id %></td>
+                <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
+                <td><%=l log.end_time, :format => "%d.%m.%Y %H:%M" %></td>
+                <td class="r"><%=format_rank log.rank %></td>
+                <td class="r"><%=format_duration log.duration %></td>
+                <td class="r"><%=format_distance log.distance %></td>
+              </tr>
+            <%- end -%>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div id="log-right-column">
