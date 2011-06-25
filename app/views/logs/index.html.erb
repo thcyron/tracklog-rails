@@ -29,7 +29,7 @@
               <tr>
                 <td><%= link_to log.name, log %></td>
                 <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
-                <td class="r"><%=format_duration log.duration %></td>
+                <td class="r"><%=format_rank log.rank %> <%=format_duration log.duration %></td>
                 <td class="r"><%=format_distance log.distance %></td>
               </tr>
             <%- end -%>
