@@ -48,4 +48,9 @@ module LogsHelper
       raw("#{number_with_delimiter elevation_in_meters.round}&nbsp;m")
     end
   end
+  
+  def format_rank(rank)
+    title = ['', 'Fastest Time', '2nd Fastest Time', '3rd Fastest Time']
+    image_tag("rank_#{rank}.png", :title => title[rank]) unless rank == 0 or rank > 3
+  end
 end

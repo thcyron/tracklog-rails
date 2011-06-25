@@ -182,4 +182,20 @@ class Log < ActiveRecord::Base
 
     new_tracks
   end
+  
+  def rank
+    result = 0
+    
+    if find_alternatives.count > 1 
+      logs = find_alternatives.inject([]) { |a,l| a << [l.id, l.duration]; a }
+      logs.sort! { |a,b| a[1] <=> b[1] }
+      result = logs.each_with_index { |l,i| if l[0] == id then return i + 1; break; end }
+    end
+    
+    result
+  end
+  
+  def find_alternatives
+    Log.for_user(self.user).where(:name => self.name)
+  end
 end

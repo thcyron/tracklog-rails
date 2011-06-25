@@ -52,6 +52,10 @@ td.r, th.r {
 	text-align: right;
 }
 
+td.r > img {
+  vertical-align: -3px;
+}
+
 td.c, th.c {
 	text-align: center;
 }
