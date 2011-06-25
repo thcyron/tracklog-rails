@@ -28,17 +28,17 @@ Bikelog.Map = {
             startMarker = new google.maps.Marker({
               position: point,
               map: map,
-              icon: '/assets/start.png'
+              icon: "<%= asset_path "start.png" %>"
             });
           }
           else if (i == tracks.length - 1 && j == tracks[i].length - 1) {
             endMarker = new google.maps.Marker({
               position: point,
               map: map,
-              icon: '/assets/end.png'
+              icon: "<%= asset_path "end.png" %>"
             });
           }
-          
+
           points.push(point);
           bounds.extend(point);
         }
