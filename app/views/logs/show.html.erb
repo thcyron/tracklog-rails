@@ -71,7 +71,7 @@
             </tr>
           </thead>
           <tbody>
-            <%- @log.find_alternatives.each do |log| -%>
+            <%- @log.alternatives.each do |log| -%>
               <tr class="<%= log.id == @log.id ? 'h' : '' %>">
                 <td><%= link_to image_tag('link.png'), log unless log.id == @log.id %></td>
                 <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
