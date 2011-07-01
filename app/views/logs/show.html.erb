@@ -84,6 +84,15 @@
           </tbody>
         </table>
       </div>
+      <% unless @log.video_url.blank? %>
+        <% video = VideoInfo.new(@log.video_url) %>
+        <% if video.valid? %>
+        <div id="video-tab" class="tab">
+          <h2>Video</h2>
+          <iframe width="620" height="375" src="<%= video.player %>" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
   <div id="log-right-column">
