@@ -47,6 +47,16 @@
         </label>
       </div>
     </div>
+    <div class="row">
+      <div class="label">
+        Video Features
+      </div>
+      <div class="field video-features">
+        <label>
+          <%= f.check_box :video_enabled, {}, "true", "false" %>
+        </label>
+      </div>
+    </div>
     <div class="row submit">
       <%= submit_tag "Update profile" %>
     </div>
