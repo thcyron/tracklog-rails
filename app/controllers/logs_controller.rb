@@ -63,10 +63,19 @@ class LogsController < ApplicationController
   def tracks
     respond_to do |format|
       format.json do
-        render :json => @log.tracks.map { |track|
-          track.trackpoints.map do |trackpoint|
-            [trackpoint.latitude, trackpoint.longitude]
-          end
+        render :json => {
+          :distance_units => current_user.distance_units,
+          :tracks => @log.tracks.map { |track|
+            track.trackpoints.map do |trackpoint|
+              {
+                :latitude  => trackpoint.latitude,
+                :longitude => trackpoint.longitude,
+                :elevation => trackpoint.elevation,
+                :timestamp => trackpoint.time.to_i,
+                :time      => trackpoint.time.strftime("%d.%m.%Y %H:%M")
+              }
+            end
+          }
         }
       end
     end

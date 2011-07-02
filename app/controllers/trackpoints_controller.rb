@@ -15,9 +15,18 @@ class TrackpointsController < ApplicationController
       respond_to do |format|
         format.html
         format.json do
-          render :json => [@trackpoints.map { |trackpoint|
-            [trackpoint.latitude, trackpoint.longitude]
-          }]
+          render :json => {
+            :distance_units => current_user.distance_units,
+            :tracks => [@trackpoints.map { |trackpoint|
+              {
+                :latitude  => trackpoint.latitude,
+                :longitude => trackpoint.longitude,
+                :elevation => trackpoint.elevation,
+                :timestamp => trackpoint.time.to_i,
+                :time      => trackpoint.time.strftime("%d.%m.%Y %H:%M")
+              }
+            }]
+          }
         end
       end
     end
