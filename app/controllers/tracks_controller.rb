@@ -69,7 +69,7 @@ class TracksController < ApplicationController
     @new_track = @track.log.tracks.create
     @track.trackpoints.update_all({ :track_id => @new_track.id }, ["time >= ?", @trackpoint.time])
 
-    @track.update_cached_information
+    @track.reload.update_cached_information
     @new_track.update_cached_information
 
     redirect_to log_track_path(@new_track.log, @new_track)
