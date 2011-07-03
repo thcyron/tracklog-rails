@@ -4,7 +4,7 @@ class Log < ActiveRecord::Base
   has_many :tracks, :order => "start_time ASC", :dependent => :destroy
   has_many :trackpoints, :through => :tracks
 
-  attr_accessible :name, :comment
+  attr_accessible :name, :comment, :video_url
   validates :name, :presence => true
 
   scope :for_user, lambda { |user|

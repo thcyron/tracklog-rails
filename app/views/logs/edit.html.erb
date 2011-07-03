@@ -27,6 +27,16 @@
         <%= f.text_area :comment %>
       </div>
     </div>
+    <% if current_user.video_enabled? %>
+      <div class="row">
+        <div class="label">
+          <label for="log_video_url">Video URL</label>
+        </div>
+        <div class="field">
+          <%= f.text_field :video_url %>
+        </div>
+      </div>
+    <% end %>
     <div class="row button">
       <%= submit_tag "Update Log" %>
     </div>

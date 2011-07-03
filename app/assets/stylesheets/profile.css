@@ -26,6 +26,11 @@
 	margin: 7px 20px 0 0;
 }
 
+#profile-details .field.video-features label {
+	display: inline-block;
+	margin: 5px 20px 0 0;
+}
+
 #profile-details .row.submit {
 	padding-left: 190px;
 }

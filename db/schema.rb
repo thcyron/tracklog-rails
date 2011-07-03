@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110611161715) do
+ActiveRecord::Schema.define(:version => 20110701100344) do
 
   create_table "logs", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110611161715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "video_url"
   end
 
   create_table "trackpoints", :force => true do |t|
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20110611161715) do
     t.string   "distance_units"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "video_enabled",   :default => false
   end
 
   add_index "users", ["username"], :name => "index_users_on_username"
