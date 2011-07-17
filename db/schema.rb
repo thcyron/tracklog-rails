@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110611161715) do
+ActiveRecord::Schema.define(:version => 20110717201425) do
 
   create_table "logs", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20110611161715) do
     t.float    "stopped_time"
     t.float    "moving_average_speed"
     t.string   "name"
+    t.integer  "relative_id",           :null => false
   end
 
   create_table "users", :force => true do |t|

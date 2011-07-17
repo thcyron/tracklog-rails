@@ -5,7 +5,12 @@ class TrackpointsController < ApplicationController
 
   def index
     if params[:track_id]
-      @track = Track.preload(:log).find(params[:track_id])
+      @track = Track \
+        .preload(:log)
+        .where(:log_id => params[:log_id])
+        .where(:relative_id => params[:track_id])
+        .first!
+
       @trackpoints = @track.trackpoints
 
       check_permission @track.log or return

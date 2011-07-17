@@ -100,15 +100,19 @@ class TracksController < ApplicationController
       log = if not params[:transfer_log_id].blank?
         Log.for_user(current_user).find(params[:transfer_log_id])
       elsif not params[:transfer_log_name].blank?
-        log      = Log.new
+        log = Log.new
+
         log.name = params[:transfer_log_name]
         log.user = current_user
-        log.save
-        log
+
+        log.save ? log : nil
       end
 
       if log
-        if log.valid? and @track.update_attribute(:log_id, log.id)
+        @track.log = log
+        @track.set_relative_id
+
+        if @track.save
           flash[:notice] = "The track has been transfered to log “#{log.name}”"
           redirect_to log_path(log)
         else
@@ -131,7 +135,11 @@ class TracksController < ApplicationController
   end
 
   def find_track_and_check_permission
-    @track = Track.preload(:log).find(params[:id])
+    @track = Track \
+      .preload(:log)
+      .where(:log_id => params[:log_id])
+      .where(:relative_id => params[:id])
+      .first!
 
     unless @track.log.user_id == current_user.id
       flash[:error] = "You don’t have permission to view this track."

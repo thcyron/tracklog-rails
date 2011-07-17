@@ -1,7 +1,7 @@
 <%- title "Transfer track #{@track.display_name}" -%>
 <h1>Transfer track <%= @track.display_name %></h1>
 
-<%= form_tag transfer_log_track_path(@track) do %>
+<%= form_tag transfer_log_track_path(@track.log, @track) do %>
   <p class="track-transfer-help">
     Select the log you want the track to be transfered to …
   </p>
