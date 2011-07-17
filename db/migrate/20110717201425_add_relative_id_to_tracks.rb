@@ -14,7 +14,7 @@ class AddRelativeIdToTracks < ActiveRecord::Migration
     change_column :tracks, :relative_id, :integer, :null => false
   end
 
-  def end
+  def down
     remove_column :tracks, :relative_id
   end
 end
