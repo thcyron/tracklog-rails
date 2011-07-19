@@ -1,5 +1,9 @@
-<%- title "Track #{@track.id}" -%>
-<h1>Track <%= @track.id %></h1>
+<%- title "Trackpoints for Track “#{@track.display_name}”" -%>
+
+<div id="track-header">
+  <h1>Trackpoints</h1>
+  <p class="subtitle"><%= link_to @track.display_name, log_track_path(@track.log, @track) %></p>
+</div>
 
 <table>
   <tr>
@@ -42,7 +46,7 @@
           <%- if i > 1 and @trackpoints[i + 1] -%>
             <%= link_to "Split track here", split_log_track_path(@track.log, @track, :trackpoint_id => trackpoint.id), :method => :put %> |
           <%- end -%>
-          <%= link_to "Delete this trackpoint", log_track_trackpoint_path(@track.log, @track, trackpoint), :method => :delete %>
+          <%= link_to "Delete trackpoint", log_track_trackpoint_path(@track.log, @track, trackpoint), :method => :delete %>
         <%- end -%>
       </td>
     </tr>

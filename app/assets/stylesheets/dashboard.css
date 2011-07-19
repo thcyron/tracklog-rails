@@ -22,16 +22,15 @@
 
 #dashboard-activity {
 	float: right;
-	width: 520px;
+	width: 550px;
+}
+
+#dashboard-activity .plot-wrapper {
+	margin: 10px 0;
 }
 
 #dashboard-activity-distance-plot, #dashboard-activity-duration-plot {
-	width: 520px;
 	height: 200px;
-}
-
-#dashboard-activity-distance-plot {
-	margin-bottom: 30px;
 }
 
 #dashboard-no-logs {

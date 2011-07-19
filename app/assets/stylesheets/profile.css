@@ -29,14 +29,3 @@
 #profile-details .row.submit {
 	padding-left: 190px;
 }
-
-#profile-details input[type="submit"] {
-	color: #fff;
-	font-family: sans-serif;
-	font-size: 14px;
-	font-weight: bold;
-	padding: 6px 20px;
-	background-color: green;
-	border: none;
-	border-radius: 6px;
-}

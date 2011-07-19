@@ -1,65 +1,93 @@
-#track-left-column {
-	float: left;
-	width: 640px;
+#track-header ul {
+	float: right;
+	margin: 8px 0 0 0;
 }
 
-#track-right-column {
-	float: right;
-	width: 260px;
+#track-header li {
+	display: inline;
+}
+
+#track-header {
+	margin: 0 0 15px;
+}
+
+#track-header h1 {
+	margin: 15px 0 0;
+}
+
+#track-header p {
+	margin: 0 0 10px;
+}
+
+#track-main {
+	width: 740px;
 }
 
 #track-map {
-	height: 400px;
+	height: 420px;
 }
 
-#track-tabs {
-	margin: 30px 0;
+#track-side {
+	float: right;
+	width: 230px;
+	margin: 0 0 40px;
 }
 
-#track-distance-elevation-plot {
-	width: 618px;
-	height: 250px;
+#track-side h3 {
+	color: #fff;
+	font-size: 14px;
+	background-color: green;
+	padding: 5px 10px;
 }
 
-#track-meta {
-	color: #555;
-	font-size: 13px;
+#track-side h3:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
 }
 
-#track-meta dl {
-	border-top: 1px solid #ddd;
-	margin: 0;
+#track-side .box {
+	font-size: 12px;
+	background-color: #f5f5f5;
+	padding: 10px 20px;
 }
 
-#track-meta dt {
+#track-side .box:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+#track-details {
+	font-size: 12px;
+}
+
+#track-details dl {
+	padding: 5px 0;
+}
+
+#track-details dt {
 	float: left;
 	clear: left;
-	border-bottom: 1px solid #ddd;
-	font-weight: bold;
-}
-
-#track-meta dd {
+	color: green;
 	text-align: right;
-	border-bottom: 1px solid #ddd;
+	width: 80px;
+	margin: 0 10px 0 0;
 }
 
-#track-meta dt, #track-meta dd {
-	padding: 8px 6px;
+#track-details dt, #track-details dd {
+	padding: 4px 0;
 }
 
-#track-actions {
-	font-size: 12px;
-	margin: 40px 0 0 0;
-}
-
-#track-actions ol {
+#track-actions ul {
 	list-style: none;
-	padding: 0;
 }
 
 #track-actions li {
-	margin: 6px 0;
-	text-align: right;
+	margin: 2px 0;
+	line-height: 1.5;
+}
+
+#track-distance-elevation-plot {
+	height: 250px;
 }
 
 #track-rename-pane {
@@ -81,7 +109,7 @@
 .track-transfer-help {
 	color: #555;
 	font-size: 18px;
-	margin-top: 50px;
+	margin: 50px 0 20px;
 }
 
 #map-popup {
@@ -95,15 +123,10 @@
 	padding: 10px;
 }
 
-#map-popup dl {
-	margin: 0;
-}
-
 #map-popup dt {
 	float: left;
 	clear: left;
-	color: #888;
-	font-weight: bold;
+	color: #666;
 	text-align: right;
 	width: 50px;
 	margin-right: 6px;

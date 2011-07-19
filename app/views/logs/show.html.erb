@@ -5,125 +5,120 @@
 
 <script>
   $(function() {
-    new Bikelog.Map("log-map", "<%= log_tracks_path(@log, :json) %>");
-    Bikelog.DistanceElevationPlot.setup("log-distance-elevation-plot",
-      "<%= plot_data_log_path(@log, :json) %>",
-      "<%= current_user.distance_units %>");
+    new Bikelog.Map("track-map", "<%=j log_tracks_path(@log, :json) %>");
+    new Bikelog.DistanceElevationPlot("track-distance-elevation-plot", "<%=j plot_data_log_path(@log, :json) %>", "<%= current_user.distance_units %>");
   });
 </script>
 
-<div class="log-page">
+<div id="track-header">
+  <ul>
+    <li><%= link_to "Export", log_path(@log, :format => :gpx), :class => "button" %>
+  </ul>
+
   <h1><%= @log.name %></h1>
-  <div id="log-left-column">
-    <div id="log-map">
-    </div>
-    <div id="log-tabs" class="tabs">
-      <%- if @log.comment and not @log.comment.empty? -%>
-        <div id="description-tab" class="tab">
-          <h2>Description</h2>
-          <div id="log-comment">
-            <%=raw Redcarpet.new(@log.comment).to_html %>
-          </div>
-        </div>
+</div>
+
+<div id="track-side">
+  <h3>Details</h3>
+
+  <div id="track-details" class="box">
+    <dl>
+      <dt>Start</dt>
+      <dd><%= @log.start_time ? l(@log.start_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
+      <dt>End</dt>
+      <dd><%= @log.end_time ? l(@log.end_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
+      <dt>Duration</dt>
+      <dd><%=format_duration @log.duration %></dd>
+      <dt>Moving</dt>
+      <dd><%=format_duration @log.moving_time %></dd>
+      <dt>Stopped</dt>
+      <dd><%=format_duration @log.stopped_time %></dd>
+    </dl>
+
+    <dl>
+      <dt>Distance</dt>
+      <dd><%=format_distance @log.distance %></dd>
+      <dt>∅ Speed</dt>
+      <dd><%=format_speed @log.overall_average_speed %></dd>
+      <dt>Mov. ∅ Speed</dt>
+      <dd><%=format_speed @log.moving_average_speed %></dd>
+      <dt>Max. Speed</dt>
+      <dd><%=format_speed @log.max_speed %></dd>
+    </dl>
+
+    <dl>
+      <dt>Ascent</dt>
+      <dd><%=format_elevation @log.ascent %></dd>
+      <dt>Descent</dt>
+      <dd><%=format_elevation @log.descent %></dd>
+      <dt>Min. Elevation</dt>
+      <dd><%=format_elevation @log.min_elevation %></dd>
+      <dt>Max. Elevation</dt>
+      <dd><%=format_elevation @log.max_elevation %></dd>
+    </dl>
+
+    <dl>
+      <dt>Tracks</dt>
+      <dd><%= @log.tracks.count %></dd>
+      <dt>Trackpoints</dt>
+      <dd><%= @log.tracks.map { |t| t.trackpoints.count }.sum %></dd>
+    </dl>
+  </div>
+
+  <h3>Tracks</h3>
+
+  <div id="log-tracks" class="box">
+    <ul>
+      <%- @log.tracks.each do |track| -%>
+        <li><%= link_to track.display_name, log_track_path(@log, track) %><br>
+          <%=l track.start_time, :format => "%d.%m.%Y %H:%M" %>,
+          <%=format_distance track.distance %>
       <%- end -%>
-      <div id="distance-elevation-plot-tab" class="tab">
-        <h2>Elevation Profile</h2>
-        <div id="log-distance-elevation-plot"></div>
-      </div>
-      <div id="tracks-tab" class="tab">
-        <div id="log-tracks">
-          <h2>Tracks</h2>
-          <table id="log-tracks-table">
-            <thead>
-              <tr>
-                <th class="l">Name</th>
-                <th class="l" width="110">Start Time</th>
-                <th class="l" width="110">End Time</th>
-                <th class="r" width="70">Duration</th>
-                <th class="r" width="70">Distance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%- @log.tracks.each do |track| -%>
-                <tr>
-                  <td><%= link_to track.display_name, log_track_path(@log, track) %></td>
-                  <td><%=l track.start_time, :format => "%d.%m.%Y %H:%M" %></td>
-                  <td><%=l track.end_time, :format => "%d.%m.%Y %H:%M" %></td>
-                  <td class="r"><%=format_duration track.duration %></td>
-                  <td class="r"><%=format_distance track.distance %></td>
-                </tr>
-              <%- end -%>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div id="alternatives-tab" class="tab">
-        <h2>Alternative Rides</h2>
-        <table id="log-alternatives-table">
-          <thead>
-            <tr>
-              <th class="l" width="10"></th>
-              <th class="l" width="110">Start Time</th>
-              <th class="l" width="110">End Time</th>
-              <th class="r" width="70">Rank</th>
-              <th class="r" width="70">Duration</th>
-              <th class="r" width="70">Distance</th>
-            </tr>
-          </thead>
-          <tbody>
-            <%- @log.alternatives.each do |log| -%>
-              <tr class="<%= log.id == @log.id ? 'h' : '' %>">
-                <td><%= link_to image_tag('link.png'), log unless log.id == @log.id %></td>
-                <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
-                <td><%=l log.end_time, :format => "%d.%m.%Y %H:%M" %></td>
-                <td class="r"><%=format_rank log.rank %></td>
-                <td class="r"><%=format_duration log.duration %></td>
-                <td class="r"><%=format_distance log.distance %></td>
-              </tr>
+    </ul>
+  </div>
+
+  <%- if @log.alternatives.size > 1 -%>
+    <h3>Alternatives</h3>
+
+    <div id="log-alternatives" class="box">
+      <ul>
+        <%- @log.alternatives.each do |log| -%>
+          <li>
+            <%- if rank = format_rank(log.rank) -%>
+              <%=raw rank %>
             <%- end -%>
-          </tbody>
-        </table>
-      </div>
+            <%= link_to l(log.start_time, :format => "%d.%m.%Y %H:%M"), log %><br>
+            <%=format_duration log.duration %>, <%=format_distance log.distance %>
+          </li>
+        <%- end -%>
+      </ul>
     </div>
+  <%- end -%>
+
+  <h3>Actions</h3>
+
+  <div id="track-actions" class="box">
+    <ul>
+      <li><%= link_to "Edit Log", edit_log_path(@log) %>
+      <li><%= link_to "Delete Log", log_path(@log), :method => :delete, :confirm => "Do you really want to delete this log and its tracks?" %>
+    </ul>
   </div>
-  <div id="log-right-column">
-    <div id="log-meta">
-      <dl>
-        <dt>Start Time</dt>
-        <dd><%= @log.start_time ? l(@log.start_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
-        <dt>End Time</dt>
-        <dd><%= @log.end_time ? l(@log.end_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
-        <dt>Moving Time</dt>
-        <dd><%=format_duration @log.moving_time %></dd>
-        <dt>Stopped Time</dt>
-        <dd><%=format_duration @log.stopped_time %></dd>
-        <dt>Duration</dt>
-        <dd><%=format_duration @log.duration %></dd>
-        <dt>Distance</dt>
-        <dd><%=format_distance @log.distance %></dd>
-        <dt>Overall Avg. Speed</dt>
-        <dd><%=format_speed @log.overall_average_speed %></dd>
-        <dt>Moving Avg. Speed</dt>
-        <dd><%=format_speed @log.moving_average_speed %></dd>
-        <dt>Max. Speed</dt>
-        <dd><%=format_speed @log.max_speed %></dd>
-        <dt>Ascent</dt>
-        <dd><%=format_elevation @log.ascent %></dd>
-        <dt>Descent</dt>
-        <dd><%=format_elevation @log.descent %></dd>
-        <dt>Min. Elevation</dt>
-        <dd><%=format_elevation @log.min_elevation %></dd>
-        <dt>Max. Elevation</dt>
-        <dd><%=format_elevation @log.max_elevation %></dd>
-      </dl>
+</div>
+
+<div id="track-main">
+  <div id="track-map"></div>
+
+  <%- if @log.comment and not @log.comment.empty? -%>
+    <h2>Description</h2>
+
+    <div id="log-comment">
+      <%=raw Redcarpet.new(@log.comment).to_html %>
     </div>
-    <div id="log-actions">
-      <ol>
-        <li><%= link_to "Export tracks as GPX", log_path(@log, :format => :gpx) %>
-        <li><%= link_to "Edit this log", edit_log_path(@log) %>
-        <li><%= link_to "Delete this log", @log, :method => :delete, :confirm => "Do you really want to delete this log?" %>
-      </ol>
-    </div>
+  <%- end -%>
+
+  <h2>Elevation Profile</h2>
+
+  <div class="plot-wrapper">
+    <div id="track-distance-elevation-plot"></div>
   </div>
-  <br class="clear">
 </div>

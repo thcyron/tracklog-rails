@@ -7,6 +7,14 @@ class LogsController < ApplicationController
   def index
     @selected_year = params[:year] ? params[:year].to_i : Time.now.year
 
+    @available_years = Track \
+      .joins(:log) \
+      .where("logs.user_id = ?", current_user.id) \
+      .select("tracks.start_time") \
+      .map { |track| track.start_time.year } \
+      .uniq \
+      .sort
+
     @logs = Log \
       .for_user(current_user) \
       .joins(:tracks) \

@@ -1,7 +1,0 @@
-<div id="logs-navigation">
-  <%= link_to "← Logs for #{@selected_year - 1}", year_logs_path(:year => @selected_year - 1), :class => "prev" %>
-  <%- unless @selected_year == Time.now.year -%>
-    <%= link_to "Logs for #{@selected_year + 1} →", year_logs_path(:year => @selected_year + 1), :class => "next" %>
-  <%- end -%>
-  <br class="clear">
-</div>

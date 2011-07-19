@@ -1,11 +1,89 @@
+#log-tracks ul {
+	list-style: none;
+}
+
+#log-tracks li {
+	margin: 5px 0;
+	line-height: 1.5;
+}
+
+#log-alternatives ul {
+	list-style: none;
+}
+
+#log-alternatives li {
+	margin: 5px 0;
+	line-height: 1.5;
+}
+
+#log-alternatives img {
+	float: right;
+	margin-top: 6px;
+}
+
+#log-comment {
+	line-height: 1.6;
+}
+
+#logs-no-logs {
+	color: #888;
+	font-size: 20px;
+	margin: 50px 0;
+}
+
+.logs-month {
+	margin: 30px 0;
+}
+
+.logs-month-box {
+	float: left;
+	color: #888;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: right;
+	padding-top: 3px;
+	width: 125px;
+}
+
+.logs-month-box .year {
+	font-size: 14px;
+}
+
+.logs-month-logs {
+	float: right;
+	width: 830px;
+	padding: 0 0 0 20px;
+	border-left: 1px solid #ccc;
+}
+
+.logs-month-logs tfoot td {
+	font-weight: bold;
+	border: none;
+}
+
+#logs-total {
+	border-top: 3px double #eee;
+	padding: 5px;
+}
+
+#logs-total .duration, #logs-total .distance {
+	float: right;
+	text-align: right;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+#logs-total .distance {
+	width: 110px;
+}
+
 .log-dialog .row {
-	background-color: #fff;
 	padding: 10px 0;
 	margin: 2px 0;
 }
 
 .log-dialog .row.button {
-	padding: 10px 0 10px 115px;
+	padding: 10px 0 10px 120px;
 }
 
 .log-dialog .label {
@@ -18,6 +96,7 @@
 	color: #666;
 	font-size: 11px;
 	line-height: 1.4;
+	margin-top: 8px;
 }
 
 .log-dialog .field {
@@ -33,6 +112,7 @@
 .log-dialog .field .track-help {
 	color: #666;
 	font-size: 12px;
+	margin-top: 8px;
 }
 
 .log-dialog input[type="text"] {
@@ -40,192 +120,10 @@
 }
 
 .log-dialog textarea {
-	font-size: 14px;
-	font-family: sans-serif;
-	padding: 6px;
 	width: 500px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
 	height: 200px;
-}
-
-.log-dialog input[type="submit"] {
-	color: #fff;
-	font-family: sans-serif;
-	font-size: 14px;
-	font-weight: bold;
-	padding: 6px 20px;
-	background-color: green;
-	border: none;
-	border-radius: 6px;
 }
 
 .log-dialog .row.track-file .label {
 	padding-top: 3px;
-}
-
-#log-left-column {
-	float: left;
-	width: 640px;
-}
-
-#log-right-column {
-	float: right;
-	width: 260px;
-}
-
-#log-map {
-	height: 400px;
-}
-
-#log-tabs {
-	margin: 30px 0;
-}
-
-#log-comment {
-	line-height: 1.6;
-}
-
-#log-distance-elevation-plot {
-	width: 618px;
-	height: 250px;
-}
-
-#log-meta {
-	color: #555;
-	font-size: 13px;
-}
-
-#log-meta dl {
-	border-top: 1px solid #ddd;
-	margin: 0;
-}
-
-#log-meta dt {
-	float: left;
-	clear: left;
-	border-bottom: 1px solid #ddd;
-	font-weight: bold;
-}
-
-#log-meta dd {
-	text-align: right;
-	border-bottom: 1px solid #ddd;
-}
-
-#log-meta dt, #log-meta dd {
-	padding: 8px 6px;
-}
-
-#log-actions {
-	font-size: 12px;
-	margin: 40px 0 0 0;
-}
-
-#log-actions ol {
-	list-style: none;
-	padding: 0;
-}
-
-#log-actions li {
-	margin: 6px 0;
-	text-align: right;
-}
-
-#log-tracks-table, #log-alternatives-table {
-	width: 100%;
-}
-
-#log-alternatives-table > tbody > tr.h {
-  background-color: green;
-  color: white;
-}
-
-#logs-navigation {
-	font-size: 13px;
-	margin: 30px 0;
-}
-
-#logs-navigation .next {
-	float: right;
-}
-
-#logs-no-logs {
-	color: #888;
-	font-size: 20px;
-	margin: 50px 0;
-}
-
-.logs-month {
-	margin: 20px 0;
-	background-color: #eee;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-bottomleft: 5px;
-}
-
-.logs-month-box {
-	float: left;
-	width: 150px;
-	color: #888;
-	font-size: 18px;
-	text-transform: uppercase;
-	padding: 10px;
-}
-
-.logs-month-box .year {
-	font-size: 14px;
-	margin-top: 3px;
-}
-
-.logs-month-logs {
-	float: right;
-	width: 770px;
-	background-color: #fff;
-}
-
-.logs-month-logs table th {
-	color: #888;
-	font-weight: normal;
-	background-color: #eee;
-	border-bottom-width: 1px;
-}
-
-.logs-month-logs table td, .logs-month-logs table th {
-	border-color: #eee;
-}
-
-.logs-month-logs table tfoot td {
-	font-weight: bold;
-}
-
-#logs-total {
-	background-color: #eee;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	padding: 10px;
-}
-
-#logs-total span {
-	color: #888;
-	font-size: 18px;
-	text-transform: uppercase;
-}
-
-#logs-total .duration, #logs-total .distance {
-	float: right;
-	text-align: right;
-	font-weight: bold;
-	line-height: 18px;
-}
-
-#logs-total .distance {
-	width: 108px;
 }

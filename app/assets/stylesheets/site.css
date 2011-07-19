@@ -1,26 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 html {
 	color: #333;
-	font: normal 14px sans-serif;
+	font: normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: #fafafa;
 }
 
 body {
-	width: 940px;
-	margin: 30px auto;
+	padding: 0 0 40px;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-textarea:focus {
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 	outline: none;
 }
 
+h1, h2 {
+	color: green;
+	margin: 30px 0 10px;
+	text-shadow: 0 1px 0 #fff;
+}
+
 h1 {
-	font-size: 26px;
+	font-size: 22px;
 }
 
 h2 {
-	font-size: 18px;
-	margin: 60px 0 20px;
+	font-size: 16px;
+	border-bottom: 1px solid #eee;
+	padding: 0 0 5px;
 }
 
 a {
@@ -39,21 +49,22 @@ table {
 
 td, th {
 	font-size: 13px;
-	border-bottom: 1px solid #ddd;
-	padding: 6px;
+	padding: 5px;
+	border-bottom: 1px solid #eee;
+}
+
+tr.h td {
+	background-color: #ededed;
 }
 
 th {
-	color: green;
-	border-bottom-width: 2px;
+	color: #888;
+	font-size: 11px;
+	font-weight: normal;
 }
 
 td.r, th.r {
 	text-align: right;
-}
-
-td.r > img {
-  vertical-align: -3px;
 }
 
 td.c, th.c {
@@ -64,38 +75,38 @@ td.l, th.l {
 	text-align: left;
 }
 
-input[type="text"], input[type="password"] {
-	font-size: 14px;
-	font-family: sans-serif;
+input[type="text"], input[type="password"], textarea {
+	font: normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 6px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 }
 
-input[type="submit"].green {
+input[type="submit"] {
 	color: #fff;
-	font-family: sans-serif;
-	font-size: 14px;
-	font-weight: bold;
+	text-shadow: 1px 1px 0 #056500;
+	font: normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 6px 20px;
-	background-color: green;
-	border: none;
-	border-radius: 6px;
+	background: green -webkit-gradient(linear, left top, left bottom, from(#0a9d00), to(green));
+	border: 1px solid #237a1e;
+	border-radius: 4px;
 }
 
 .clear {
 	clear: both;
 }
 
-#header {
-	margin: 0 0 40px;
+.site {
+	width: 1000px;
+	margin: 0 auto;
 }
 
-#header ol {
-	float: left;
-	list-style: none;
-	padding: 0;
-	margin: 0;
+#header {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+	padding: 20px 0;
+	font-size: 16px;
+	line-height: 16px;
 }
 
 #header li {
@@ -105,70 +116,28 @@ input[type="submit"].green {
 
 #header li a {
 	font-weight: bold;
-	font-size: 16px;
 }
 
 #header .info {
 	float: right;
 	color: #555;
 	font-size: 13px;
-	margin: 2px 0 0 0;
+}
+
+#flash-notice, #flash-error {
+	padding: 10px 15px;
+	margin: 30px 0;
+	border: 2px solid #000;
 }
 
 #flash-notice {
 	color: green;
-	border: 2px solid green;
-	padding: 10px 15px;
-	margin: 0 0 30px 0;
+	border-color: green;
 }
 
 #flash-error {
 	color: #c00;
-	border: 2px solid #c00;
-	padding: 10px 15px;
-	margin: 0 0 30px 0;
-}
-
-.tabs {
-	margin: 20px 0;
-}
-
-.tabs .tab-bar {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.tabs .tab-bar li {
-	color: #777;
-	font-size: 11px;
-	font-weight: bold;
-	text-transform: uppercase;
-	display: inline-block;
-	border: 1px solid #ddd;
-	border-width: 1px 1px 0 0;
-	padding: 8px 10px;
-}
-
-.tabs .tab-bar li:first-child {
-	border-left-width: 1px;
-}
-
-.tabs .tab-bar li:hover {
-	cursor: pointer;
-}
-
-.tabs .tab-bar li.selected {
-	color: green;
-}
-
-.tabs .tab {
-	border: 1px solid #ddd;
-	padding: 10px;
-}
-
-.tabs .tab h2 {
-	display: none;
+	border-color: #c00;
 }
 
 .site-overlay {
@@ -194,8 +163,11 @@ input[type="submit"].green {
 .site-overlay .box h2 {
 	color: #fff;
 	margin: 5px 0 10px 5px;
+	padding: 0 !important;
 	font-size: 16px;
 	line-height: 16px;
+	text-shadow: none;
+	border: none !important;
 }
 
 .site-overlay .close {
@@ -209,6 +181,30 @@ input[type="submit"].green {
 .site-overlay .box .content {
 	background-color: #fff;
 	border-radius: 3px;
-	margin: 0;
 	padding: 10px;
+}
+
+a.button {
+	color: #fff;
+	text-shadow: 1px 1px 0 #056500;
+	font-size: 11px;
+	font-weight: normal;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 4px 10px;
+	border-radius: 4px;
+	background: green -webkit-gradient(linear, left top, left bottom, from(#0a9d00), to(green));
+	border: 1px solid #237a1e;
+}
+
+.subtitle a {
+	color: #777;
+	font-size: 12px;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.plot-wrapper {
+	border: 1px solid #eee;
+	border-right-color: #ddd;
+	border-bottom-color: #ddd;
 }

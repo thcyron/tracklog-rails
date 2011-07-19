@@ -1,5 +1,9 @@
-<%- title "Transfer track #{@track.display_name}" -%>
-<h1>Transfer track <%= @track.display_name %></h1>
+<%- title "Transfer Track" -%>
+
+<div id="track-header">
+  <h1>Transfer Track</h1>
+  <p class="subtitle"><%= link_to @track.display_name, log_track_path(@track.log, @track) %></p>
+</div>
 
 <%= form_tag transfer_log_track_path(@track.log, @track) do %>
   <p class="track-transfer-help">
@@ -15,6 +19,6 @@
     <%= text_field_tag :transfer_log_name, params[:transfer_log_name], :size => 60 %>
   </p>
   <p>
-    <%= submit_tag "Transfer track", :id => "track-transfer-button", :class => "green" %>
+    <%= submit_tag "Transfer Track", :id => "track-transfer-button" %>
   </p>
 <% end %>

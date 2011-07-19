@@ -1,43 +1,46 @@
 <%- title @orig_log.name -%>
-<h1><%= @orig_log.name %></h1>
 
-<div class="log-dialog">
-  <%= form_for @log do |f| %>
-    <div class="row">
-      <div class="label">
-        <label for="log_name">Name</label>
-      </div>
-      <div class="field">
-        <%= f.text_field :name %>
-        <%- unless @log.errors[:name].empty? -%>
-          <%- @log.errors[:name].each do |message| -%>
-            <p class="error">Log name <%= message %></p>
+<div class="site">
+  <h1><%= @orig_log.name %></h1>
+
+  <div class="log-dialog">
+    <%= form_for @log do |f| %>
+      <div class="row">
+        <div class="label">
+          <label for="log_name">Name</label>
+        </div>
+        <div class="field">
+          <%= f.text_field :name %>
+          <%- unless @log.errors[:name].empty? -%>
+            <%- @log.errors[:name].each do |message| -%>
+              <p class="error">Log name <%= message %></p>
+            <%- end -%>
           <%- end -%>
-        <%- end -%>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="label">
-        <label for="log_comment">Comment</label>
-        <p class="markdown">
-          You can use Markdown to format your comment.
-        </p>
+      <div class="row">
+        <div class="label">
+          <label for="log_comment">Comment</label>
+          <p class="markdown">
+            You can use Markdown to format your comment.
+          </p>
+        </div>
+        <div class="field">
+          <%= f.text_area :comment %>
+        </div>
       </div>
-      <div class="field">
-        <%= f.text_area :comment %>
+      <div class="row button">
+        <%= submit_tag "Update Log" %>
       </div>
-    </div>
-    <div class="row button">
-      <%= submit_tag "Update Log" %>
-    </div>
+    <% end %>
+  </div>
+
+  <h2>Upload a Track File</h2>
+
+  <%= form_tag upload_track_log_path, :multipart => true do %>
+    <p>
+      <%= file_field_tag :track_file %>
+      <%= submit_tag "Upload Track File" %>
+    </p>
   <% end %>
 </div>
-
-<h2>Upload a track file</h2>
-
-<%= form_tag upload_track_log_path, :multipart => true do %>
-  <p>
-    <%= file_field_tag :track_file %>
-    <%= submit_tag "Upload track file" %>
-  </p>
-<% end %>

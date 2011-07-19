@@ -6,79 +6,94 @@
 <script>
   $(function() {
     new Bikelog.Map("track-map", "<%= log_track_trackpoints_path(@track.log, @track, :json) %>");
-    Bikelog.DistanceElevationPlot.setup("track-distance-elevation-plot",
-      "<%= plot_data_log_track_path(@track.log, @track, :json) %>",
-      "<%= current_user.distance_units %>");
+    new Bikelog.DistanceElevationPlot("track-distance-elevation-plot", "<%=j plot_data_log_track_path(@track.log, @track, :json) %>", "<%= current_user.distance_units %>");
   });
 </script>
 
-<h1 id="track-name" data-default-name="<%= "Track #{@track.relative_id}" %>"><%= @track.display_name %></h1>
+<div id="track-header">
+  <ul>
+    <li><%= link_to "Export", log_path(@log, :format => :gpx), :class => "button" %>
+  </ul>
 
-<div id="track-page">
-  <div id="track-left-column">
-    <div id="track-map"></div>
-    <p>
-      This track belongs to log <%= link_to @track.log.name, @track.log %>.
-    </p>
-    <div id="track-tabs" class="tabs">
-      <div id="distance-elevation-plot-tab" class="tab">
-        <h2>Elevation Profile</h2>
-        <div id="track-distance-elevation-plot"></div>
-      </div>
-    </div>
+  <h1 id="track-name" data-default-name="<%= "Track #{@track.relative_id}" %>"><%= @track.display_name %></h1>
+  <p class="subtitle"><%= link_to @track.log.name, @track.log %></p>
+</div>
+
+<div id="track-side">
+  <h3>Details</h3>
+
+  <div id="track-details" class="box">
+    <dl>
+      <dt>Start</dt>
+      <dd><%= @track.start_time ? l(@track.start_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
+      <dt>End</dt>
+      <dd><%= @track.end_time ? l(@track.end_time, :format => "%d.%m.%Y %H:%M") : "—" %></dd>
+      <dt>Duration</dt>
+      <dd><%=format_duration @track.duration %></dd>
+      <dt>Moving</dt>
+      <dd><%=format_duration @track.moving_time %></dd>
+      <dt>Stopped</dt>
+      <dd><%=format_duration @track.stopped_time %></dd>
+    </dl>
+
+    <dl>
+      <dt>Distance</dt>
+      <dd><%=format_distance @track.distance %></dd>
+      <dt>∅ Speed</dt>
+      <dd><%=format_speed @track.overall_average_speed %></dd>
+      <dt>Mov. ∅ Speed</dt>
+      <dd><%=format_speed @track.moving_average_speed %></dd>
+      <dt>Max. Speed</dt>
+      <dd><%=format_speed @track.max_speed %></dd>
+    </dl>
+
+    <dl>
+      <dt>Ascent</dt>
+      <dd><%=format_elevation @track.ascent %></dd>
+      <dt>Descent</dt>
+      <dd><%=format_elevation @track.descent %></dd>
+      <dt>Min. Elevation</dt>
+      <dd><%=format_elevation @track.min_elevation %></dd>
+      <dt>Max. Elevation</dt>
+      <dd><%=format_elevation @track.max_elevation %></dd>
+    </dl>
+
+    <dl>
+      <dt>Trackpoints</dt>
+      <dd><%= @track.trackpoints.count %></dd>
+    </dl>
   </div>
-  <div id="track-right-column">
-    <div id="track-meta">
-      <dl>
-        <dt>Start Time</dt>
-        <dd><%=l @track.start_time, :format => "%d.%m.%Y %H:%M" %></dd>
-        <dt>End Time</dt>
-        <dd><%=l @track.end_time, :format => "%d.%m.%Y %H:%M" %></dd>
-        <dt>Moving Time</dt>
-        <dd><%=format_duration @track.moving_time %></dd>
-        <dt>Stopped Time</dt>
-        <dd><%=format_duration @track.stopped_time %></dd>
-        <dt>Duration</dt>
-        <dd><%=format_duration @track.duration %></dd>
-        <dt>Distance</dt>
-        <dd><%=format_distance @track.distance %></dd>
-        <dt>Overall Avg. Speed</dt>
-        <dd><%=format_speed @track.overall_average_speed %></dd>
-        <dt>Moving Avg. Speed</dt>
-        <dd><%=format_speed @track.moving_average_speed %></dd>
-        <dt>Max. Speed</dt>
-        <dd><%=format_speed @track.max_speed %></dd>
-        <dt>Ascent</dt>
-        <dd><%=format_elevation @track.ascent %></dd>
-        <dt>Descent</dt>
-        <dd><%=format_elevation @track.descent %></dd>
-        <dt>Min. Elevation</dt>
-        <dd><%=format_elevation @track.min_elevation %></dd>
-        <dt>Max. Elevation</dt>
-        <dd><%=format_elevation @track.max_elevation %></dd>
-      </dl>
-    </div>
-    <div id="track-actions">
-      <ol>
-        <li><%= link_to "Export track as GPX", log_track_path(@track.log, @track, :format => :gpx) %>
-        <li><%= link_to "Show trackpoints", log_track_trackpoints_path(@track.log, @track) %>
-        <li><%= link_to "Rename this track", nil, :id => "track-rename-link" %>
-        <li><%= link_to "Transfer this track", transfer_log_track_path(@track.log, @track) %>
-        <%- if @track.log.tracks.size > 1 -%>
-          <li><%= link_to "Delete this track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
-        <%- end -%>
-      </ol>
-    </div>
+
+  <h3>Actions</h3>
+
+  <div id="track-actions" class="box">
+    <ul>
+      <li><%= link_to "Show Trackpoints", log_track_trackpoints_path(@track.log, @track) %>
+      <li><%= link_to "Transfer Track", transfer_log_track_path(@track.log, @track) %>
+      <li><%= link_to "Rename Track", nil, :id => "track-rename-link" %>
+      <%- if @track.log.tracks.size > 1 -%>
+        <li><%= link_to "Delete Track", log_track_path(@track.log, @track), :method => :delete, :confirm => "Do you really want to delete this track?" %>
+      <%- end -%>
+    </ul>
   </div>
-  <br class="clear">
+</div>
+
+<div id="track-main">
+  <div id="track-map"></div>
+
+  <h2>Elevation Profile</h2>
+
+  <div class="plot-wrapper">
+    <div id="track-distance-elevation-plot"></div>
+  </div>
 </div>
 
 <div id="track-rename-pane" class="site-overlay">
   <div class="box">
     <div class="close">×</div>
-    <h2>Rename this track</h2>
+    <h2>Rename Track</h2>
     <div class="content">
-      <%= form_for [@track.log, @track], :remote => true do %>
+      <%= form_for log_track_path(@track.log, @track), :method => :put, :remote => true do %>
         <%= text_field :track, :name %>
       <% end %>
     </div>
