@@ -20,6 +20,9 @@
           <li><%= link_to "Logs", logs_path %>
           <li><%= link_to "Add a Log", new_log_path %>
           <li><%= link_to "My Profile", profile_path %>
+          <%- if current_user.is_admin? -%>
+            <li><%= link_to "Admin", admin_path %>
+          <%- end -%>
         </ul>
       </div>
     </div>

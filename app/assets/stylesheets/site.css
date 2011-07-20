@@ -197,6 +197,12 @@ a.button {
 	border: 1px solid #237a1e;
 }
 
+a.button.big {
+	font-size: 14px;
+	text-transform: none;
+	padding: 6px 12px;
+}
+
 .subtitle a {
 	color: #777;
 	font-size: 12px;
@@ -207,4 +213,36 @@ a.button {
 	border: 1px solid #eee;
 	border-right-color: #ddd;
 	border-bottom-color: #ddd;
+}
+
+.form .row {
+	padding: 10px 0;
+	margin: 2px 0;
+	clear: left;
+}
+
+.form .label {
+	float: left;
+	text-align: right;
+	width: 170px;
+	padding: 8px 0 0 0;
+}
+
+.form .field {
+	margin: 0 0 0 190px;
+}
+
+.form .field p.error {
+	color: #c00;
+	font-size: 11px;
+	margin: 4px 0 0 4px;
+}
+
+.form .field.controls label {
+	display: inline-block;
+	margin: 8px 20px 0 0;
+}
+
+.form .row.submit {
+	padding-left: 190px;
 }

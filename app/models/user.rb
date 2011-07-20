@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :tracks, :through => :logs
 
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
+  validates :password, :presence => true, :on => :create
   validates :distance_units, :inclusion => { :in => [:imperial, :metric] }, :unless => lambda { |s| s.blank? }
 
   attr_protected :is_admin

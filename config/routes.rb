@@ -9,6 +9,8 @@ Bikelog::Application.routes.draw do
 
   get "dashboard/activity_plots_data" => "dashboard#activity_plots_data"
 
+  get "admin" => "admin#index", :as => :admin
+
   resources :logs do
     collection do
       get "year/:year" => :index, :as => :year
@@ -29,5 +31,9 @@ Bikelog::Application.routes.draw do
         get :plot_data
       end
     end
+  end
+
+  namespace :admin do
+    resources :users
   end
 end

@@ -1,0 +1,32 @@
+<%- title "Admin" -%>
+<h1>Admin</h1>
+
+<h2>Users</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th class="l">Username</th>
+      <th class="l">Name</th>
+      <th class="l">Last Login</th>
+      <th class="r">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @users.each do |user| -%>
+      <tr>
+        <td><%= user.username %> <%= "(Admin)" if user.is_admin? %></td>
+        <td><%= user.name.present? ? user.name : "–" %></td>
+        <td><%= user.last_login_at ? "#{distance_of_time_in_words_to_now user.last_login_at} ago" : "never" %></td>
+        <td class="r">
+          <%= link_to "Edit", edit_admin_user_path(user) %> |
+          <%= link_to "Delete", admin_user_path(user), :method => :delete, :confirm => "Do you really want to delete this user and all its logs?" %>
+        </td>
+      </tr>
+    <%- end -%>
+  </tbody>
+</table>
+
+<p id="admin-add-user-button">
+  <%= link_to "Add a new User", new_admin_user_path, :class => "button big" %>
+</p>
