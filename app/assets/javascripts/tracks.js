@@ -5,7 +5,6 @@
 //= require bikelog/distance-elevation-plot
 //= require bikelog/haversine
 //= require bikelog/map
-//= require bikelog/tabs
 
 $(function() {
   $("#track-rename-pane input[type='text']").keyup(function() {
