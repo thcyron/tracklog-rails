@@ -9,6 +9,22 @@ class TracksController < ApplicationController
 
     respond_to do |format|
       format.html
+
+      format.json do
+        render :json => [{
+          :name => @track.display_name,
+          :points => @trackpoints.map { |trackpoint|
+            {
+              :latitude  => trackpoint.latitude,
+              :longitude => trackpoint.longitude,
+              :elevation => trackpoint.elevation,
+              :timestamp => trackpoint.time.to_i,
+              :time      => trackpoint.time.strftime("%d.%m.%Y %H:%M")
+            }
+          }
+        }]
+      end
+
       format.gpx do
         filename = if @track.name and @track.name.strip.length > 0
           "track-#{@track.id}-#{@track.name.parameterize}.gpx"
@@ -17,19 +33,6 @@ class TracksController < ApplicationController
         end
 
         headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
-      end
-    end
-  end
-
-  def plot_data
-    respond_to do |format|
-      format.json do
-        track_plot_data = @track.plot_data
-
-        render :json => {
-          :minElevation => track_plot_data[:min_elevation],
-          :points => track_plot_data[:points]
-        }
       end
     end
   end

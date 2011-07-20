@@ -5,8 +5,10 @@
 
 <script>
   $(function() {
-    new Bikelog.Map("track-map", "<%=j log_tracks_path(@log, :json) %>");
-    new Bikelog.DistanceElevationPlot("track-distance-elevation-plot", "<%=j plot_data_log_path(@log, :json) %>", "<%= current_user.distance_units %>");
+    new Bikelog.TracksFetcher("<%=j log_path(@log, :json) %>", function(tracksFetcher) {
+      new Bikelog.Map("track-map", tracksFetcher, "<%= current_user.distance_units %>");
+      new Bikelog.DistanceElevationPlot("track-distance-elevation-plot", tracksFetcher, "<%= current_user.distance_units %>");
+    });
   });
 </script>
 

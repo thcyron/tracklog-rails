@@ -1,14 +1,12 @@
 Bikelog.MapPopupOverlay = function(options) {
-  this.map = options.map;
-  this.distance_units = options.distance_units;
+  this.map           = options.map;
+  this.distanceUnits = options.distanceUnits;
 
   this.setMap(this.map);
-}
+};
 
 Bikelog.MapPopupOverlay.prototype = new google.maps.OverlayView();
-
-Bikelog.MapPopupOverlay.prototype.draw = function() {
-}
+Bikelog.MapPopupOverlay.prototype.draw = function() {};
 
 Bikelog.MapPopupOverlay.prototype.onAdd = function() {
   var html = ' \
@@ -27,174 +25,125 @@ Bikelog.MapPopupOverlay.prototype.onAdd = function() {
 
   this.div = $(html);
   $(this.getPanes().floatPane).append(this.div);
-}
+};
 
 Bikelog.MapPopupOverlay.prototype.onRemove = function() {
   this.div.remove();
   this.div = null;
-}
+};
 
-Bikelog.MapPopupOverlay.prototype.setPosition = function(latlng, segment) {
+Bikelog.MapPopupOverlay.prototype.setPosition = function(latlng, segment, distance) {
   var overlayProjection = this.getProjection();
   var coords = overlayProjection.fromLatLngToDivPixel(latlng);
 
-  this.div.find(".time").text(segment.time);
+  this.div.find(".time").text(segment.start.time);
 
   if (this.distance_units == "imperial") {
-    this.div.find(".distance").html(segment.distance.to_miles().round(2) + "&nbsp;miles");
+    this.div.find(".distance").html(distance.to_miles().round(2) + "&nbsp;miles");
     this.div.find(".speed").html(segment.speed.to_miles_per_hour().round(2) + "&nbsp;mph");
-    this.div.find(".elevation").html(segment.elevation.to_feet().round(0) + "&nbsp;ft");
+    this.div.find(".elevation").html(segment.start.elevation.to_feet().round(0) + "&nbsp;ft");
   } else {
-    this.div.find(".distance").html(segment.distance.to_kilometers().round(2) + "&nbsp;km");
+    this.div.find(".distance").html(distance.to_kilometers().round(2) + "&nbsp;km");
     this.div.find(".speed").html(segment.speed.to_kilometers_per_hour().round(2) + "&nbsp;km/h");
-    this.div.find(".elevation").html(segment.elevation.round(0) + "&nbsp;m");
+    this.div.find(".elevation").html(segment.start.elevation.round(0) + "&nbsp;m");
   }
 
   this.div.css("top", (coords.y - this.div.innerHeight() - 5) + "px");
   this.div.css("left", (coords.x - this.div.innerWidth() / 2.0) + "px");
   this.div.css("visibility", "visible");
-}
+};
 
 Bikelog.MapPopupOverlay.prototype.setVisibility = function(visible) {
   this.div.css("visibility", visible ? "visible" : "hidden");
-}
+};
 
-Bikelog.Map = function(container, path) {
-  this.map      = null;
-  this.popup    = null;
-  this.tracks   = [];
-  this.segments = [];
+Bikelog.Map = function(container, tracksFetcher, distanceUnits) {
+  this.map           = null;
+  this.popup         = null;
+  this.tracksFetcher = tracksFetcher;
+  this.distanceUnits = distanceUnits;
 
-  this.setupMap(container);
-  this.loadTracks(path);
-}
+  this.setupMapAndPopup(container);
+  this.draw();
+};
 
-Bikelog.Map.prototype.setupMap = function(container) {
+Bikelog.Map.prototype.setupMapAndPopup = function(container) {
   this.map = new google.maps.Map(document.getElementById(container), {
-    "mapTypeId": google.maps.MapTypeId.TERRAIN,
-    "mapTypeControlOptions": {
-      "style": google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
+  });
+
+  this.popup = new Bikelog.MapPopupOverlay({
+    map: this.map,
+    distanceUnits: this.distanceUnits
   });
 };
 
-Bikelog.Map.prototype.loadTracks = function(path) {
-  var that = this;
+Bikelog.Map.prototype.draw = function() {
+  var distance = 0,
+      bounds = new google.maps.LatLngBounds,
+      that = this;
 
-  $.getJSON(path, function(data) {
-    that.tracks = data.tracks;
+  this.tracksFetcher.tracks.forEach(function(track) {
+    var line,
+        points = [],
+        firstSegment = track.segments[0],
+        lastSegment = track.segments[track.segments.length - 1];
 
-    that.setupSegments();
-    that.drawTracks();
-    that.setupPopup(data.distance_units);
-  });
-};
-
-Bikelog.Map.prototype.setupSegments = function() {
-  for (var i = 0; i < this.tracks.length; i++) {
-    var last_distance = 0;
-
-    for (var j = 0; j < this.tracks[i].length - 2; j++) {
-      var info = {
-        start: new google.maps.LatLng(this.tracks[i][j].latitude, this.tracks[i][j].longitude),
-        end: new google.maps.LatLng(this.tracks[i][j + 1].latitude, this.tracks[i][j + 1].longitude),
-        time: this.tracks[i][j].time,
-        elevation: this.tracks[i][j].elevation
-      };
-
-      var distance = Bikelog.haversine(info.start, info.end),
-          duration = this.tracks[i][j + 1].timestamp - this.tracks[i][j].timestamp;
-
-      info.distance = last_distance + distance;
-      last_distance = info.distance;
-
-      if (duration > 0) {
-        info.speed = distance / duration;
-      } else {
-        info.speed = 0;
-      }
-
-      this.segments.push(info);
-    }
-  }
-};
-
-Bikelog.Map.prototype.drawTracks = function() {
-  var bounds = new google.maps.LatLngBounds;
-
-  for (var i = 0; i < this.tracks.length; i++) {
-    var line = new google.maps.Polyline({
-          "strokeColor": "#ff0000",
-          "strokeOpacity": 0.6,
-          "strokeWidth": 4
-        }),
-        points = [];
-
-    line.setMap(this.map);
+    bounds.extend(firstSegment.start.latlng);
+    points.push(firstSegment.start.latlng);
 
     new google.maps.Marker({
-      position: new google.maps.LatLng(this.tracks[i][0].latitude, this.tracks[i][0].longitude),
-      map: this.map,
+      position: firstSegment.start.latlng,
+      map: that.map,
       icon: "<%= asset_path "start.png" %>"
     });
 
-    var last_trackpoint = this.tracks[i][this.tracks[i].length - 1];
-
     new google.maps.Marker({
-      position: new google.maps.LatLng(last_trackpoint.latitude, last_trackpoint.longitude),
-      map: this.map,
+      position: lastSegment.end.latlng,
+      map: that.map,
       icon: "<%= asset_path "end.png" %>"
     });
 
-    for (var j = 0; j < this.tracks[i].length; j++) {
-      var tp1 = this.tracks[i][j],
-          pt1 = new google.maps.LatLng(tp1.latitude, tp1.longitude);
+    line = new google.maps.Polyline({
+      strokeColor: "#ff0000",
+      strokeOpacity: 0.6,
+      strokeWidth: 4,
+      map: that.map
+    });
 
-      points.push(pt1);
-      bounds.extend(pt1);
-    }
+    track.segments.forEach(function(segment) {
+      var transparentLine;
 
-    line.setPath(points);
-    this.map.fitBounds(bounds);
-  }
-};
+      points.push(segment.start.latlng);
+      bounds.extend(segment.start.latlng);
 
-Bikelog.Map.prototype.setupPopup = function(distance_units) {
-  this.popup = new Bikelog.MapPopupOverlay({
-    map: this.map,
-    distance_units: distance_units
-  });
+      distance += segment.distance;
 
-  var distance = 0;
-  var time = new Date(this.tracks[0][0].time);
-
-  for (var i = 0; i < this.segments.length; i++) {
-    this.setupSegment(this.segments[i], distance, time);
-    distance += this.segments[i].distance;
-    time += this.segments[i].duration;
-  }
-};
-
-Bikelog.Map.prototype.setupSegment = function(segment, distance, time) {
-  var that = this,
-      l = new google.maps.Polyline({
-        "strokeOpacity": 0.0,
-        "strokeWidth": 4
+      transparentLine = new google.maps.Polyline({
+        strokeOpacity: 0.0,
+        strokeWidth: 4,
+        map: that.map,
+        path: [segment.start.latlng, segment.end.latlng]
       });
 
-  l.setMap(this.map);
-  l.setPath([segment.start, segment.end]);
+      google.maps.event.addListener(transparentLine, "mouseover", function(ev) {
+        that.popup.setVisibility(true);
+        that.popup.setPosition(ev.latLng, segment, distance);
+      });
 
-  google.maps.event.addListener(l, "mouseover", function(ev) {
-    that.popup.setVisibility(true);
-    that.popup.setPosition(ev.latLng, segment);
-  });
+      google.maps.event.addListener(transparentLine, "mousemove", function(ev) {
+        that.popup.setPosition(ev.latLng, segment, distance);
+      });
 
-  google.maps.event.addListener(l, "mousemove", function(ev) {
-    that.popup.setPosition(ev.latLng, segment);
-  });
+      google.maps.event.addListener(transparentLine, "mouseout", function(ev) {
+        that.popup.setVisibility(false);
+      });
+    });
 
-  google.maps.event.addListener(l, "mouseout", function(ev) {
-    that.popup.setVisibility(false);
+    line.setPath(points);
+    that.map.fitBounds(bounds);
   });
 };

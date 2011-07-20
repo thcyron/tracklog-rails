@@ -47,22 +47,27 @@ class LogsController < ApplicationController
   def show
     respond_to do |format|
       format.html
+
+      format.json do
+        render :json => @log.tracks.map { |track|
+          {
+            :name => track.display_name,
+            :points => track.trackpoints.map { |trackpoint|
+              {
+                :latitude  => trackpoint.latitude,
+                :longitude => trackpoint.longitude,
+                :elevation => trackpoint.elevation,
+                :timestamp => trackpoint.time.to_i,
+                :time      => trackpoint.time.strftime("%d.%m.%Y %H:%M")
+              }
+            }
+          }
+        }
+      end
+
       format.gpx do
         filename = "log-#{@log.id}-#{@log.name.parameterize}.gpx"
         headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
-      end
-    end
-  end
-
-  def plot_data
-    respond_to do |format|
-      format.json do
-        log_plot_data = @log.plot_data
-
-        render :json => {
-          :minElevation => log_plot_data[:min_elevation],
-          :points => log_plot_data[:points]
-        }
       end
     end
   end
