@@ -2,7 +2,7 @@
 <h1>My Profile</h1>
 
 <%= form_for @user, :url => update_profile_path do |f| %>
-  <div id="profile-details">
+  <div class="form">
     <div class="row">
       <div class="label">
         <label for="user_username">Username</label>
@@ -36,7 +36,7 @@
       <div class="label">
         Distance Units
       </div>
-      <div class="field distance-units">
+      <div class="field controls">
         <label>
           <%= f.radio_button :distance_units, "metric" %>
           Metric
