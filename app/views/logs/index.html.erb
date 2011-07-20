@@ -3,9 +3,11 @@
 <div class="site">
   <h1>Logs</h1>
 
-  <p>
-    <%=raw @available_years.map { |year| year == @selected_year ? year : link_to(year, year_logs_path(:year => year)) }.join(" | ") %>
-  </p>
+  <%- unless @available_years.empty? -%>
+    <p>
+      <%=raw @available_years.map { |year| year == @selected_year ? year : link_to(year, year_logs_path(:year => year)) }.join(" | ") %>
+    </p>
+  <%- end -%>
 
   <%- if @logs.size == 0 -%>
     <p id="logs-no-logs">
