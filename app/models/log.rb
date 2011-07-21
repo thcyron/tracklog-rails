@@ -71,34 +71,6 @@ class Log < ActiveRecord::Base
     @max_elevation ||= self.tracks.map { |t| t.max_elevation }.max
   end
 
-  def plot_data
-    points = []
-    min_elevation = nil
-
-    self.tracks.each do |track|
-      track_plot_data = track.plot_data
-
-      if not min_elevation or min_elevation > track_plot_data[:min_elevation]
-        min_elevation = track_plot_data[:min_elevation]
-      end
-
-      if points.size > 0
-        distance = points.last[:distance]
-
-        track_plot_data[:points].each do |datum|
-          datum[:distance] += distance
-        end
-      end
-
-      points += track_plot_data[:points]
-    end
-
-    {
-      :min_elevation => min_elevation,
-      :points => points
-    }
-  end
-
   def self.total_duration
     all.inject(0) { |a, b| a + b.duration }
   end

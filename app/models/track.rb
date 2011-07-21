@@ -105,40 +105,4 @@ class Track < ActiveRecord::Base
     last_track = self.log.tracks.order("id DESC").first
     self.relative_id = last_track ? last_track.relative_id + 1 : 1
   end
-
-  def plot_data
-    trackpoints = self.trackpoints
-    return [] if trackpoints.size.zero?
-
-    points   = []
-    distance = 0
-
-    points << {
-      :distance   => 0.0,
-      :speed      => 0.0,
-      :elevation  => trackpoints.first.elevation,
-      :latitude   => trackpoints.first.latitude,
-      :longitude  => trackpoints.first.longitude
-    }
-
-    1.upto(trackpoints.size - 2) do |i|
-      tp1 = trackpoints[i]
-      tp2 = trackpoints[i + 1]
-
-      distance += tp1.distance_to_trackpoint(tp2)
-
-      points << {
-        :distance   => distance,
-        :speed      => tp1.speed_to_trackpoint(tp2),
-        :elevation  => tp2.elevation,
-        :latitude   => tp2.latitude,
-        :longitude  => tp2.longitude
-      }
-    end
-
-    {
-      :min_elevation => self.min_elevation,
-      :points => points
-    }
-  end
 end
