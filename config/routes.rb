@@ -1,7 +1,7 @@
 Bikelog::Application.routes.draw do
   root :to => "dashboard#index", :as => :dashboard
 
-  match "login" => "auth#login", :as => :login
+  match "login" => "auth#login", :as => :login, :via => [:get, :post]
   put "logout" => "auth#logout", :as => :logout
 
   get "profile" => "profile#index", :as => :profile
