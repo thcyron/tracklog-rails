@@ -12,27 +12,27 @@ class Log < ActiveRecord::Base
   }
 
   def start_time
-    @start_time ||= self.tracks.map { |t| t.start_time }.min
+    @start_time ||= self.tracks.map(&:start_time).min
   end
 
   def end_time
-    @end_time ||= self.tracks.map { |t| t.end_time }.max
+    @end_time ||= self.tracks.map(&:end_time).max
   end
 
   def moving_time
-    @moving_time ||= self.tracks.map { |t| t.moving_time }.sum
+    @moving_time ||= self.tracks.map(&:moving_time).sum
   end
 
   def stopped_time
-    @stopped_time ||= self.tracks.map { |t| t.stopped_time }.sum
+    @stopped_time ||= self.tracks.map(&:stopped_time).sum
   end
 
   def duration
-    @duration ||= self.tracks.inject(0) { |a, b| a + b.duration if b.duration }
+    @duration ||= self.tracks.map(&:duration).sum
   end
 
   def distance
-    @distance ||= self.tracks.inject(0) { |a, b| a + b.distance if b.distance }
+    @distance ||= self.tracks.map(&:distance).sum
   end
 
   def overall_average_speed
@@ -52,23 +52,23 @@ class Log < ActiveRecord::Base
   end
 
   def max_speed
-    @max_speed ||= self.tracks.map { |t| t.max_speed }.max
+    @max_speed ||= self.tracks.map(&:max_speed).max
   end
 
   def ascent
-    @ascent ||= self.tracks.map { |t| t.ascent }.sum
+    @ascent ||= self.tracks.map(&:ascent).sum
   end
 
   def descent
-    @descent ||= self.tracks.map { |t| t.descent }.sum
+    @descent ||= self.tracks.map(&:descent).sum
   end
 
   def min_elevation
-    @min_elevation ||= self.tracks.map { |t| t.min_elevation }.min
+    @min_elevation ||= self.tracks.map(&:min_elevation).min
   end
 
   def max_elevation
-    @max_elevation ||= self.tracks.map { |t| t.max_elevation }.max
+    @max_elevation ||= self.tracks.map(&:max_elevation).max
   end
 
   def self.total_duration
@@ -171,6 +171,6 @@ class Log < ActiveRecord::Base
   end
 
   def alternatives
-    @alternatives ||= Log.for_user(self.user).where(:name => self.name)
+    @alternatives ||= self.user.logs.where(:name => self.name)
   end
 end
