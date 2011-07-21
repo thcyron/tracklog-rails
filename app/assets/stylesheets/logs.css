@@ -1,21 +1,3 @@
-#log-tracks ul {
-	list-style: none;
-}
-
-#log-tracks li {
-	margin: 5px 0;
-	line-height: 1.5;
-}
-
-#log-alternatives ul {
-	list-style: none;
-}
-
-#log-alternatives li {
-	margin: 5px 0;
-	line-height: 1.5;
-}
-
 #log-alternatives img {
 	float: right;
 	margin-top: 6px;

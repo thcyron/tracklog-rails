@@ -38,6 +38,7 @@
 	font-size: 14px;
 	background-color: green;
 	padding: 5px 10px;
+	margin: 0;
 }
 
 #track-side h3:first-child {
@@ -56,12 +57,24 @@
 	border-bottom-right-radius: 4px;
 }
 
+#track-side .box ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#track-side .box li {
+	margin: 5px 0;
+	line-height: 1.5;
+}
+
 #track-details {
 	font-size: 12px;
 }
 
 #track-details dl {
 	padding: 5px 0;
+	margin: 0;
 }
 
 #track-details dt {
@@ -75,15 +88,6 @@
 
 #track-details dt, #track-details dd {
 	padding: 4px 0;
-}
-
-#track-actions ul {
-	list-style: none;
-}
-
-#track-actions li {
-	margin: 2px 0;
-	line-height: 1.5;
 }
 
 #track-distance-elevation-plot {
@@ -121,6 +125,10 @@
 	font-size: 11px;
 	background-color: #fff;
 	padding: 10px;
+}
+
+#map-popup dl {
+	margin: 0;
 }
 
 #map-popup dt {
