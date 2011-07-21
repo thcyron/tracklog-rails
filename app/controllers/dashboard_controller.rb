@@ -2,82 +2,81 @@ class DashboardController < ApplicationController
   before_filter :authenticate
 
   def index
-    @total_distance   = Track.for_user(current_user).total_distance
-    @total_duration   = Track.for_user(current_user).total_duration
-    @total_logs_count = Log.for_user(current_user).count
+    @total_distance   = current_user.tracks.total_distance
+    @total_duration   = current_user.tracks.total_duration
+    @total_logs_count = current_user.logs.count
 
-    @last_log = Log \
-      .for_user(current_user) \
-      .joins(:tracks) \
-      .order("tracks.start_time DESC") \
+    @last_log = current_user \
+      .logs
+      .joins(:tracks)
+      .order("tracks.start_time DESC")
       .first
 
     @this_month = Time.now.beginning_of_month
     @next_month = @this_month + 1.month
 
-    @total_distance_this_month = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @this_month) \
-      .where("start_time < ?", @next_month) \
+    @total_distance_this_month = current_user \
+      .tracks
+      .where("start_time >= ?", @this_month)
+      .where("start_time < ?", @next_month)
       .sum(:distance)
 
-    @total_duration_this_month = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @this_month) \
-      .where("start_time < ?", @next_month) \
+    @total_duration_this_month = current_user \
+      .tracks
+      .where("start_time >= ?", @this_month)
+      .where("start_time < ?", @next_month)
       .sum(:duration)
 
-    @logs_count_this_month = Log \
-      .for_user(current_user) \
-      .select("logs.id") \
-      .joins(:tracks) \
-      .where("tracks.start_time >= ?", @this_month) \
-      .where("tracks.start_time < ?", @next_month) \
-      .uniq \
+    @logs_count_this_month = current_user \
+      .logs
+      .joins(:tracks)
+      .select("DISTINCT logs.id")
+      .where("tracks.start_time >= ?", @this_month)
+      .where("tracks.start_time < ?", @next_month)
       .count
 
     @this_year = Time.now.beginning_of_year
     @next_year = @this_year + 1.year
     @last_year = @this_year - 1.year
 
-    @total_distance_this_year = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @this_year) \
-      .where("start_time < ?", @next_year) \
+    @total_distance_this_year = current_user \
+      .tracks
+      .where("start_time >= ?", @this_year)
+      .where("start_time < ?", @next_year)
       .sum(:distance)
 
-    @total_duration_this_year = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @this_year) \
-      .where("start_time < ?", @next_year) \
+    @total_duration_this_year = current_user \
+      .tracks
+      .where("start_time >= ?", @this_year)
+      .where("start_time < ?", @next_year)
       .sum(:duration)
 
-    @logs_count_this_year = Log \
-      .for_user(current_user) \
-      .joins(:tracks) \
-      .where("start_time >= ?", @this_year) \
-      .where("start_time < ?", @next_year) \
-      .uniq \
+    @logs_count_this_year = current_user \
+      .logs
+      .joins(:tracks)
+      .select("DISTINCT logs.id")
+      .where("start_time >= ?", @this_year)
+      .where("start_time < ?", @next_year)
       .count
 
-    @total_distance_last_year = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @last_year) \
-      .where("start_time < ?", @this_year) \
+    @total_distance_last_year = current_user \
+      .tracks
+      .where("start_time >= ?", @last_year)
+      .where("start_time < ?", @this_year)
       .sum(:distance)
 
-    @total_duration_last_year = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", @last_year) \
-      .where("start_time < ?", @this_year) \
+    @total_duration_last_year = current_user \
+      .tracks
+      .where("start_time >= ?", @last_year)
+      .where("start_time < ?", @this_year)
       .sum(:duration)
 
-    @logs_count_last_year = Log \
-      .for_user(current_user) \
-      .joins(:tracks) \
-      .where("start_time >= ?", @last_year) \
-      .where("start_time < ?", @this_year) \
-      .uniq \
+    @logs_count_last_year = current_user \
+      .logs
+      .joins(:tracks)
+      .select("DISTINCT logs.id")
+      .where("start_time >= ?", @last_year)
+      .where("start_time < ?", @this_year)
       .count
   end
 
@@ -92,9 +91,7 @@ class DashboardController < ApplicationController
       }
     end
 
-    @tracks = Track \
-      .for_user(current_user) \
-      .where("start_time >= ?", this_month - 11.months)
+    @tracks = current_user.tracks.where("start_time >= ?", this_month - 11.months)
 
     @tracks.each do |track|
       time = Time.mktime(track.start_time.year, track.start_time.month)
@@ -105,8 +102,8 @@ class DashboardController < ApplicationController
     respond_to do |format|
       format.json do
         render :json => @last_12_months_activity \
-          .to_a \
-          .sort { |a, b| b[0] <=> a[0] } \
+          .to_a
+          .sort { |a, b| b[0] <=> a[0] }
           .map { |d, a|
             {
               :month => d.strftime("%b"),
