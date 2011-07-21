@@ -1,3 +1,3 @@
 //= require highcharts/highcharts
-//= require bikelog/highcharts-theme
-//= require bikelog/dashboard-activity-plots
+//= require bikelog/highcharts_theme
+//= require bikelog/dashboard_activity_plots
