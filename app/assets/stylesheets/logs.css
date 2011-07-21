@@ -31,6 +31,11 @@
 	margin: 50px 0;
 }
 
+#logs-add-log-button {
+	float: right;
+	margin-top: 15px;
+}
+
 .logs-month {
 	margin: 30px 0;
 }

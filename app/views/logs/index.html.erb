@@ -1,6 +1,10 @@
 <%- title "Logs for #{@selected_year}" -%>
 
 <div class="site">
+  <div id="logs-add-log-button">
+    <%= link_to "Add a Log", new_log_path, :class => "button big" %>
+  </div>
+
   <h1>Logs</h1>
 
   <%- unless @available_years.empty? -%>
