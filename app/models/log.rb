@@ -71,24 +71,6 @@ class Log < ActiveRecord::Base
     @max_elevation ||= self.tracks.map(&:max_elevation).max
   end
 
-  def self.total_duration
-    all.inject(0) { |a, b| a + b.duration }
-  end
-
-  def self.total_distance
-    all.inject(0) { |a, b| a + b.distance }
-  end
-
-  def self.total_average_speed
-    if (dis = total_distance) > 0 and (dur = total_duration) > 0
-      dis / dur
-    end
-  end
-
-  def self.total_ascent
-    all.inject(0) { |a, b| a + b.ascent }
-  end
-
   def create_tracks_from_gpx(gpx)
     doc = Nokogiri::XML.parse(gpx)
     new_tracks = []
