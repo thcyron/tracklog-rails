@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_many :logs
+  has_many :logs, :dependent => :destroy
   has_many :tracks, :through => :logs
 
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
