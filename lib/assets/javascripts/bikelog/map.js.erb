@@ -115,12 +115,14 @@ Bikelog.Map.prototype.draw = function() {
     });
 
     track.segments.forEach(function(segment) {
-      var transparentLine;
+      var transparentLine,
+          segmentDistance;
 
       points.push(segment.start.latlng);
       bounds.extend(segment.start.latlng);
 
       distance += segment.distance;
+      segmentDistance = distance;
 
       transparentLine = new google.maps.Polyline({
         strokeOpacity: 0.0,
@@ -131,11 +133,11 @@ Bikelog.Map.prototype.draw = function() {
 
       google.maps.event.addListener(transparentLine, "mouseover", function(ev) {
         that.popup.setVisibility(true);
-        that.popup.setPosition(ev.latLng, segment, distance);
+        that.popup.setPosition(ev.latLng, segment, segmentDistance);
       });
 
       google.maps.event.addListener(transparentLine, "mousemove", function(ev) {
-        that.popup.setPosition(ev.latLng, segment, distance);
+        that.popup.setPosition(ev.latLng, segment, segmentDistance);
       });
 
       google.maps.event.addListener(transparentLine, "mouseout", function(ev) {
