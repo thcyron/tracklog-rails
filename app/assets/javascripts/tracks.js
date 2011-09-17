@@ -11,11 +11,12 @@ $(function() {
     var e = $("#track-name"),
         name = $.trim($(this).val());
 
-    if (name.length > 0) {
-      e.text(name);
-    } else {
-      e.text(e.attr("data-default-name"));
+    if (name.length == 0) {
+      name = e.attr("data-default-name");
     }
+
+    e.text(name);
+    $("head title").text(name + " – Bikelog");
   });
 
   $("#track-rename-pane .close").click(function() {
