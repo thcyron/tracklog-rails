@@ -5,4 +5,7 @@ gem "jquery-rails"
 gem "sqlite3"
 gem "nokogiri"
 gem "redcarpet"
-gem "uglifier"
+
+group :assets do
+  gem "uglifier"
+end
