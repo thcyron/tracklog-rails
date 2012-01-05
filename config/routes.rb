@@ -18,7 +18,6 @@ Bikelog::Application.routes.draw do
 
     member do
       get :tracks
-      post :upload_track
     end
 
     resources :tracks do

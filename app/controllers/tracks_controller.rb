@@ -2,7 +2,7 @@
 
 class TracksController < ApplicationController
   before_filter :authenticate
-  before_filter :find_track_and_check_permission
+  before_filter :find_track_and_check_permission, except: [:create]
 
   def show
     @trackpoints = @track.trackpoints
@@ -35,6 +35,16 @@ class TracksController < ApplicationController
         headers["Content-Disposition"] = %{Content-Disposition: attachment; filename="#{filename}"}
       end
     end
+  end
+
+  def create
+    @log = current_user.logs.find(params[:log_id])
+
+    if params[:track_file]
+      @log.create_tracks_from_gpx(params[:track_file].read)
+    end
+
+    redirect_to @log
   end
 
   def update

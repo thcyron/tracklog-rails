@@ -37,7 +37,7 @@
 
   <h2>Upload a Track File</h2>
 
-  <%= form_tag upload_track_log_path, :multipart => true do %>
+  <%= form_tag [@log, Track.new], :multipart => true do %>
     <p>
       <%= file_field_tag :track_file %>
       <%= submit_tag "Upload Track File" %>

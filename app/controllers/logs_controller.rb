@@ -93,14 +93,6 @@ class LogsController < ApplicationController
     end
   end
 
-  def upload_track
-    if params[:track_file]
-      @log.create_tracks_from_gpx(params[:track_file].read)
-    end
-
-    redirect_to @log
-  end
-
   def new
     @log = Log.new
   end
