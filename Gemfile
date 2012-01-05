@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "rails", git: "git://github.com/rails/rails.git", branch: "master"
+gem "rails", git: "http://github.com/rails/rails.git", branch: "master"
 
 #, "3.2.0.rc2"
 gem "bcrypt-ruby"
