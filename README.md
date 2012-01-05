@@ -2,7 +2,7 @@ Bikelog
 =======
 
 **Bikelog** is a Ruby on Rails application for managing GPS track logs. It’s
-written using Rails 3.1 and works with Ruby 1.8.7 and 1.9.2.
+based on Rails Edge and thus requires Ruby 1.9.
 
 Features
 --------
