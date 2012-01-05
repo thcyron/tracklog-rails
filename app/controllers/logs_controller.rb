@@ -16,6 +16,7 @@ class LogsController < ApplicationController
 
     @logs = current_user \
       .logs \
+      .select("logs.*, tracks.start_time") \
       .joins(:tracks) \
       .where("tracks.start_time >= ?", Time.mktime(@selected_year, 1, 1)) \
       .where("tracks.start_time < ?", Time.mktime(@selected_year + 1, 1, 1)) \
