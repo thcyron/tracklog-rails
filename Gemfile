@@ -1,6 +1,8 @@
 source :rubygems
 
-gem "rails", "3.1.1"
+gem "rails", git: "git://github.com/rails/rails.git", branch: "master"
+
+#, "3.2.0.rc2"
 gem "bcrypt-ruby"
 gem "jquery-rails"
 gem "sqlite3"

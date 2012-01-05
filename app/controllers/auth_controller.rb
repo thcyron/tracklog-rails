@@ -1,6 +1,6 @@
 class AuthController < ApplicationController
   before_filter :authenticate, :except => [:login]
-  layout nil, :only => [:login]
+  layout false, :only => [:login]
 
   def login
     redirect_to dashboard_path and return if logged_in?
