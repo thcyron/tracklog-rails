@@ -43,9 +43,22 @@
 	border-left: 1px solid #ccc;
 }
 
+.logs-month-logs td {
+	vertical-align: top;
+}
+
 .logs-month-logs tfoot td {
 	font-weight: bold;
 	border: none;
+}
+
+.logs-month-logs .tags {
+	font-size: 11px;
+	margin-left: 10px;
+}
+
+.logs-month-logs .tags a {
+	color: #888;
 }
 
 #logs-total {

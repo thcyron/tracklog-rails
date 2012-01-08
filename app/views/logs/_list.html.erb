@@ -17,7 +17,14 @@
         <tbody>
           <%- data[:logs].each do |log| -%>
             <tr>
-              <td><%= link_to log.name, log %></td>
+              <td>
+                <%= link_to log.name, log %>
+                <span class="tags">
+                  <%- log.tags.each do |tag| -%>
+                    <%= link_to tag.name, tagged_logs_path(tag: tag.name) %>
+                  <%- end -%>
+                </span>
+              </td>
               <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
               <td class="r"><%=format_duration log.duration %></td>
               <td class="r"><%=format_distance log.distance %></td>
