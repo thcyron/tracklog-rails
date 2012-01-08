@@ -1,10 +1,10 @@
 //= require highcharts/highcharts
-//= require bikelog/highcharts_theme
-//= require bikelog/douglas_peucker
-//= require bikelog/tracks_fetcher
-//= require bikelog/distance_elevation_plot
-//= require bikelog/haversine
-//= require bikelog/map
+//= require tracklog/highcharts_theme
+//= require tracklog/douglas_peucker
+//= require tracklog/tracks_fetcher
+//= require tracklog/distance_elevation_plot
+//= require tracklog/haversine
+//= require tracklog/map
 
 $(function() {
   $("#track-rename-pane input[type='text']").keyup(function() {
@@ -16,7 +16,7 @@ $(function() {
     }
 
     e.text(name);
-    $("head title").text(name + " – Bikelog");
+    $("head title").text(name + " – Tracklog");
   });
 
   $("#track-rename-pane .close").click(function() {

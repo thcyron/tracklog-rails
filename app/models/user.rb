@@ -15,6 +15,6 @@ class User < ActiveRecord::Base
   end
 
   def distance_units
-    attributes["distance_units"].try(:to_sym) || Bikelog::Config.distance_units
+    attributes["distance_units"].try(:to_sym) || Tracklog::Config.distance_units
   end
 end

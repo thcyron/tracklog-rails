@@ -1,4 +1,4 @@
-module Bikelog
+module Tracklog
   # This class implements the Douglas Peucker algorithm.
   # See http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm
   class DouglasPeucker
@@ -41,5 +41,5 @@ module Bikelog
 end
 
 if $0 == __FILE__
-  p Bikelog::DouglasPeucker.reduce([[0,4],[2,1],[5,2],[7,4],[9,4],[11,2],[14,0],[16,4]], 1.0)
+  p Tracklog::DouglasPeucker.reduce([[0,4],[2,1],[5,2],[7,4],[9,4],[11,2],[14,0],[16,4]], 1.0)
 end

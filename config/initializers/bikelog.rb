@@ -1,7 +1,7 @@
 require "ostruct"
-require "bikelog/core_ext"
+require "tracklog/core_ext"
 
-Bikelog::Config = OpenStruct.new
+Tracklog::Config = OpenStruct.new
 
 # Unit for distances: :metric or :imperial
-Bikelog::Config.distance_units = :metric
+Tracklog::Config.distance_units = :metric

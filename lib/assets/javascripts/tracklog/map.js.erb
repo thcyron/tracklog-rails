@@ -1,14 +1,14 @@
-Bikelog.MapPopupOverlay = function(options) {
+Tracklog.MapPopupOverlay = function(options) {
   this.map           = options.map;
   this.distanceUnits = options.distanceUnits;
 
   this.setMap(this.map);
 };
 
-Bikelog.MapPopupOverlay.prototype = new google.maps.OverlayView();
-Bikelog.MapPopupOverlay.prototype.draw = function() {};
+Tracklog.MapPopupOverlay.prototype = new google.maps.OverlayView();
+Tracklog.MapPopupOverlay.prototype.draw = function() {};
 
-Bikelog.MapPopupOverlay.prototype.onAdd = function() {
+Tracklog.MapPopupOverlay.prototype.onAdd = function() {
   var html = ' \
     <div id="map-popup"> \
       <dl> \
@@ -27,12 +27,12 @@ Bikelog.MapPopupOverlay.prototype.onAdd = function() {
   $(this.getPanes().floatPane).append(this.div);
 };
 
-Bikelog.MapPopupOverlay.prototype.onRemove = function() {
+Tracklog.MapPopupOverlay.prototype.onRemove = function() {
   this.div.remove();
   this.div = null;
 };
 
-Bikelog.MapPopupOverlay.prototype.setPosition = function(latlng, segment, distance) {
+Tracklog.MapPopupOverlay.prototype.setPosition = function(latlng, segment, distance) {
   var overlayProjection = this.getProjection();
   var coords = overlayProjection.fromLatLngToDivPixel(latlng);
 
@@ -53,11 +53,11 @@ Bikelog.MapPopupOverlay.prototype.setPosition = function(latlng, segment, distan
   this.div.css("visibility", "visible");
 };
 
-Bikelog.MapPopupOverlay.prototype.setVisibility = function(visible) {
+Tracklog.MapPopupOverlay.prototype.setVisibility = function(visible) {
   this.div.css("visibility", visible ? "visible" : "hidden");
 };
 
-Bikelog.Map = function(container, tracksFetcher, distanceUnits) {
+Tracklog.Map = function(container, tracksFetcher, distanceUnits) {
   this.map           = null;
   this.popup         = null;
   this.tracksFetcher = tracksFetcher;
@@ -67,7 +67,7 @@ Bikelog.Map = function(container, tracksFetcher, distanceUnits) {
   this.draw();
 };
 
-Bikelog.Map.prototype.setupMapAndPopup = function(container) {
+Tracklog.Map.prototype.setupMapAndPopup = function(container) {
   this.map = new google.maps.Map(document.getElementById(container), {
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     mapTypeControlOptions: {
@@ -75,13 +75,13 @@ Bikelog.Map.prototype.setupMapAndPopup = function(container) {
     }
   });
 
-  this.popup = new Bikelog.MapPopupOverlay({
+  this.popup = new Tracklog.MapPopupOverlay({
     map: this.map,
     distanceUnits: this.distanceUnits
   });
 };
 
-Bikelog.Map.prototype.draw = function() {
+Tracklog.Map.prototype.draw = function() {
   var distance = 0,
       bounds = new google.maps.LatLngBounds,
       that = this;

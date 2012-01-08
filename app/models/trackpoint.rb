@@ -1,4 +1,4 @@
-require "bikelog/haversine"
+require "tracklog/haversine"
 
 class Trackpoint < ActiveRecord::Base
   belongs_to :track
@@ -9,7 +9,7 @@ class Trackpoint < ActiveRecord::Base
   validates :time,      :presence => true
 
   def distance_to_trackpoint(trackpoint)
-    Bikelog.haversine(self.latitude, trackpoint.latitude, self.longitude, trackpoint.longitude)
+    Tracklog.haversine(self.latitude, trackpoint.latitude, self.longitude, trackpoint.longitude)
   end
 
   def time_to_trackpoint(trackpoint)

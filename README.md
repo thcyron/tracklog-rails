@@ -1,7 +1,7 @@
-Bikelog
+Tracklog
 =======
 
-**Bikelog** is a Ruby on Rails application for managing GPS track logs. It’s
+**Tracklog** is a Ruby on Rails application for managing GPS track logs. It’s
 based on Rails Edge and thus requires Ruby 1.9.
 
 Features
@@ -18,17 +18,17 @@ Features
 Screenshots
 -----------
 
-[![Logs](http://thcyron.de/bikelog/screenshots/logs-thumb.png)](http://thcyron.de/bikelog/screenshots/logs.png)
-[![Log](http://thcyron.de/bikelog/screenshots/log-thumb.png)](http://thcyron.de/bikelog/screenshots/log.png)
+[![Logs](http://thcyron.de/tracklog/screenshots/logs-thumb.png)](http://thcyron.de/tracklog/screenshots/logs.png)
+[![Log](http://thcyron.de/tracklog/screenshots/log-thumb.png)](http://thcyron.de/tracklog/screenshots/log.png)
 
-(Note: As Bikelog is under development, the screenshots may not always
+(Note: As Tracklog is under development, the screenshots may not always
 represent to current state.)
 
 Installation
 ------------
 
-Because Bikelog is a standard Rails application, you can use your favourite
-deployment tools to install Bikelog on your server. To run it locally you’ll
+Because Tracklog is a standard Rails application, you can use your favourite
+deployment tools to install Tracklog on your server. To run it locally you’ll
 need to go through the following steps:
 
     % bundle
@@ -49,7 +49,7 @@ Todo
 License
 -------
 
-Bikelog is released under the MIT license.
+Tracklog is released under the MIT license.
 
 Authors
 -------

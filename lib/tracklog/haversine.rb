@@ -4,7 +4,7 @@ class Numeric
   end
 end
 
-module Bikelog
+module Tracklog
   def self.haversine(lat1, lat2, lon1, lon2)
     r = 6371
     dlat = (lat2 - lat1).to_rad

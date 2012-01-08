@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Bikelog::Application.load_tasks
+Tracklog::Application.load_tasks

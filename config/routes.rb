@@ -1,4 +1,4 @@
-Bikelog::Application.routes.draw do
+Tracklog::Application.routes.draw do
   root to: "dashboard#index", as: :dashboard
 
   match "login" => "auth#login", as: :login, via: [:get, :post]

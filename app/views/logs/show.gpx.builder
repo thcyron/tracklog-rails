@@ -1,7 +1,7 @@
 xml.instruct!
 
 xml.gpx :xmlns => "http://www.topografix.com/GPX/1/1",
-        :creator => "Bikelog",
+        :creator => "Tracklog",
         :version => "1.1" do
   xml.metadata do
     xml.name @log.name
