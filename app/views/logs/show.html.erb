@@ -127,7 +127,7 @@
     <h2>Description</h2>
 
     <div id="log-comment">
-      <%=raw Redcarpet.new(@log.comment).to_html %>
+      <%= markdown(@log.comment) %>
     </div>
   <%- end -%>
 
