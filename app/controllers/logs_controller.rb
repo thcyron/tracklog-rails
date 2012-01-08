@@ -2,47 +2,42 @@
 
 class LogsController < ApplicationController
   before_filter :authenticate
-  before_filter :find_log_and_check_permission, :except => [:index, :new, :create]
+  before_filter :find_log_and_check_permission, :except => [:index, :tagged, :new, :create]
 
   def index
     @selected_year = params[:year] ? params[:year].to_i : Time.now.year
 
-    @available_years = current_user \
-      .tracks \
-      .select("tracks.start_time") \
-      .order("tracks.start_time ASC") \
-      .map { |track| track.start_time.year } \
+    @available_years = current_user
+      .tracks
+      .select("tracks.start_time")
+      .order("tracks.start_time ASC")
+      .map { |track| track.start_time.year }
       .uniq
 
-    @logs = current_user \
-      .logs \
-      .select("logs.*, tracks.start_time") \
-      .joins(:tracks) \
-      .where("tracks.start_time >= ?", Time.mktime(@selected_year, 1, 1)) \
-      .where("tracks.start_time < ?", Time.mktime(@selected_year + 1, 1, 1)) \
-      .order("tracks.start_time ASC") \
+    @logs = current_user
+      .logs
+      .select("logs.*, tracks.start_time")
+      .joins(:tracks)
+      .where("tracks.start_time >= ?", Time.mktime(@selected_year, 1, 1))
+      .where("tracks.start_time < ?", Time.mktime(@selected_year + 1, 1, 1))
+      .order("tracks.start_time ASC")
+      .all
       .uniq
 
-    @total_distance = 0.0
-    @total_duration = 0.0
-    @logs_by_months = {}
+    calculate_list
+  end
 
-    @logs.each do |log|
-      @total_distance += log.distance
-      @total_duration += log.duration
+  def tagged
+    @logs = current_user.logs
+      .select("logs.*, tracks.start_time")
+      .joins(:tracks)
+      .joins(:tags)
+      .where("tags.name = ?", params[:tag])
+      .order("tracks.start_time ASC")
+      .all
+      .uniq
 
-      time = Time.mktime(@selected_year, log.start_time.month, 1)
-
-      @logs_by_months[time] ||= {
-        :logs => [],
-        :total_distance => 0.0,
-        :total_duration => 0.0
-      }
-
-      @logs_by_months[time][:logs] << log
-      @logs_by_months[time][:total_distance] += log.distance
-      @logs_by_months[time][:total_duration] += log.duration
-    end
+    calculate_list
   end
 
   def show
@@ -142,4 +137,28 @@ class LogsController < ApplicationController
     end
   end
   private :find_log_and_check_permission
+
+  def calculate_list
+    @total_distance = 0.0
+    @total_duration = 0.0
+    @logs_by_months = {}
+
+    @logs.each do |log|
+      @total_distance += log.distance
+      @total_duration += log.duration
+
+      time = Time.mktime(log.start_time.year, log.start_time.month, 1)
+
+      @logs_by_months[time] ||= {
+        :logs => [],
+        :total_distance => 0.0,
+        :total_duration => 0.0
+      }
+
+      @logs_by_months[time][:logs] << log
+      @logs_by_months[time][:total_distance] += log.distance
+      @logs_by_months[time][:total_duration] += log.duration
+    end
+  end
+  private :calculate_list
 end

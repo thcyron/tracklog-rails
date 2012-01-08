@@ -14,6 +14,7 @@ Tracklog::Application.routes.draw do
   resources :logs do
     collection do
       get "year/:year" => :index, as: :year
+      get "tag/:tag" => :tagged, as: :tagged
     end
 
     member do

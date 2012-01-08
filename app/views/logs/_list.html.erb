@@ -1,0 +1,47 @@
+<%- @logs_by_months.each do |month, data| -%>
+  <div class="logs-month">
+    <div class="logs-month-box">
+      <div class="month"><%=l month, :format => "%B" %></div>
+      <div class="year"><%=l month, format: "%Y" %></div>
+    </div>
+    <div class="logs-month-logs">
+      <table>
+        <thead>
+          <tr>
+            <th class="l">Name</th>
+            <th class="l" width="130">Start</th>
+            <th class="r" width="100">Duration</th>
+            <th class="r" width="100">Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%- data[:logs].each do |log| -%>
+            <tr>
+              <td><%= link_to log.name, log %></td>
+              <td><%=l log.start_time, :format => "%d.%m.%Y %H:%M" %></td>
+              <td class="r"><%=format_duration log.duration %></td>
+              <td class="r"><%=format_distance log.distance %></td>
+            </tr>
+          <%- end -%>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="r"><%=dashboard_duration data[:total_duration] %></td>
+            <td class="r"><%=format_distance data[:total_distance] %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <br class="clear">
+  </div>
+<%- end -%>
+
+<div id="logs-total">
+  <div class="distance">
+    <%=format_distance @total_distance %>
+  </div>
+  <div class="duration">
+    <%=dashboard_duration @total_duration %>
+  </div>
+  <br class="clear">
+</div>

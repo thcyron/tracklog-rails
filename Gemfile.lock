@@ -1,6 +1,6 @@
 GIT
   remote: http://github.com/rails/rails.git
-  revision: 39625d153781ffa07121c35dc4bba40410624c9c
+  revision: 199dcaeade6c319a43b507dbc111cb15b78fa52b
   branch: master
   specs:
     actionmailer (4.0.0.beta)
@@ -95,6 +95,7 @@ GEM
     uglifier (1.2.1)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    unicode_utils (1.2.2)
 
 PLATFORMS
   ruby
@@ -107,3 +108,4 @@ DEPENDENCIES
   redcarpet
   sqlite3
   uglifier
+  unicode_utils

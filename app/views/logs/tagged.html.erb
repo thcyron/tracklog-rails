@@ -1,0 +1,13 @@
+<%- title "Logs tagged with »#{params[:tag]}«" -%>
+
+<div class="site">
+  <h1>Logs tagged with »<%= params[:tag] %>«</h1>
+
+  <%- if @logs.empty? -%>
+    <p id="logs-no-logs">
+      You don’t have any logs tagged with »<%= params[:tag] %>«.
+    </p>
+  <%- else -%>
+    <%= render partial: "list" %>
+  <%- end -%>
+</div>

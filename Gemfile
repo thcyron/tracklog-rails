@@ -6,6 +6,7 @@ gem "jquery-rails"
 gem "sqlite3"
 gem "nokogiri"
 gem "redcarpet"
+gem "unicode_utils"
 
 group :assets do
   gem "uglifier"

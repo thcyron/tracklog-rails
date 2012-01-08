@@ -114,3 +114,15 @@
 .log-dialog .row.track-file .label {
 	padding-top: 3px;
 }
+
+#log-tags-pane {
+	display: none;
+}
+
+#log-tags-pane .box {
+	width: 500px;
+}
+
+#log-tags-pane input[type="text"] {
+	width: 466px;
+}

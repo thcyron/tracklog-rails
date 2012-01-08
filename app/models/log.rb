@@ -3,8 +3,10 @@ class Log < ActiveRecord::Base
 
   has_many :tracks, :order => "start_time ASC", :dependent => :destroy
   has_many :trackpoints, :through => :tracks
+  has_and_belongs_to_many :tags
+  attr_writer :tags_list
 
-  attr_accessible :name, :comment
+  attr_accessible :name, :comment, :tags_list
   validates :name, :presence => true
 
   scope :for_user, lambda { |user|
@@ -154,5 +156,16 @@ class Log < ActiveRecord::Base
 
   def alternatives
     @alternatives ||= self.user.logs.where(:name => self.name)
+  end
+
+  def tags_list
+    self.tags.map(&:name).join(" ")
+  end
+
+  def tags_list=(tags)
+    self.tags = tags
+      .split(/\s+/)
+      .map { |tag| Tag.normalize_name(tag) }
+      .map { |tag| Tag.find_by_name(tag) || Tag.new(name: tag) }
   end
 end
