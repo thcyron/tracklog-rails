@@ -102,7 +102,10 @@ class Track < ActiveRecord::Base
   private :calculate_distance_max_speed_ascent_descent
 
   def set_relative_id
-    last_track = self.log.tracks.order("id DESC").first
-    self.relative_id = last_track ? last_track.relative_id + 1 : 1
+    self.relative_id ||= begin
+      last_track = self.log.tracks.order("id DESC").first
+      last_track ? last_track.relative_id + 1 : 1
+    end
   end
+  private :set_relative_id
 end
