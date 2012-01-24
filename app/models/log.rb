@@ -91,7 +91,7 @@ class Log < ActiveRecord::Base
       trkseg_nodes = trk.xpath("./g:trkseg", "g" => ns)
       trkseg_nodes.each_with_index do |trkseg, i|
         track = self.tracks.new
-        trackpoints = []
+        track.relative_id = new_tracks.size + tracks.size + 1
 
         trkseg.xpath("./g:trkpt", "g" => ns).each do |trkpt|
           # Elevation
@@ -103,23 +103,15 @@ class Log < ActiveRecord::Base
           time = (nodes.size == 1) ? Time.parse(nodes.first.text) : nil
 
           if time and trkpt["lat"] and trkpt["lon"]
-            trackpoint = Trackpoint.new \
+            track.trackpoints.new \
               :latitude  => trkpt["lat"],
               :longitude => trkpt["lon"],
               :elevation => elevation,
               :time      => time
-            trackpoints << trackpoint
           end
         end
 
-        if trackpoints.size > 2
-          track.save
-
-          trackpoints.each do |trackpoint|
-            trackpoint.track = track
-            trackpoint.save
-          end
-
+        if track.trackpoints.size > 2
           track.update_cached_information
           tracks << track
         end
@@ -127,10 +119,10 @@ class Log < ActiveRecord::Base
 
       if track_name
         if tracks.size == 1
-          tracks.first.update_attribute(:name, track_name)
+          tracks.first.name = track_name
         else
           tracks.each_with_index do |track, i|
-            track.update_attribute(:name, "#{track_name} ##{i + 1}")
+            track.name = "#{track_name} ##{i + 1}"
           end
         end
       end
@@ -138,6 +130,7 @@ class Log < ActiveRecord::Base
       new_tracks += tracks
     end
 
+    new_tracks.each { |track| track.save }
     new_tracks
   end
 
