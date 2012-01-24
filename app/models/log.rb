@@ -4,9 +4,11 @@ class Log < ActiveRecord::Base
   has_many :tracks, :order => "start_time ASC", :dependent => :destroy
   has_many :trackpoints, :through => :tracks
   has_and_belongs_to_many :tags, order: "name ASC"
-  attr_writer :tags_list
 
-  attr_accessible :name, :comment, :tags_list
+  attr_writer :tags_list
+  attr_accessor :track_file
+
+  attr_accessible :name, :comment, :track_file, :tags_list
   validates :name, :presence => true
 
   scope :for_user, lambda { |user|
