@@ -10,7 +10,3 @@ gem "unicode_utils"
 group :development, :test do
   gem "sqlite3"
 end
-
-group :assets do
-  gem "uglifier"
-end
