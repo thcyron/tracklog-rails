@@ -127,11 +127,7 @@ class Log < ActiveRecord::Base
       new_tracks += tracks
     end
 
-    new_tracks.each do |track|
-      track.refresh_elevation_data
-      track.save
-    end
-    
+    new_tracks.each { |track| track.save }
     new_tracks
   end
 

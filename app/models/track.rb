@@ -53,46 +53,7 @@ class Track < ActiveRecord::Base
 
     save
   end
-  
-  def refresh_elevation_data
-    urls = []
-    
-    # cut the accuracy down so we can get as many points through in the least number of requests
-    path = self.trackpoints.map { |tp| "#{tp.latitude.round(4)},#{tp.longitude.round(4)}" }
-    path.in_groups_of(90) do |p|
-      args = {
-        :path => p.compact.join('|'),
-        :samples => p.compact.count,
-        :sensor => 'false'
-      }
-      urls << args.to_query.gsub('%2C', ',').gsub('%7C', '|')
-    end
-    
-    # this could fail, if it does, just skip over the rest
-    begin
-      elevations = []
-      urls.each do |url|
-        resp = Net::HTTP.get_response("maps.google.com", "/maps/api/elevation/json?" + url)
-        response = JSON.parse(resp.body)
-      
-        response["results"].each do |r|
-          elevations << r["elevation"]
-        end
-      end
-    
-      # as we requested the same number of samples as there were trackpoints, just update in order
-      self.trackpoints.each_with_index do |tp,i|
-        tp.elevation = elevations[i].to_f
-        tp.save
-      end
-      
-      calculate_min_max_elevation
-      calculate_distance_max_speed_ascent_descent
-    rescue
-      # nothing to do here!
-    end
-  end
-  
+
   def calculate_min_max_elevation
     self.min_elevation = nil
     self.max_elevation = nil
