@@ -2,14 +2,12 @@ class Track < ActiveRecord::Base
   require 'net/http'
   require 'open-uri'
   require 'json'
-  
+
   belongs_to :log
-  has_many :trackpoints, :order => "time ASC", :dependent => :destroy
+  has_many :trackpoints, order: "time ASC", dependent: :destroy
   attr_accessible :name
 
-  scope :for_user, lambda { |user|
-    joins(:log).where("logs.user_id = ?", user.id)
-  }
+  scope :for_user, ->(user) { joins(:log).where("logs.user_id = ?", user.id) }
 
   before_create :set_relative_id
 

@@ -1,19 +1,17 @@
 class Log < ActiveRecord::Base
   belongs_to :user
 
-  has_many :tracks, :order => "start_time ASC", :dependent => :destroy
-  has_many :trackpoints, :through => :tracks
+  has_many :tracks, order: "start_time ASC", dependent: :destroy
+  has_many :trackpoints, through: :tracks
   has_and_belongs_to_many :tags, order: "name ASC"
 
   attr_writer :tags_list
   attr_accessor :track_file
 
   attr_accessible :name, :comment, :track_file, :tags_list
-  validates :name, :presence => true
+  validates :name, presence: true
 
-  scope :for_user, lambda { |user|
-    where(:user_id => user.id)
-  }
+  scope :for_user, ->(user) { where(:user_id => user.id) }
 
   def start_time
     @start_time ||= self.tracks.map(&:start_time).min
