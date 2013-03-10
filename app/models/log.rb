@@ -8,7 +8,6 @@ class Log < ActiveRecord::Base
   attr_writer :tags_list
   attr_accessor :track_file
 
-  attr_accessible :name, :comment, :track_file, :tags_list
   validates :name, presence: true
 
   scope :for_user, ->(user) { where(:user_id => user.id) }

@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :distance_units, inclusion: { in: [:imperial, :metric] }, unless: ->(s) { s.blank? }
 
-  attr_protected :is_admin
-
   def display_name
     self.name.blank? ? self.username : self.name
   end

@@ -48,7 +48,7 @@ class TracksController < ApplicationController
   end
 
   def update
-    if @track.update_attributes(params[:track])
+    if @track.update_attributes(track_params)
       respond_to do |format|
         format.json do
           render :json => { :status => "success" },
@@ -160,4 +160,9 @@ class TracksController < ApplicationController
     end
   end
   private :find_track_and_check_permission
+
+  def track_params
+    params.require(:track).permit(:name)
+  end
+  private :track_params
 end

@@ -11,7 +11,7 @@ class ProfileController < ApplicationController
     old_current_user = current_user.dup
     @user = current_user
 
-    @user.attributes = params[:user]
+    @user.attributes = user_params
     @user.password = params[:password] unless params[:password].blank?
 
     if @user.save
@@ -36,4 +36,9 @@ class ProfileController < ApplicationController
       render :index
     end
   end
+
+  def user_params
+    params.require(:user).permit(:username, :name, :distance_units)
+  end
+  private :user_params
 end

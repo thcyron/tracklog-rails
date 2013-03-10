@@ -5,7 +5,6 @@ class Track < ActiveRecord::Base
 
   belongs_to :log
   has_many :trackpoints, order: "time ASC", dependent: :destroy
-  attr_accessible :name
 
   scope :for_user, ->(user) { joins(:log).where("logs.user_id = ?", user.id) }
 

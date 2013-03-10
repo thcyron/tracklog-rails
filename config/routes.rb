@@ -5,7 +5,7 @@ Tracklog::Application.routes.draw do
   put "logout" => "auth#logout", as: :logout
 
   get "profile" => "profile#index",  as: :profile
-  put "profile" => "profile#update", as: :update_profile
+  patch "profile" => "profile#update", as: :update_profile
 
   get "dashboard/activity_plots_data" => "dashboard#activity_plots_data"
 

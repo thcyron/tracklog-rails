@@ -94,15 +94,15 @@ class LogsController < ApplicationController
   end
 
   def create
-    @log = Log.new(params[:log])
+    @log = Log.new(log_params)
     @log.user = current_user
 
     unless @log.save
       render :action => :new and return
     end
 
-    if params[:log][:track_file]
-      @log.create_tracks_from_gpx(params[:log][:track_file].read)
+    if track_file = log_params[:track_file]
+      @log.create_tracks_from_gpx(track_file.read)
     end
 
     redirect_to @log
@@ -115,7 +115,7 @@ class LogsController < ApplicationController
   def update
     @orig_log = @log.dup
 
-    if @log.update_attributes(params[:log])
+    if @log.update_attributes(log_params)
       redirect_to @log
     else
       flash[:error] = "There was an error updating the log."
@@ -161,4 +161,9 @@ class LogsController < ApplicationController
     end
   end
   private :calculate_list
+
+  def log_params
+    params.require(:log).permit(:name, :comment, :tags_list)
+  end
+  private :log_params
 end
