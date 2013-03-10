@@ -94,6 +94,24 @@
 	height: 250px;
 }
 
+#track-distance-elevation-plot .axis path,
+#track-distance-elevation-plot .axis line {
+	fill: none;
+	stroke: #aaa;
+	shape-rendering: crispEdges;
+}
+
+#track-distance-elevation-plot .axis text {
+	font-size: 11px;
+	fill: #888;
+}
+
+#track-distance-elevation-plot .line {
+	fill: none;
+	stroke: green;
+	stroke-width: 2px;
+}
+
 #track-rename-pane {
 	display: none;
 }
