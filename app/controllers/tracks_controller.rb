@@ -123,7 +123,6 @@ class TracksController < ApplicationController
 
       if log
         @track.log = log
-        @track.set_relative_id
 
         if @track.save
           flash[:notice] = "The track has been transfered to log “#{log.name}”"
@@ -151,7 +150,7 @@ class TracksController < ApplicationController
     @track = Track \
       .preload(:log)
       .where(:log_id => params[:log_id])
-      .where(:relative_id => params[:id])
+      .where(:id => params[:id])
       .first!
 
     unless @track.log.user_id == current_user.id

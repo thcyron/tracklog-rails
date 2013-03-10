@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130310150024) do
+ActiveRecord::Schema.define(version: 20130310162618) do
 
   create_table "logs", force: true do |t|
     t.string   "name"
@@ -64,10 +64,8 @@ ActiveRecord::Schema.define(version: 20130310150024) do
     t.float    "stopped_time"
     t.float    "moving_average_speed"
     t.string   "name"
-    t.integer  "relative_id",           null: false
   end
 
-  add_index "tracks", ["log_id", "relative_id"], name: "index_tracks_on_log_id_and_relative_id", unique: true
   add_index "tracks", ["log_id"], name: "index_tracks_on_log_id"
 
   create_table "users", force: true do |t|

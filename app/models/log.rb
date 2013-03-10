@@ -88,7 +88,6 @@ class Log < ActiveRecord::Base
       trkseg_nodes = trk.xpath("./g:trkseg", "g" => ns)
       trkseg_nodes.each_with_index do |trkseg, i|
         track = self.tracks.new
-        track.relative_id = new_tracks.size + tracks.size + 1
 
         trkseg.xpath("./g:trkpt", "g" => ns).each do |trkpt|
           # Elevation

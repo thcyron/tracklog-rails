@@ -8,17 +8,11 @@ class Track < ActiveRecord::Base
 
   scope :for_user, ->(user) { joins(:log).where("logs.user_id = ?", user.id) }
 
-  before_create :set_relative_id
-
-  def to_param
-    self.relative_id.to_s
-  end
-
   def display_name
     if self.name and self.name.strip.length > 0
       self.name
     else
-      "Track #{self.relative_id}"
+      "Track #{self.id}"
     end
   end
 
@@ -101,12 +95,4 @@ class Track < ActiveRecord::Base
     end
   end
   private :calculate_distance_max_speed_ascent_descent
-
-  def set_relative_id
-    self.relative_id ||= begin
-      last_track = self.log.tracks.order("id DESC").first
-      last_track ? last_track.relative_id + 1 : 1
-    end
-  end
-  private :set_relative_id
 end

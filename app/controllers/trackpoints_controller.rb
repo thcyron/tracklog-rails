@@ -8,7 +8,7 @@ class TrackpointsController < ApplicationController
       @track = Track \
         .preload(:log)
         .where(:log_id => params[:log_id])
-        .where(:relative_id => params[:track_id])
+        .where(:id => params[:track_id])
         .first!
 
       @trackpoints = @track.trackpoints
