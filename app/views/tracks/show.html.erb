@@ -14,7 +14,7 @@
 
 <div id="track-header">
   <ul>
-    <li><%= link_to "Export", log_path(@log, :format => :gpx), :class => "button" %>
+    <li><%= link_to "Export", log_path(@track.log, :format => :gpx), :class => "button" %>
   </ul>
 
   <h1 id="track-name" data-default-name="<%= "Track #{@track.relative_id}" %>"><%= @track.display_name %></h1>
