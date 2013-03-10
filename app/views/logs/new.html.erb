@@ -1,7 +1,7 @@
 <%- title "Add a Log" -%>
 <h1>Add a Log</h1>
 
-<%= form_for @log, :html => { :multipart => true } do |f| %>
+<%= form_for @log do |f| %>
   <div class="log-dialog">
     <div class="row">
       <div class="label">
@@ -27,14 +27,14 @@
         <label for="log_track_file">Track file</label>
       </div>
       <div class="field">
-        <%= file_field_tag "log[track_file]" %>
+        <%= f.file_field :track_file %>
         <p class="track-help">
           You can upload more track files later.
         </p>
       </div>
     </div>
     <div class="row button">
-      <%= submit_tag "Create Log" %>
+      <%= f.submit "Create Log" %>
     </div>
   </div>
 <% end %>

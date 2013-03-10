@@ -163,7 +163,7 @@ class LogsController < ApplicationController
   private :calculate_list
 
   def log_params
-    params.require(:log).permit(:name, :comment, :tags_list)
+    params.require(:log).permit(:name, :comment, :tags_list, :track_file)
   end
   private :log_params
 end
