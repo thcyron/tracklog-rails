@@ -1,6 +1,18 @@
 <%- title "Dashboard" -%>
 
+<%= javascript_include_tag "//www.google.com/jsapi" %>
 <%= javascript_include_tag "dashboard" %>
+
+<script>
+  google.load("visualization", "1", { packages: ["corechart"] });
+
+  google.setOnLoadCallback(function() {
+    Tracklog.DashboardActivityPlots.setup("dashboard-activity-distance-plot",
+      "dashboard-activity-duration-plot",
+      "<%= dashboard_activity_plots_data_path(:json) %>",
+      "<%= current_user.distance_units %>");
+  });
+</script>
 
 <h1>Dashboard</h1>
 
@@ -39,15 +51,6 @@
       <%=pluralize @total_logs_count, "log" %>
     </dd>
   </dl>
-
-  <script>
-    $(function() {
-      Tracklog.DashboardActivityPlots.setup("dashboard-activity-distance-plot",
-        "dashboard-activity-duration-plot",
-        "<%= dashboard_activity_plots_data_path(:json) %>",
-        "<%= current_user.distance_units %>");
-    });
-  </script>
 
   <div id="dashboard-activity">
     <div class="plot-wrapper">

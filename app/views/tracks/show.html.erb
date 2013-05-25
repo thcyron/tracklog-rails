@@ -1,14 +1,16 @@
 <%- title @track.display_name -%>
 
 <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false" %>
-<%= javascript_include_tag "http://d3js.org/d3.v3.js" %>
+<%= javascript_include_tag "//www.google.com/jsapi" %>
 <%= javascript_include_tag "tracks" %>
 
 <script>
-  $(function() {
+  google.load("visualization", "1", { packages: ["corechart"] });
+
+  google.setOnLoadCallback(function() {
     new Tracklog.TracksFetcher("<%=j log_track_path(@track.log, @track, :json) %>", function(tracksFetcher) {
       new Tracklog.Map("track-map", tracksFetcher, "<%= current_user.distance_units %>");
-      new Tracklog.DistanceElevationPlot("#track-distance-elevation-plot", tracksFetcher, "<%= current_user.distance_units %>");
+      new Tracklog.DistanceElevationPlot("track-distance-elevation-plot", tracksFetcher, "<%= current_user.distance_units %>");
     });
   });
 </script>
