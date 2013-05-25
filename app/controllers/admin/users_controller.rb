@@ -6,13 +6,7 @@ class Admin::UsersController < AdminController
   def create
     @user = User.new
 
-    if is_admin = params[:user].try(:delete, :is_admin)
-      @user.is_admin = is_admin == "1"
-    end
-
-    @user.attributes = params[:user]
-
-    if @user.save
+    if @user.create(user_params)
       redirect_to admin_path, :notice => "The new user has been added."
     else
       flash[:error] = "There was an error adding the user."
@@ -27,13 +21,7 @@ class Admin::UsersController < AdminController
   def update
     @user = User.find(params[:id])
 
-    if is_admin = params[:user].try(:delete, :is_admin)
-      @user.is_admin = is_admin == "1"
-    end
-
-    @user.attributes = params[:user]
-
-    if @user.save
+    if @user.update_attributes(user_params)
       redirect_to admin_path, :notice => "User has been updated."
     else
       flash[:error] = "There was an error updating the user."
@@ -51,5 +39,11 @@ class Admin::UsersController < AdminController
     end
 
     redirect_to admin_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :name, :password, :is_admin, :distance_units)
   end
 end
