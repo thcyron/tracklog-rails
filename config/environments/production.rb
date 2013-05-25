@@ -23,10 +23,10 @@ Tracklog::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS.
-  # config.assets.js_compressor  = :uglifier
+  config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
-  # Whether to fallback to assets pipeline if a precompiled asset is missed.
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
   # Generate digests for assets URLs.
@@ -59,7 +59,7 @@ Tracklog::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile.unshift(*%w(auth.js dashboard.js logs.js tracks.js))
+  config.assets.precompile += %w(auth.js dashboard.js logs.js tracks.js)
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
