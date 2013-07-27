@@ -1,3 +1,4 @@
-admin = User.new :username => "admin", :password => "admin"
-admin.is_admin = true
-admin.save
+User.create! do |u|
+  u.username = "admin"
+  u.password = u.password_confirmation = "admin"
+end
