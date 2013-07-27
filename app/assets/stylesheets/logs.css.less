@@ -1,0 +1,145 @@
+#log-alternatives img {
+  float: right;
+  margin-top: 6px;
+}
+
+#log-comment {
+  line-height: 1.6;
+}
+
+#logs-no-logs {
+  color: #888;
+  font-size: 20px;
+  margin: 50px 0;
+}
+
+#logs-add-log-button {
+  float: right;
+  margin-top: 15px;
+}
+
+.logs-month {
+  margin: 30px 0;
+}
+
+.logs-month-box {
+  float: left;
+  color: #888;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: right;
+  padding-top: 3px;
+  width: 125px;
+
+  .year {
+    font-size: 14px;
+  }
+}
+
+.logs-month-logs {
+  float: right;
+  width: 830px;
+  padding: 0 0 0 20px;
+  border-left: 1px solid #ccc;
+
+  td {
+    vertical-align: top;
+  }
+
+  tfoot {
+    td {
+      font-weight: bold;
+      border: none;
+    }
+  }
+
+  .tags {
+    font-size: 11px;
+    margin-left: 10px;
+
+    a {
+      color: #888;
+    }
+  }
+}
+
+#logs-total {
+  border-top: 3px double #eee;
+  padding: 5px;
+
+  .duration, .distance {
+    float: right;
+    text-align: right;
+    font-weight: bold;
+    line-height: 18px;
+  }
+
+  .distance {
+    width: 110px;
+  }
+}
+
+.log-dialog {
+  .row {
+    padding: 10px 0;
+    margin: 2px 0;
+
+    &.button {
+      padding: 10px 0 10px 120px;
+    }
+
+    &.track-file .label {
+      padding-top: 3px;
+    }
+  }
+
+  .label {
+    float: left;
+    width: 90px;
+    padding: 8px 0 0 0;
+
+    p.markdown {
+      color: #666;
+      font-size: 11px;
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+  }
+
+  .field {
+    margin: 0 0 0 120px;
+
+    p.error {
+      color: #c00;
+      font-size: 11px;
+      margin: 4px 0 0 4px;
+    }
+
+    .track-help {
+      color: #666;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  }
+
+  input[type="text"] {
+    width: 500px;
+  }
+
+  textarea {
+    width: 500px;
+    height: 200px;
+  }
+}
+
+#log-tags-pane {
+  display: none;
+
+  .box {
+    width: 500px;
+  }
+
+  input[type="text"] {
+    width: 466px;
+  }
+}
