@@ -1,3 +1,9 @@
+----
+
+**Tracklog is unmaintained at the moment. It works but hasn’t been updated for a while.**
+
+----
+
 Tracklog
 =======
 
