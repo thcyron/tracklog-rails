@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20130310162618) do
 
-  create_table "logs", force: true do |t|
+  create_table "logs", force: :cascade do |t|
     t.string   "name"
     t.text     "comment"
     t.datetime "created_at"
@@ -21,14 +21,14 @@ ActiveRecord::Schema.define(version: 20130310162618) do
     t.integer  "user_id"
   end
 
-  create_table "logs_tags", id: false, force: true do |t|
+  create_table "logs_tags", id: false, force: :cascade do |t|
     t.integer "log_id", null: false
     t.integer "tag_id", null: false
   end
 
   add_index "logs_tags", ["log_id", "tag_id"], name: "index_logs_tags_on_log_id_and_tag_id", unique: true
 
-  create_table "tags", force: true do |t|
+  create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20130310162618) do
 
   add_index "tags", ["name"], name: "index_tags_on_name"
 
-  create_table "trackpoints", force: true do |t|
+  create_table "trackpoints", force: :cascade do |t|
     t.integer  "track_id"
     t.float    "latitude",  null: false
     t.float    "longitude", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20130310162618) do
 
   add_index "trackpoints", ["track_id"], name: "index_trackpoints_on_track_id"
 
-  create_table "tracks", force: true do |t|
+  create_table "tracks", force: :cascade do |t|
     t.integer  "log_id"
     t.float    "distance"
     t.float    "duration"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20130310162618) do
 
   add_index "tracks", ["log_id"], name: "index_tracks_on_log_id"
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "name"
     t.string   "password_digest"

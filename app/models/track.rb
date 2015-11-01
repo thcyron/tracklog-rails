@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
   require 'json'
 
   belongs_to :log
-  has_many :trackpoints, order: "time ASC", dependent: :destroy
+  has_many :trackpoints, -> { order(:time) }, dependent: :destroy
 
   scope :for_user, ->(user) { joins(:log).where("logs.user_id = ?", user.id) }
 
