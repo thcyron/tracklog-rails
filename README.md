@@ -1,6 +1,8 @@
 ----
 
-**Tracklog is unmaintained at the moment. It works but hasn’t been updated for a while.**
+**Tracklog is unmaintained. Forks with updates and improvments:**
+
+* https://github.com/matthias-g/tracklog
 
 ----
 
