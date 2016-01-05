@@ -1,6 +1,6 @@
 ----
 
-**Tracklog is unmaintained. Forks with updates and improvments:**
+**Tracklog is unmaintained. Forks with updates and improvements:**
 
 * https://github.com/matthias-g/tracklog
 
