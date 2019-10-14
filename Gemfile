@@ -1,6 +1,6 @@
 source "https://rubygems.org/"
 
-gem "rails", "4.0.0"
+gem "rails", "4.0.3"
 gem "bcrypt-ruby", "~> 3.0.0"
 gem "nokogiri"
 gem "redcarpet"
